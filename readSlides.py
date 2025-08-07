@@ -7,6 +7,7 @@ slides = []
 
 for number, page in enumerate(doc):     #to go through in order of the slides
     raw_text = page.get_text()
+    print(raw_text)
     #text = page.get_text("blocks")  #getting info on the text segments
     #print(text[2])
     #if (int(text[2]) < 700) :    #sorting out the footer
