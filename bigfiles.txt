@@ -1,0 +1,32 @@
+/proc/kcore
+/sys/devices/pci0000:00/0000:00:0f.0/resource1
+/sys/devices/pci0000:00/0000:00:0f.0/resource1_wc
+/snap/gnome-42-2204/202/usr/lib/x86_64-linux-gnu/libLLVM-15.so.1
+/snap/firefox/6565/usr/lib/firefox/libxul.so
+/snap/firefox/5751/usr/lib/firefox/libxul.so
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/casper/minimal.squashfs
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/casper/minimal.enhanced-secureboot.squashfs
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/casper/minimal.standard.squashfs
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/casper/minimal.standard.enhanced-secureboot.squashfs
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/casper/minimal.standard.live.squashfs
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/pool/main/l/linux-firmware/linux-firmware_20240318.git3b128b60-0ubuntu2.9_amd64.deb
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/pool/main/l/linux-hwe-6.11/linux-modules-extra-6.11.0-17-generic_6.11.0-17.17~24.04.2_amd64.deb
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/pool/main/l/linux-oem-6.8/linux-modules-6.8.0-1020-oem_6.8.0-1020.20_amd64.deb
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/pool/restricted/n/nvidia-graphics-drivers-535/libnvidia-gl-535_535.183.01-0ubuntu0.24.04.1_amd64.deb
+/media/mo-g/Ubuntu 24.04.2 LTS amd64/pool/restricted/n/nvidia-graphics-drivers-550/libnvidia-gl-550_550.120-0ubuntu0.24.04.1_amd64.deb
+/swap.img
+/home/mo-g/.cache/pip/http-v2/6/2/d/1/e/62d1e95eb11943c4752bea63594748c62e32adb6c222bba3e62aaed2.body
+/home/mo-g/.cache/pip/http-v2/3/9/e/6/0/39e60e4073e50ad0c3cf8b708535caa4fa27c6822ffa7c03bac3964b.body
+/home/mo-g/.cache/pip/http-v2/b/f/0/f/b/bf0fb61f5fc01a0b0ea1d420442e200443e35e1916bd0efc01f53428.body
+/home/mo-g/.cache/pip/http-v2/4/9/f/5/0/49f50efb9508ed563b712c6542f3a882f1ca0f0ee21c6b9afdc91636.body
+/home/mo-g/.cache/pip/http-v2/2/1/9/5/e/2195e86dadf689b32b54e3aa26801d1bef1cac5a6f829d72dbae30e8.body
+/home/mo-g/.cache/pip/http-v2/2/7/6/8/c/2768cfa0ff5cec340d13872ba64da07a8a97051d47359e15d75d18f9.body
+/usr/lib/llvm-18/lib/libLLVM.so.1
+/usr/lib/x86_64-linux-gnu/libLLVM.so.19.1
+/usr/share/code/code
+/var/lib/snapd/cache/193f210737bfc8812eeadc81f3c5e5552a01771cd57acd8cd3b0d7b7d13615972dbba95d78851f6254544da4822259d6
+/var/lib/snapd/seed/snaps/firefox_5751.snap
+/var/lib/snapd/seed/snaps/gnome-42-2204_202.snap
+/var/lib/snapd/snaps/firefox_5751.snap
+/var/lib/snapd/snaps/gnome-42-2204_202.snap
+/var/lib/snapd/snaps/firefox_6565.snap
