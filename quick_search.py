@@ -39,7 +39,7 @@ def load_data(model):
         #Making another function to open the specific data file and define index and meta data
         current_index, current_meta = read_index_pair(indv_num)
         
-        total_batch.append((current_index, current_meta, indiv_num))
+        total_batch.append((current_index, current_meta, indv_num))
 
     return total_batch
 
@@ -82,7 +82,7 @@ def main():
 
     #Load all the data
     complete_data = load_data(curr_model)
-    if not complete_data_data:
+    if not complete_data:
         print("No indexes loaded")
         return 1
 
