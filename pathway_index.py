@@ -15,7 +15,7 @@ Saving the indexing
 """
 
 import os, json, numpy as np, faiss
-from sentence_transformers import sentence_transformers
+from sentence_transformers import SentanceTransformer
 
 #Specific lecture number
 num = "01"
