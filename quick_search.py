@@ -13,7 +13,7 @@ num = "01"
 #Different paths (Used the same var name as pathway_index because then no confusion)
 INDEX_OUT = f'data/index_{num}.faiss'
 META_OUT = f'data/meta_{lnum}.json'
-MODEL_TYPE = "sentence-transformers/all-MiniLM-L6-v2"
+MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
 
 def read_query(index, meta, model):

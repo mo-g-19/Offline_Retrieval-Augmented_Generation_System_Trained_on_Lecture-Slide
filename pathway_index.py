@@ -14,8 +14,14 @@ Saving the indexing
 5) Mathjis Douze : https://github.com/facebookresearch/faiss/wiki/IO,-index-factory,-and-metadata#io
 """
 
-import os, json, numpy as np, faiss
+import os
+import json
+import numpy as np
+import faiss
 from sentence_transformers import SentenceTransformer
+
+#sentence_transformer offline
+os.environ["HF_HUB_OFFLINE"] = "1"
 
 #Specific lecture number
 num = '01'
@@ -25,7 +31,7 @@ lecture_num = f'lecture{num}_processed.json'
 PROCESSED_PATH = f'{lecture_num}'
 INDEX_OUT = f'index_{num}.faiss'
 META_OUT = f'meta_{num}.json'
-MODEL_TYPE = 'sentence-transformers/all-MiniLM-L6-v2'
+MODEL_TYPE = '/home/momo/models/all-MiniLM-L6-v2'
 
 #Load Sections
 def creating_sections(processed_path):
