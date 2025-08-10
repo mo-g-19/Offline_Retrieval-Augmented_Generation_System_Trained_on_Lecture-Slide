@@ -24,7 +24,7 @@ lecture_num = f'lecture{num}_processed.json'
 #Different paths
 PROCESSED_PATH = f'data/{lecture_num}'
 INDEX_OUT = f'data/index_{num}.faiss'
-META_OUT = f'data/meta_{lnum}.json'
+META_OUT = f'data/meta_{num}.json'
 MODEL_TYPE = f'sentence-transformers/all-MiniLM-L6-v2'
 
 #Load Sections
