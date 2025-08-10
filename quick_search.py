@@ -10,6 +10,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 
 TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
+PER_INDEX_K = 15
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
@@ -56,20 +57,27 @@ def read_query(full_data, model):
 
             #Need to loop through each section to find potential results
             for index, meta, lect_num in full_data:
-                q_distance, q_index = index.search(query_vector, TOP_K)
+                q_distance, q_index = index.search(query_vector, PER_INDEX_K)
                 for score, ind in zip(q_distance[0], q_index[0]):
                     rank_results.append((float(score), lect_num, index, meta))
 
+            #Ensure unique slides with a dictionary
+            best = {}
+            for score, lect_num, ind, meta in ranked_results:
+                m = meta[ind]
+                key = (m.get("doc"), m.get("slide"))
+                if key not in best or score > best[key[0]]:
+                    best[key] = (score, lect_num, m)
+
             #Keep the highest ranked results
-            top_results = heapq.nlargest(TOP_K, rank_results, key =lambda x: x[0])
+            top_results = sorted(best.values(), key =lambda x: x[0])[:TOP_K]
 
             #looping through and printing the top 5 results
             print("\nTop results for all lectures:\n")
             #zip creates a tuple of the index in dataset and similarity
-            for rank, (score, lect_num, indx, meta) in enumerate(top_results, 1):
-                current = meta[ind]
-                print(f"{rank}, score = {score:.3f} doc = {current.get('doc')} (Lec {lect_num}), slide = {current.get('slide')}")
-                print(f"    {current['text'][:200]}...")
+            for rank, (score, lect_num, m) in enumerate(top_results, 1):
+                print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
+                print(f"    {m.get('text', '')}...")
                 print()
 
         else:
