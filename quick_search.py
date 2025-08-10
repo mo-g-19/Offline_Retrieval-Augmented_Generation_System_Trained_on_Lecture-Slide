@@ -40,7 +40,8 @@ def load_data(model):
         #Making another function to open the specific data file and define index and meta data
         current_index, current_meta = read_index_pair(indv_num)
         
-        total_batch.append((current_index, current_meta, indv_num))
+        if curr_index is not None and current_meta is not None:
+            total_batch.append((current_index, current_meta, indv_num))
 
     return total_batch
 
@@ -58,19 +59,18 @@ def read_query(full_data, model):
             #Need to loop through each section to find potential results
             for index, meta, lect_num in full_data:
                 q_distance, q_index = index.search(query_vector, PER_INDEX_K)
-                for score, ind in zip(q_distance[0], q_index[0]):
-                    rank_results.append((float(score), lect_num, index, meta))
+                for score, idx in zip(q_distance[0], q_index[0]):
+                    rank_results.append((float(score), lect_num, indx, meta))
 
             #Ensure unique slides with a dictionary
-            best = {}
-            for score, lect_num, ind, meta in rank_results:
-                m = meta[ind]
+            for score, lect_num, idx, meta in rank_results:
+                m = meta[idx]
                 key = (m.get("doc"), m.get("slide"))
                 if key not in best or score > best[key[0]]:
                     best[key] = (score, lect_num, m)
 
             #Keep the highest ranked results
-            top_results = sorted(best.values(), key =lambda x: x[0])[:TOP_K]
+            top_results = sorted(best.values(), key =lambda x: x[0], reverse=True)[:TOP_K]
 
             #looping through and printing the top 5 results
             print("\nTop results for all lectures:\n")
