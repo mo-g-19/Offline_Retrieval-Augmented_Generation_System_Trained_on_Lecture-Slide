@@ -60,7 +60,7 @@ def read_query(full_data, model):
             for index, meta, lect_num in full_data:
                 q_distance, q_index = index.search(query_vector, PER_INDEX_K)
                 for score, idx in zip(q_distance[0], q_index[0]):
-                    rank_results.append((float(score), lect_num, indx, meta))
+                    rank_results.append((float(score), lect_num, index, meta))
 
             #Ensure unique slides with a dictionary
             for score, lect_num, idx, meta in rank_results:
