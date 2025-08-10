@@ -12,7 +12,7 @@ num = "01"
 
 #Different paths (Used the same var name as pathway_index because then no confusion)
 INDEX_OUT = f'data/index_{num}.faiss'
-META_OUT = f'data/meta_{lnum}.json'
+META_OUT = f'data/meta_{num}.json'
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
 
@@ -28,7 +28,7 @@ def read_query(index, meta, model):
             q_distance, q_index = index.search(np.asarray(query_vector, dtype="float32"), TOP_K)
 
             #looping through and printing the top 5 results
-            print("\Top results:\n")
+            print("\nTop results:\n")
             #zip creates a tuple of the index in dataset and similarity
             for rank, (ind, score) in enumerate(zip(q_index[0], q_distance[0]), 1):
                 m = meta[ind]
