@@ -63,7 +63,7 @@ def read_query(full_data, model):
 
             #Ensure unique slides with a dictionary
             best = {}
-            for score, lect_num, ind, meta in ranked_results:
+            for score, lect_num, ind, meta in rank_results:
                 m = meta[ind]
                 key = (m.get("doc"), m.get("slide"))
                 if key not in best or score > best[key[0]]:
