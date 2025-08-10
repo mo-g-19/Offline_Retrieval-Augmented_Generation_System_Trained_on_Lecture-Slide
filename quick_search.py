@@ -9,7 +9,7 @@ import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
 
-TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
+TOP_K = 5           #Choose 3 because using whole slides as references, not individual sentences
 PER_INDEX_K = 15
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
