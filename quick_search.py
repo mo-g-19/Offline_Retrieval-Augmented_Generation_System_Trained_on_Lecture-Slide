@@ -33,17 +33,10 @@ def load_data(model):
 
     for indv_num in LECTURES:
 
-        #Different paths (Used the same var name as pathway_index because then no confusion)
-        #INDEX_DATA = f'index_{indv_num}.faiss'
-        #META_DATA = f'meta_{indv_num}.json'
 
         #Making another function to open the specific data file and define index and meta data
         current_index, current_meta = read_index_pair(indv_num)
         
-
-        #define index and meta data of the slides
-        #current_index = faiss.read_index(INDEX_OUT)
-        #current_meta = json.load(open(META_OUT))
         total_batch.append((current_index, current_meta, indiv_num))
 
     return total_batch
