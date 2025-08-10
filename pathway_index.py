@@ -24,7 +24,7 @@ from sentence_transformers import SentenceTransformer
 os.environ["HF_HUB_OFFLINE"] = "1"
 
 #Specific lecture number
-num = '01'
+num = '06'
 lecture_num = f'lecture{num}_processed.json'
 
 #Different paths
@@ -97,7 +97,7 @@ def build_faiss_index(embeddings):
     index.add(embeddings)
 
     #Confirm that it did index
-    print(f"Indexed {index.ntotal} vectors (dimension = [embeddings_dimension])")
+    print(f"Indexed {index.ntotal} vectors (dimension = {embeddings_dimension})")
 
     return index
 
