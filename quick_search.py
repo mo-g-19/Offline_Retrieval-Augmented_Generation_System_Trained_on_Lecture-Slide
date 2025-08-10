@@ -1,3 +1,7 @@
+"""Used a the same references as pathway_index to get the same idea of how to
+answer a query in the terminal(The purpose of this file). The only new reference that helped
+was
+https://sbert.net/examples/sentence_transformer/applications/sematic-search/README.html"""
 import json
 import numpy as np
 import faiss
@@ -28,7 +32,7 @@ def read_query(index, meta, model):
             #zip creates a tuple of the index in dataset and similarity
             for rank, (ind, score) in enumerate(zip(q_index[0], q_distance[0]), 1):
                 m = meta[ind]
-                print(f"{rank}, score = {score:.3f} doc = {m.get('doc')}, page = {m.get('page')}")
+                print(f"{rank}, score = {score:.3f} doc = {m.get('doc')}, slide = {m.get('slide')}")
                 print(f"    {m['text'][:200]}...")
                 print()
 

@@ -46,7 +46,7 @@ def creating_sections(processed_path):
         #Making a 4-tuple that 
         meta_data.append({
             "doc" : lecture_num
-            "page" : page_num
+            "slide" : text_count.get("id")
             "text" : out_of_context_text[:500]
         })
 
