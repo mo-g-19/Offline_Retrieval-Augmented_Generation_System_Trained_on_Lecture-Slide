@@ -18,14 +18,14 @@ import os, json, numpy as np, faiss
 from sentence_transformers import SentenceTransformer
 
 #Specific lecture number
-num = "01"
-lecture_num = "lecture{num}_processed.json"
+num = '01'
+lecture_num = f'lecture{num}_processed.json'
 
 #Different paths
-PROCESSED_PATH = "data/{lecture_num}"
-INDEX_OUT = "data/index_{num}.faiss"
-META_OUT = "data/meta_{lnum}.json"
-MODEL_TYPE = "sentence-transformers/all-MiniLM-L6-v2"
+PROCESSED_PATH = f'data/{lecture_num}'
+INDEX_OUT = f'data/index_{num}.faiss'
+META_OUT = f'data/meta_{lnum}.json'
+MODEL_TYPE = f'sentence-transformers/all-MiniLM-L6-v2'
 
 #Load Sections
 def creating_sections(processed_path):
