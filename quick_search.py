@@ -2,7 +2,9 @@
 answer a query in the terminal(The purpose of this file). The only new reference that helped
 was
 https://sbert.net/examples/sentence_transformer/applications/sematic-search/README.html"""
+import os
 import json
+import heapq
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
@@ -65,8 +67,8 @@ def read_query(full_data, model):
             print("\nTop results for all lectures:\n")
             #zip creates a tuple of the index in dataset and similarity
             for rank, (score, lect_num, indx, meta) in enumerate(top_results, 1):
-                current = meta[indx]
-                print(f"{rank}, score = {score:.3f} doc = {current.get('doc')} (Lec {tag}), slide = {current.get('slide')}")
+                current = meta[ind]
+                print(f"{rank}, score = {score:.3f} doc = {current.get('doc')} (Lec {lect_num}), slide = {current.get('slide')}")
                 print(f"    {current['text'][:200]}...")
                 print()
 
@@ -80,7 +82,7 @@ def main():
 
     #Load all the data
     complete_data = load_data(curr_model)
-    if not full_data:
+    if not complete_data_data:
         print("No indexes loaded")
         return 1
 
