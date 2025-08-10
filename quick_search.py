@@ -7,14 +7,6 @@ import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
 
-#Specific lecture number
-num = "01"
-
-#Different paths (Used the same var name as pathway_index because then no confusion)
-INDEX_OUT = f'data/index_{num}.faiss'
-META_OUT = f'data/meta_{num}.json'
-MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
-TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
 
 def read_query(index, meta, model):
     loop_tracker = True
@@ -41,12 +33,23 @@ def read_query(index, meta, model):
 
 
 def main():
-    #define index, meta, and model
-    current_index = faiss.read_index(INDEX_OUT)
-    curr_meta = json.load(open(META_OUT))
-    curr_model = SentenceTransformer(MODEL_TYPE)
+    #Specific lecture number
+    num = ["01", "02", "03", "04", "05", "06"]
+    for indv_num in num:
 
-    read_query(current_index, curr_meta, curr_model)
+        #Different paths (Used the same var name as pathway_index because then no confusion)
+        INDEX_OUT = f'data/index_{indv_numn}.faiss'
+        META_OUT = f'data/meta_{indv_num}.json'
+        MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
+        TOP_K = 3           #Choose 3 because using whole slides as references, not individual sentences
+
+
+        #define index, meta, and model
+        current_index = faiss.read_index(INDEX_OUT)
+        curr_meta = json.load(open(META_OUT))
+        curr_model = SentenceTransformer(MODEL_TYPE)
+
+        read_query(current_index, curr_meta, curr_model)
 
     return 1
 
