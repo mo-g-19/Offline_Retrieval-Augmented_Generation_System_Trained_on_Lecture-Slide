@@ -40,7 +40,7 @@ def load_data(model):
         #Making another function to open the specific data file and define index and meta data
         current_index, current_meta = read_index_pair(indv_num)
         
-        if curr_index is not None and current_meta is not None:
+        if current_index is not None and current_meta is not None:
             total_batch.append((current_index, current_meta, indv_num))
 
     return total_batch
