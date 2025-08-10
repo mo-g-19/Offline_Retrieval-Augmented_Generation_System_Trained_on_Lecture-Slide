@@ -77,7 +77,7 @@ def read_query(full_data, model):
             #zip creates a tuple of the index in dataset and similarity
             for rank, (score, lect_num, m) in enumerate(top_results, 1):
                 print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
-                print(f"    {m.get('text', '')}...")
+                print(f"    {m.get('text', '')[:]}...")
                 print()
 
         else:
