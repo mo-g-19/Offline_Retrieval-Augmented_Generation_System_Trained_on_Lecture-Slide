@@ -22,10 +22,10 @@ num = '01'
 lecture_num = f'lecture{num}_processed.json'
 
 #Different paths
-PROCESSED_PATH = f'data/{lecture_num}'
-INDEX_OUT = f'data/index_{num}.faiss'
-META_OUT = f'data/meta_{num}.json'
-MODEL_TYPE = f'sentence-transformers/all-MiniLM-L6-v2'
+PROCESSED_PATH = f'{lecture_num}'
+INDEX_OUT = f'index_{num}.faiss'
+META_OUT = f'meta_{num}.json'
+MODEL_TYPE = 'sentence-transformers/all-MiniLM-L6-v2'
 
 #Load Sections
 def creating_sections(processed_path):
