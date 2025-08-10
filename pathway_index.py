@@ -114,7 +114,7 @@ def main():
     #Save to file
     faiss.write_index(curr_index, INDEX_OUT)
     with open(META_OUT, "w") as file:
-        json.dump(meta, f, indent = 2)
+        json.dump(data, file, indent = 2)
 
     #Confirm the save
     print(f"Saved index -> {INDEX_OUT}")
