@@ -60,13 +60,15 @@ def read_query(full_data, model):
             for index, meta, lect_num in full_data:
                 q_distance, q_index = index.search(query_vector, PER_INDEX_K)
                 for score, idx in zip(q_distance[0], q_index[0]):
-                    rank_results.append((float(score), lect_num, index, meta))
+                    rank_results.append((float(score), lect_num, int(idx), meta))
+
+            best = {}
 
             #Ensure unique slides with a dictionary
             for score, lect_num, idx, meta in rank_results:
                 m = meta[idx]
                 key = (m.get("doc"), m.get("slide"))
-                if key not in best or score > best[key[0]]:
+                if key not in best or score > best[key][0]:
                     best[key] = (score, lect_num, m)
 
             #Keep the highest ranked results
@@ -77,7 +79,7 @@ def read_query(full_data, model):
             #zip creates a tuple of the index in dataset and similarity
             for rank, (score, lect_num, m) in enumerate(top_results, 1):
                 print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
-                print(f"    {m.get('text', '')[:]}...")
+                print(f"    {m.get('text', '')[]}...")
                 print()
 
         else:
