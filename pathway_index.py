@@ -34,7 +34,7 @@ def creating_sections(processed_path):
     meta_data = []
     
     #open the file and for each line, copy onto "current_sections" so the running list is on file
-    with open(processed_path "r") as proccessed_file:
+    with open(processed_path, "r") as proccessed_file:
         current_sections = json.load(proccessed_file)
     
     for page_num, text_count in enumerate(current_sections):
