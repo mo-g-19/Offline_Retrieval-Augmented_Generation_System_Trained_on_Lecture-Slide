@@ -140,16 +140,44 @@ def main():
     args = ap.parse_args()
 
     #Set the model and print out that the model is loaded offline locally
+    print(f"HF_HUB_OFFLINE={os.environ.get('HF_HUB_OFFLINE')} model={args.model_path}")
     curr_model = SentenceTransformer(MODEL_TYPE)
 
-    #Load all the data
-    complete_data = load_data(curr_model)
-    if not complete_data:
+    #Load all the data (index/meta)
+    current_data = load_data(args.lectures, args.data_dir)
+    if not current_data:
         print("No indexes loaded")
-        return 1
+        raise SystemExit(2)
 
+    #The interactive loop that moved from read_query funct
+    active_query = TRUE
+    while active_query:
+        #Using a try, if not error statement to ensure a safe recovery if end of file error or user presses enter
+        try:
+            current_querry = input("Query (enter to quit): ").strip()
+        except EOFError:
+            break
+        if not current_querry:
+            break
+        
+        #Running and evaluating the querry
+        current_ranked = run_query(model, current_data, current_querry, args.per_index_k, args.top_k)
+
+        print("\nTop results for all lectures:\n")
+        if not ranked:
+            print("No results found from this query")
+        else:
+            for ranked_results, (score, lect_num, m) in enumerate(ranked, 1):
+                snippet = m.get("text", "")
+                if args.print_chars > 0:
+                    snippet = snippet[:args.print_chars]
+                print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')   (Lec {lect_num}),  slide={m.get('slide')}}")
+                print(f"    {snippet}\n")
+
+
+"""
     #Ask a or multiple queries
     read_query(complete_data, curr_model)
-    return 0
+    return 0"""
 
 main()
