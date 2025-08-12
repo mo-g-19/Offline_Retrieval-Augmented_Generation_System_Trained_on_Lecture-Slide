@@ -136,7 +136,7 @@ def main():
                 snippet = m.get("text", "")
                 if args.print_chars > 0:
                     snippet = snippet[:args.print_chars]
-                print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')   (Lec {lect_num}),  slide={m.get('slide')}}")
+                print(f"{ranked_results}. score={score:.3f},  doc={m.get('doc'),   (Lec {lect_num}),  slide={m.get('slide')}}")
                 print(f"    {snippet}\n")
 
 main()
