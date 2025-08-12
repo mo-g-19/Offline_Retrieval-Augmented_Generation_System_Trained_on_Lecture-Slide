@@ -5,7 +5,6 @@ https://sbert.net/examples/sentence_transformer/applications/sematic-search/READ
 import os
 import json
 import argparse     #Used to add a flag to find the index and meta files of the lectures incase it is no longer in ./data
-#import heapq       #realize I don't need it anymore
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
@@ -38,19 +37,6 @@ def read_index_pair(lecture_num, data_dir):
     #Else, return nothing
     return None, None, None
 
-    """data_files = [
-        #Gives the flexibility if the slides are inside the file data instead of current file
-        (f"data/index_{indv_slides}.faiss", f"data/meta_{indv_slides}.json"),
-        (f"index_{indv_slides}.faiss", f"meta_{indv_slides}.json")
-    ]
-
-    for indx_path, meta_path in data_files:
-        if os.path.exists(indx_path) and os.path.exists(meta_path):
-            index = faiss.read_index(indx_path)
-            with open(meta_path, "r") as file:
-                meta = json.load(file)
-            return index, meta"""
-
 
 def load_data(lectures, data_dir):
     """ Load all the index, meta, and lecture number data into triples, and print a debug statement of what happened"""
@@ -62,7 +48,7 @@ def load_data(lectures, data_dir):
         index, meta, tuple_path = read_index_pair(indv_num)
         #Only allows to save info if there is a vector and meta data attached to the slides
         if index is not None and meta is not None:
-            total_batch.append((idx, meta, num, tuple_path))
+            total_batch.append((index, meta, indv_num, tuple_path))
     
     #Print statement if there are no indexes
     if not total_batch:
@@ -76,19 +62,10 @@ def load_data(lectures, data_dir):
         match_check = (idx.ntotal == len(meta))
         print(f"    lec {num}: vectors={index.ntotal}   meta={len(meta)}    match={match_check}     from={location}  ({index_path}, {meta_path})")
     return total_batch
-        
-    """    if index is not None and meta is not None:
-            total_batch.append((index, meta, indv_num))
 
-    return total_batch"""
 
 def read_query(model, full_data_batch, query, per_index_k, top_k):
-    """Read the query, find each index, and return with the top_k results"""
-    #loop_tracker = True
-
-    #while (loop_tracker):
-    #query = input("Query (enter to quit): ").strip()
-        #if query != '':
+    """Run a semantic search and return with the top_k results"""
 
     #creating query values specific to the input
     query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
@@ -117,7 +94,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
 
 def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
-        #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
+    #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
     ap = argparse.ArgumentParser(description = "Offline semantic search over lecture indexes (FAISS).")
     ap.add_argument("--model-path", default=DEFAULT_MODEL_PATH, help="Local SentenceTransformer model path")
     ap.add_argument("--lectures", nargs="+", default=DEFAULT_LECTURES, help="Lecture numbers to load, e.g. 01, 02, 03, 04...")
@@ -146,10 +123,10 @@ def main():
         except EOFError:
             break
         if not current_querry:
-            break
+            active_query = FALSE
         
         #Running and evaluating the querry
-        current_ranked = run_query(model, current_data, current_querry, args.per_index_k, args.top_k)
+        current_ranked = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
 
         print("\nTop results for all lectures:\n")
         if not ranked:
@@ -161,11 +138,5 @@ def main():
                     snippet = snippet[:args.print_chars]
                 print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')   (Lec {lect_num}),  slide={m.get('slide')}}")
                 print(f"    {snippet}\n")
-
-
-"""
-    #Ask a or multiple queries
-    read_query(complete_data, curr_model)
-    return 0"""
 
 main()
