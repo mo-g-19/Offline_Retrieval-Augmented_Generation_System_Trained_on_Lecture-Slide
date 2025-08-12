@@ -16,7 +16,7 @@ os.environ["HF_HUB_OFFLINE"] = "1"
 
 TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
-MIN_SCORE = 0.45    #Initial try to filter out halucinations
+MIN_SCORE = 0.35    #Initial try to filter out halucinations
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
@@ -89,6 +89,8 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
         shard_times.append((lect_num, (shard1 - shard0) * 1000))
 
         for score, idx in zip(q_distance[0], q_index[0]):
+            if idx < 0:
+                continue
             rank_results.append((float(score), lect_num, meta[int(idx)]))
     search_t = time.perf_counter()
 
@@ -121,7 +123,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
 
     return ranked, {
             "t_encode_ms": (encode_t - t0) * 1000,
-            "t_search_ms": (search_t - t0) * 1000,
+            "t_search_ms": (search_t - encode_t) * 1000,
             "t_total_ms":  (end_t - t0) * 1000,
         }, shard_times
 
@@ -143,6 +145,8 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
 
             #Checking the reults if one of the results match the correct doc and slide
             got = {(m.get("doc"), m.get("slide")) for _, _, m in rank_results}
+            print(f"\nWant: {want}      got: {got}")
+            
             if want in got:
                 correct += 1
             total += 1
