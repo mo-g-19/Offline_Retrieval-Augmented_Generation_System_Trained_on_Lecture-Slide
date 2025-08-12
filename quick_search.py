@@ -111,18 +111,6 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
     #Keep the highest ranked results
     top_results = sorted(best.values(), key =lambda x: x[0], reverse=True)[:TOP_K]
     
-    #Commenting out all the print that I will put in main instead
-"""
-    #looping through and printing the top 5 results
-    print("\nTop results for all lectures:\n")
-    #zip creates a tuple of the index in dataset and similarity
-    for rank, (score, lect_num, m) in enumerate(top_results, 1):
-        print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
-        print(f"    {m.get('text', '')[:]}...")
-        print()
-
-else:
-    loop_tracker = False"""
     #New tuple that returns the top_k results
     final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
     return final_ranked
