@@ -166,7 +166,7 @@ def main():
                     snippet = snippet[:args.print_chars]
                 print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')}   (Lec {lect_num})  slide={m.get('slide')}")
                 print(f"    {snippet}\n")
-        print(f"[timing] encode={timing['t_encode_ms']:.1f} ms   search={timing['t_search_ms']:.1f} ms    total={timing['t_total_ms']:.1f} ms")
+        print(f"[timing] encode={timing['t_encode_ms']:.1f} ms   search={timing['t_search_ms']:.1f} ms    total={timing['t_total_ms']:.1f} ms\n")
     return 0
 
 main()
