@@ -52,17 +52,17 @@ def read_index_pair(lecture_num, data_dir):
             return index, meta"""
 
 
-def load_data(model):
+def load_data(lectures, data_dir):
     """ Load all the index, meta, and lecture number data into triples, and print a debug statement of what happened"""
 
     total_batch = []
 
-    for indv_num in LECTURES:
+    for indv_num in lectures:
         #Making another function to open the specific data file and define index and meta data
-        current_index, current_meta = read_index_pair(indv_num)
+        index, meta = read_index_pair(indv_num)
         
-        if current_index is not None and current_meta is not None:
-            total_batch.append((current_index, current_meta, indv_num))
+        if index is not None and meta is not None:
+            total_batch.append((index, meta, indv_num))
 
     return total_batch
 
