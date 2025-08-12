@@ -10,7 +10,7 @@ import faiss
 from sentence_transformers import SentenceTransformer
 
 #Forcing the enviroment to be offline (this VC isn't connected to the internet)
-os.environ["HF_HUB_OFFLINE"] = 1
+os.environ["HF_HUB_OFFLINE"] = "1"
 
 TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
@@ -45,7 +45,7 @@ def load_data(lectures, data_dir):
 
     for indv_num in lectures:
         #Making another function to open the specific data file and define index and meta data
-        index, meta, tuple_path = read_index_pair(indv_num)
+        index, meta, tuple_path = read_index_pair(indv_num, data_dir)
         #Only allows to save info if there is a vector and meta data attached to the slides
         if index is not None and meta is not None:
             total_batch.append((index, meta, indv_num, tuple_path))
@@ -56,11 +56,11 @@ def load_data(lectures, data_dir):
         print(f"Looked for files like index_XX.faiss and meta_XX.json in '{data_dir}' and the current directory")
         return []
     
-    print(f"Loaded {len(batch)} lecture inexes:")
+    print(f"Loaded {len(total_batch)} lecture inexes:")
     for index, meta, indv_num, tuple_path in total_batch:
         location, index_path, meta_path = tuple_path
-        match_check = (idx.ntotal == len(meta))
-        print(f"    lec {num}: vectors={index.ntotal}   meta={len(meta)}    match={match_check}     from={location}  ({index_path}, {meta_path})")
+        match_check = (index.ntotal == len(meta))
+        print(f"    lec {indv_num}: vectors={index.ntotal}   meta={len(meta)}    match={match_check}     from={location}  ({index_path}, {meta_path})")
     return total_batch
 
 
@@ -73,7 +73,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
     rank_results = []
 
     #Need to loop through each section to find potential results
-    for index, meta, lect_num in full_data_batch:
+    for index, meta, lect_num, _tuple_path in full_data_batch:
         q_distance, q_index = index.search(query_vector, PER_INDEX_K)
         for score, idx in zip(q_distance[0], q_index[0]):
             rank_results.append((float(score), lect_num, meta[int(idx)]))
@@ -96,11 +96,11 @@ def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
     #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
     ap = argparse.ArgumentParser(description = "Offline semantic search over lecture indexes (FAISS).")
-    ap.add_argument("--model-path", default=DEFAULT_MODEL_PATH, help="Local SentenceTransformer model path")
-    ap.add_argument("--lectures", nargs="+", default=DEFAULT_LECTURES, help="Lecture numbers to load, e.g. 01, 02, 03, 04...")
+    ap.add_argument("--model-path", default=MODEL_TYPE, help="Local SentenceTransformer model path")
+    ap.add_argument("--lectures", nargs="+", default=LECTURES, help="Lecture numbers to load, e.g. 01, 02, 03, 04...")
     ap.add_argument("--data-dir", default="data", help="Directory containing index_XX.faiss and meta_XX.json")
-    ap.add_argument("--per-index-k", type=int, default=PER_INDEX_K_DEFAULT, help="Per-index candidates (before merge)")
-    ap.add_argument("--top-k", type=int, default=TOP_K_DEFAULT, help="Final merged top-k results")
+    ap.add_argument("--per-index-k", type=int, default=PER_INDEX_K, help="Per-index candidates (before merge)")
+    ap.add_argument("--top-k", type=int, default=TOP_K, help="Final merged top-k results")
     ap.add_argument("--print-chars", type=int, default=500, help="Chars to print from each hit (<=0 prints full text)")
     args = ap.parse_args()
 
@@ -115,7 +115,7 @@ def main():
         raise SystemExit(2)
 
     #The interactive loop that moved from read_query funct
-    active_query = TRUE
+    active_query = True
     while active_query:
         #Using a try, if not error statement to ensure a safe recovery if end of file error or user presses enter
         try:
@@ -123,20 +123,21 @@ def main():
         except EOFError:
             break
         if not current_querry:
-            active_query = FALSE
+            break
         
         #Running and evaluating the querry
+        current_ranked = []
         current_ranked = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
 
         print("\nTop results for all lectures:\n")
-        if not ranked:
+        if not current_ranked:
             print("No results found from this query")
         else:
-            for ranked_results, (score, lect_num, m) in enumerate(ranked, 1):
+            for ranked_results, (score, lect_num, m) in enumerate(current_ranked, 1):
                 snippet = m.get("text", "")
                 if args.print_chars > 0:
                     snippet = snippet[:args.print_chars]
-                print(f"{ranked_results}. score={score:.3f},  doc={m.get('doc'),   (Lec {lect_num}),  slide={m.get('slide')}}")
+                print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')}   (Lec {lect_num})  slide={m.get('slide')}")
                 print(f"    {snippet}\n")
 
 main()
