@@ -14,9 +14,12 @@ os.environ["HF_HUB_OFFLINE"] = "1"
 
 TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
+MIN_SCORE = 0.45    #Initial try to filter out halucinations
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
+
+
 
 def read_index_pair(lecture_num, data_dir):
     """Loading the slides data from index and meta.
@@ -90,7 +93,15 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
     
     #New tuple that returns the top_k results
     final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
-    return final_ranked
+
+    if not final_ranked or final_ranked[0][0] < MIN_SCORE:
+        return []
+    
+    for clear_final in final_ranked:
+        if clear_final[0] >= MIN_SCORE:
+            ranked.append(clear_final)
+
+    return ranked
 
 def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
@@ -129,9 +140,10 @@ def main():
         current_ranked = []
         current_ranked = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
 
+        
         print("\nTop results for all lectures:\n")
         if not current_ranked:
-            print("No results found from this query")
+            print("No results found from this query\n")
         else:
             for ranked_results, (score, lect_num, m) in enumerate(current_ranked, 1):
                 snippet = m.get("text", "")
