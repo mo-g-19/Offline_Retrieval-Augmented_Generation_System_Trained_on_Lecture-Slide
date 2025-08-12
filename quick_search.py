@@ -83,34 +83,36 @@ def load_data(lectures, data_dir):
     return total_batch"""
 
 def read_query(model, full_data_batch, query, per_index_k, top_k):
-    loop_tracker = True
+    """Read the query, find each index, and return with the top_k results"""
+    #loop_tracker = True
 
-    while (loop_tracker):
-        query = input("Query (enter to quit): ").strip()
-        if query != '':
+    #while (loop_tracker):
+    #query = input("Query (enter to quit): ").strip()
+        #if query != '':
 
             #creating query values specific to the input
             query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
+            
             rank_results = []
 
             #Need to loop through each section to find potential results
             for index, meta, lect_num in full_data_batch:
                 q_distance, q_index = index.search(query_vector, PER_INDEX_K)
                 for score, idx in zip(q_distance[0], q_index[0]):
-                    rank_results.append((float(score), lect_num, int(idx), meta))
+                    rank_results.append((float(score), lect_num, meta[int(idx)]))
 
+            #Enure unique slides with a dictionary while keeping the best score
             best = {}
-
-            #Ensure unique slides with a dictionary
-            for score, lect_num, idx, meta in rank_results:
-                m = meta[idx]
-                key = (m.get("doc"), m.get("slide"))
+            for score, lect_num, meta in rank_results:
+                key = (meta.get("doc"), meta.get("slide"))
                 if key not in best or score > best[key][0]:
-                    best[key] = (score, lect_num, m)
+                    best[key] = (score, lect_num, meta)
 
             #Keep the highest ranked results
             top_results = sorted(best.values(), key =lambda x: x[0], reverse=True)[:TOP_K]
-
+            
+            #Commenting out all the print that I will put in main instead
+    """
             #looping through and printing the top 5 results
             print("\nTop results for all lectures:\n")
             #zip creates a tuple of the index in dataset and similarity
@@ -120,8 +122,10 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
                 print()
 
         else:
-            loop_tracker = False
-
+            loop_tracker = False"""
+            #New tuple that returns the top_k results
+            final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
+            return final_ranked
 
 def main():
     #Set the model
