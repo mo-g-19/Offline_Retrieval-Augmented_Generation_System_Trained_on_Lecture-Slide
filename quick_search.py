@@ -82,7 +82,7 @@ def load_data(lectures, data_dir):
 
     return total_batch"""
 
-def read_query(full_data, model):
+def read_query(model, full_data_batch, query, per_index_k, top_k):
     loop_tracker = True
 
     while (loop_tracker):
@@ -94,7 +94,7 @@ def read_query(full_data, model):
             rank_results = []
 
             #Need to loop through each section to find potential results
-            for index, meta, lect_num in full_data:
+            for index, meta, lect_num in full_data_batch:
                 q_distance, q_index = index.search(query_vector, PER_INDEX_K)
                 for score, idx in zip(q_distance[0], q_index[0]):
                     rank_results.append((float(score), lect_num, int(idx), meta))
