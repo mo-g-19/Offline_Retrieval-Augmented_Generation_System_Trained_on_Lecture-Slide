@@ -90,42 +90,42 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
     #query = input("Query (enter to quit): ").strip()
         #if query != '':
 
-            #creating query values specific to the input
-            query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
-            
-            rank_results = []
+    #creating query values specific to the input
+    query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
+    
+    rank_results = []
 
-            #Need to loop through each section to find potential results
-            for index, meta, lect_num in full_data_batch:
-                q_distance, q_index = index.search(query_vector, PER_INDEX_K)
-                for score, idx in zip(q_distance[0], q_index[0]):
-                    rank_results.append((float(score), lect_num, meta[int(idx)]))
+    #Need to loop through each section to find potential results
+    for index, meta, lect_num in full_data_batch:
+        q_distance, q_index = index.search(query_vector, PER_INDEX_K)
+        for score, idx in zip(q_distance[0], q_index[0]):
+            rank_results.append((float(score), lect_num, meta[int(idx)]))
 
-            #Enure unique slides with a dictionary while keeping the best score
-            best = {}
-            for score, lect_num, meta in rank_results:
-                key = (meta.get("doc"), meta.get("slide"))
-                if key not in best or score > best[key][0]:
-                    best[key] = (score, lect_num, meta)
+    #Enure unique slides with a dictionary while keeping the best score
+    best = {}
+    for score, lect_num, meta in rank_results:
+        key = (meta.get("doc"), meta.get("slide"))
+        if key not in best or score > best[key][0]:
+            best[key] = (score, lect_num, meta)
 
-            #Keep the highest ranked results
-            top_results = sorted(best.values(), key =lambda x: x[0], reverse=True)[:TOP_K]
-            
-            #Commenting out all the print that I will put in main instead
-    """
-            #looping through and printing the top 5 results
-            print("\nTop results for all lectures:\n")
-            #zip creates a tuple of the index in dataset and similarity
-            for rank, (score, lect_num, m) in enumerate(top_results, 1):
-                print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
-                print(f"    {m.get('text', '')[:]}...")
-                print()
+    #Keep the highest ranked results
+    top_results = sorted(best.values(), key =lambda x: x[0], reverse=True)[:TOP_K]
+    
+    #Commenting out all the print that I will put in main instead
+"""
+    #looping through and printing the top 5 results
+    print("\nTop results for all lectures:\n")
+    #zip creates a tuple of the index in dataset and similarity
+    for rank, (score, lect_num, m) in enumerate(top_results, 1):
+        print(f"{rank}, score = {score:.3f} doc = {m.get('doc')} (Lec {lect_num}), slide = {m.get('slide')}")
+        print(f"    {m.get('text', '')[:]}...")
+        print()
 
-        else:
-            loop_tracker = False"""
-            #New tuple that returns the top_k results
-            final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
-            return final_ranked
+else:
+    loop_tracker = False"""
+    #New tuple that returns the top_k results
+    final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
+    return final_ranked
 
 def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
