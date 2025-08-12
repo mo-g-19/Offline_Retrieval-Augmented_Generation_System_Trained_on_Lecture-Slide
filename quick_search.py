@@ -145,8 +145,8 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
 
             #Checking the reults if one of the results match the correct doc and slide
             got = {(m.get("doc"), m.get("slide")) for _, _, m in rank_results}
-            print(f"\nWant: {want}      got: {got}")
-            
+            #print(f"\nWant: {want}      got: {got}")   #Debug to see what is actually compared
+
             if want in got:
                 correct += 1
             total += 1
@@ -170,7 +170,7 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
         #Acerage of all query hard sum and average of all the slowest shard times
         if seq_sums and parallel_maxes:
             print(f"Avg shard sum (sequential): {avg_seq:.3f} ms")
-            print(f"Avg shard max (marallel-ish): {avg_par:.3f} ms")
+            print(f"Avg shard max (parallel-ish): {avg_par:.3f} ms")
         print()
 
 def main():

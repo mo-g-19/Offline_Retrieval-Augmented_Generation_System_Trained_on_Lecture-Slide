@@ -1,0 +1,72 @@
+HF_HUB_OFFLINE=1 model=/home/momo/models/all-MiniLM-L6-v2
+Loaded 3 lecture inexes:
+    lec 04: vectors=25   meta=25    match=True     from=.  (index_04.faiss, meta_04.json)
+    lec 05: vectors=38   meta=38    match=True     from=.  (index_05.faiss, meta_05.json)
+    lec 06: vectors=65   meta=65    match=True     from=.  (index_06.faiss, meta_06.json)
+
+Want: ('lecture02_processed.json', 'slide12')      got: {('lecture05_processed.json', 'slide3'), ('lecture06_processed.json', 'slide11'), ('lecture06_processed.json', 'slide14'), ('lecture06_processed.json', 'slide53')}
+
+Want: ('"lecture03_processed.json"', 'slide7')      got: set()
+
+Want: ('lecure02_processed.json', 'slide7')      got: {('lecture05_processed.json', 'slide3'), ('lecture04_processed.json', 'slide7'), ('lecture04_processed.json', 'slide1'), ('lecture05_processed.json', 'slide5'), ('lecture04_processed.json', 'slide4')}
+
+Want: ('lecture02_processed.json', 'slide22')      got: {('lecture05_processed.json', 'slide19')}
+
+Want: ('lecture02_processed.json', 'slide41')      got: {('lecture05_processed.json', 'slide3'), ('lecture05_processed.json', 'slide22')}
+
+Want: ('lecture02_processed.json', 'slide30')      got: {('lecture06_processed.json', 'slide12')}
+
+Want: ('lecture02_processed.json', 'slide30')      got: set()
+
+Want: ('lecture02_processed.json', 'slide30')      got: set()
+
+Want: ('lecture02_processed.json', 'slide32')      got: {('lecture06_processed.json', 'slide9'), ('lecture06_processed.json', 'slide29'), ('lecture06_processed.json', 'slide30'), ('lecture06_processed.json', 'slide5'), ('lecture06_processed.json', 'slide18')}
+
+Want: ('lecture02_processed.json', 'slide42')      got: {('lecture05_processed.json', 'slide3'), ('lecture04_processed.json', 'slide19'), ('lecture04_processed.json', 'slide4'), ('lecture04_processed.json', 'slide6'), ('lecture04_processed.json', 'slide9')}
+
+Want: ('lecture03_processed.json', 'slide15')      got: {('lecture06_processed.json', 'slide14')}
+
+Want: ('lecture03_processed.json', 'slide7')      got: set()
+
+Want: ('lecture03_processed.json', 'slide9')      got: {('lecture05_processed.json', 'slide3'), ('lecture06_processed.json', 'slide14'), ('lecture06_processed.json', 'slide53'), ('lecture05_processed.json', 'slide24'), ('lecture06_processed.json', 'slide11')}
+
+Want: ('lecture03_processed.json', 'slide25')      got: {('lecture06_processed.json', 'slide25'), ('lecture04_processed.json', 'slide7'), ('lecture06_processed.json', 'slide24'), ('lecture04_processed.json', 'slide6'), ('lecture04_processed.json', 'slide9')}
+
+Want: ('lecture06_processed.json', 'slide26')      got: {('lecture06_processed.json', 'slide25'), ('lecture06_processed.json', 'slide26'), ('lecture06_processed.json', 'slide29'), ('lecture06_processed.json', 'slide27'), ('lecture06_processed.json', 'slide13')}
+
+Want: ('lecture06_processed.json', 'slide24')      got: {('lecture05_processed.json', 'slide14'), ('lecture06_processed.json', 'slide24'), ('lecture06_processed.json', 'slide29'), ('lecture06_processed.json', 'slide30'), ('lecture06_processed.json', 'slide23')}
+
+Want: ('lecture06_processed.json', 'slide20')      got: {('lecture06_processed.json', 'slide20'), ('lecture06_processed.json', 'slide23'), ('lecture06_processed.json', 'slide19'), ('lecture06_processed.json', 'slide18'), ('lecture06_processed.json', 'slide21')}
+
+Want: ('lecture06_processed.json', 'slide17')      got: {('lecture06_processed.json', 'slide20'), ('lecture06_processed.json', 'slide17'), ('lecture06_processed.json', 'slide27'), ('lecture06_processed.json', 'slide19'), ('lecture06_processed.json', 'slide18')}
+
+Want: ('lecture06_processed.json', 'slide15')      got: {('lecture06_processed.json', 'slide15'), ('lecture06_processed.json', 'slide13'), ('lecture06_processed.json', 'slide2'), ('lecture06_processed.json', 'slide14')}
+
+Want: ('lecture06_processed.json', 'slide11')      got: {('lecture05_processed.json', 'slide20'), ('lecture06_processed.json', 'slide12'), ('lecture06_processed.json', 'slide11'), ('lecture05_processed.json', 'slide28'), ('lecture05_processed.json', 'slide21')}
+
+Want: ('lecture06_processed.json', 'slide10')      got: {('lecture06_processed.json', 'slide14'), ('lecture06_processed.json', 'slide9'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide1'), ('lecture06_processed.json', 'slide10')}
+
+Want: ('lecture01_processed.json', 'slide10')      got: {('lecture06_processed.json', 'slide41')}
+
+Want: ('"lecture05_processed.json"', 'slide18')      got: {('lecture05_processed.json', 'slide9'), ('lecture05_processed.json', 'slide12'), ('lecture05_processed.json', 'slide1'), ('lecture05_processed.json', 'slide18'), ('lecture05_processed.json', 'slide4')}
+
+Want: ('lecture05_processed.json', 'slide29')      got: {('lecture05_processed.json', 'slide29'), ('lecture05_processed.json', 'slide27'), ('lecture05_processed.json', 'slide30'), ('lecture05_processed.json', 'slide25'), ('lecture05_processed.json', 'slide36')}
+
+Want: ('lecture04_processed.json', 'slide9')      got: {('lecture04_processed.json', 'slide7'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide3'), ('lecture04_processed.json', 'slide6'), ('lecture04_processed.json', 'slide9')}
+
+Want: ('lecture04_processed', 'slide11')      got: {('lecture04_processed.json', 'slide7'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide3'), ('lecture04_processed.json', 'slide6'), ('lecture04_processed.json', 'slide11')}
+
+Want: ('lecture04_processed', 'slide19')      got: {('lecture04_processed.json', 'slide19'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide1'), ('lecture04_processed.json', 'slide3'), ('lecture04_processed.json', 'slide20')}
+
+Want: ('lecture04_processed', 'slide22')      got: {('lecture04_processed.json', 'slide7'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide3'), ('lecture04_processed.json', 'slide23'), ('lecture04_processed.json', 'slide24')}
+
+Want: ('lecture04_processed', 'slide5')      got: {('lecture05_processed.json', 'slide16'), ('lecture04_processed.json', 'slide5'), ('lecture06_processed.json', 'slide11'), ('lecture04_processed.json', 'slide1'), ('lecture04_processed.json', 'slide23')}
+
+Want: ('lecture04_processed', 'slide6')      got: {('lecture04_processed.json', 'slide7'), ('lecture04_processed.json', 'slide2'), ('lecture04_processed.json', 'slide3'), ('lecture04_processed.json', 'slide6'), ('lecture04_processed.json', 'slide11')}
+
+Evaluation on 30 queries from eval.csv
+Accuracy@5: 30.000%
+Avg total E2E: 38.940 ms
+Avg shard sum (sequential): 0.290 ms
+Avg shard max (marallel-ish): 0.137 ms
+
