@@ -7,6 +7,7 @@ import json
 import argparse     #Used to add a flag to find the index and meta files of the lectures incase it is no longer in ./data
 import numpy as np
 import faiss
+import time         #Need to use to measure the time (vs shards)
 from sentence_transformers import SentenceTransformer
 
 #Forcing the enviroment to be offline (this VC isn't connected to the internet)
@@ -69,10 +70,12 @@ def load_data(lectures, data_dir):
 
 def read_query(model, full_data_batch, query, per_index_k, top_k):
     """Run a semantic search and return with the top_k results"""
-
+    #initial time
+    t0 = time.perf_counter()
     #creating query values specific to the input
     query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
-    
+    encode_t = time.perf_counter()
+
     rank_results = []
 
     #Need to loop through each section to find potential results
@@ -80,6 +83,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
         q_distance, q_index = index.search(query_vector, PER_INDEX_K)
         for score, idx in zip(q_distance[0], q_index[0]):
             rank_results.append((float(score), lect_num, meta[int(idx)]))
+    search_t = time.perf_counter()
 
     #Enure unique slides with a dictionary while keeping the best score
     best = {}
@@ -93,15 +97,26 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
     
     #New tuple that returns the top_k results
     final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
+    end_t = time.perf_counter()
 
     if not final_ranked or final_ranked[0][0] < MIN_SCORE:
-        return []
+        return [], {
+            "t_encode_ms": (encode_t - t0) * 1000,
+            "t_search_ms": (search_t - t0) * 1000,
+            "t_total_ms":  (end_t - t0) * 1000,
+        }
     
+    ranked = []
+
     for clear_final in final_ranked:
         if clear_final[0] >= MIN_SCORE:
             ranked.append(clear_final)
 
-    return ranked
+    return ranked, {
+            "t_encode_ms": (encode_t - t0) * 1000,
+            "t_search_ms": (search_t - t0) * 1000,
+            "t_total_ms":  (end_t - t0) * 1000,
+        }
 
 def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
@@ -137,9 +152,9 @@ def main():
             break
         
         #Running and evaluating the querry
-        current_ranked = []
-        current_ranked = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
-
+        #current_ranked = []
+        current_ranked, timing = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
+        
         
         print("\nTop results for all lectures:\n")
         if not current_ranked:
@@ -151,5 +166,7 @@ def main():
                     snippet = snippet[:args.print_chars]
                 print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')}   (Lec {lect_num})  slide={m.get('slide')}")
                 print(f"    {snippet}\n")
+        print(f"[timing] encode={timing['t_encode_ms']:.1f} ms   search={timing['t_search_ms']:.1f} ms    total={timing['t_total_ms']:.1f} ms")
+    return 0
 
 main()
