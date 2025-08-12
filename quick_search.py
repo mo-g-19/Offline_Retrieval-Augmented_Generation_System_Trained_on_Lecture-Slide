@@ -4,19 +4,29 @@ was
 https://sbert.net/examples/sentence_transformer/applications/sematic-search/README.html"""
 import os
 import json
-import heapq
+import argparse     #Used to add a flag to find the index and meta files of the lectures incase it is no longer in ./data
+#import heapq       #realize I don't need it anymore
 import numpy as np
 import faiss
 from sentence_transformers import SentenceTransformer
 
-TOP_K = 5           #Choose 3 because using whole slides as references, not individual sentences
+#Forcing the enviroment to be offline (this VC isn't connected to the internet)
+os.environ["HF_HUB_OFFLINE"] = 1
+
+TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
 MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
 
-def read_index_pair(indv_slides):
-    #Load data from Lectures
+def read_index_pair(lecture_num, data_dir):
+    """Loading the slides data from index and meta.
+    Ensures there is a pathway to access said data"""
+
+    #Load data from Lectures, first checks the data directory
+    index_path = os.path.join(data_dir, f"index_{lecture_num}.faiss")
+    meta_path = os.path.join(data_dir, f"meta{lect}")
+
     data_files = [
         #Gives the flexibility if the slides are inside the file data instead of current file
         (f"data/index_{indv_slides}.faiss", f"data/meta_{indv_slides}.json"),
