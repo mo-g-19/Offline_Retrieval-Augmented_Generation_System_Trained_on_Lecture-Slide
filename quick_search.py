@@ -31,7 +31,7 @@ def read_index_pair(lecture_num, data_dir):
     index_path = os.path.join(data_dir, f"index_{lecture_num}.faiss")
     meta_path = os.path.join(data_dir, f"meta_{lecture_num}.json")
     if os.path.exists(index_path) and os.path.exists(meta_path):
-        return faiss.read_index(index_path), json.load(open(meta_path, "r"),), ("data", index_path, meta_path)
+        return faiss.read_index(index_path), json.load(open(meta_path, "r")), ("data", index_path, meta_path)
 
     #Then check the current directory
     index_path = f"index_{lecture_num}.faiss"
@@ -78,10 +78,16 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
     encode_t = time.perf_counter()
 
     rank_results = []
+    shard_times = []
 
     #Need to loop through each section to find potential results
     for index, meta, lect_num, _tuple_path in full_data_batch:
+        #Measuring the individual shard times
+        shard0 = time.perf_counter()
         q_distance, q_index = index.search(query_vector, PER_INDEX_K)
+        shard1 = time.perf_counter()
+        shard_times.append((lect_num, (shard1 - shard0) * 1000))
+
         for score, idx in zip(q_distance[0], q_index[0]):
             rank_results.append((float(score), lect_num, meta[int(idx)]))
     search_t = time.perf_counter()
@@ -103,9 +109,9 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
     if not final_ranked or final_ranked[0][0] < MIN_SCORE:
         return [], {
             "t_encode_ms": (encode_t - t0) * 1000,
-            "t_search_ms": (search_t - t0) * 1000,
+            "t_search_ms": (search_t - encode_t) * 1000,
             "t_total_ms":  (end_t - t0) * 1000,
-        }
+        }, shard_times
     
     ranked = []
 
@@ -117,7 +123,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
             "t_encode_ms": (encode_t - t0) * 1000,
             "t_search_ms": (search_t - t0) * 1000,
             "t_total_ms":  (end_t - t0) * 1000,
-        }
+        }, shard_times
 
 def evaluate(model, data_batch, csv_path, per_index_k, top_k):
     total = 0
@@ -133,7 +139,7 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
         for row_q in row:
             row_q = row["query"].strip()
             want = (row["doc"].strip(), row["slide"].strip())
-            rank_results, timing, shard_times = run_query(model, data_batch, row_q, per_index_k, top_k)
+            rank_results, timing, shard_times = read_query(model, current_data, row_q, per_index_k, top_k)
 
             #Checking the reults if one of the results match the correct doc and slide
             got = {(m.get("doc"), m.get("slide")) for _, _, m in rank_results}
