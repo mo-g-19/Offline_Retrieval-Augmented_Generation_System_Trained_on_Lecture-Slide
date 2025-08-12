@@ -134,12 +134,12 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
 
     #opening the testing file
     with open(csv_path, newline="") as file:
-        row = csv.DictReader(file)
+        reader = csv.DictReader(file)
         #reading through each row/query
-        for row_q in row:
-            row_q = row["query"].strip()
+        for row in reader:
+            row_q = row['query'].strip()
             want = (row["doc"].strip(), row["slide"].strip())
-            rank_results, timing, shard_times = read_query(model, current_data, row_q, per_index_k, top_k)
+            rank_results, timing, shard_times = read_query(model, data_batch, row_q, per_index_k, top_k)
 
             #Checking the reults if one of the results match the correct doc and slide
             got = {(m.get("doc"), m.get("slide")) for _, _, m in rank_results}
@@ -148,14 +148,14 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
             total += 1
 
             #Printing out the total shard time
-            total_ms.append(timing["total_ms"])
+            total_ms.append(timing["t_total_ms"])
             if shard_times:
                 seq_sums.append(sum(ms for _, ms in shard_times))
                 parallel_maxes.append(max(ms for _, ms in shard_times))
         
         acc = (correct/total*100) if total else 0.0
         avg_total = sum(total_ms)/len(total_ms) if total_ms else 0.0
-        acg_seq = sum(seq_sums)/len(seq_sums) if seq_sums else 0.0
+        avg_seq = sum(seq_sums)/len(seq_sums) if seq_sums else 0.0
         avg_par = sum(parallel_maxes)/len(parallel_maxes) if parallel_maxes else 0.0
 
         #Results: total queries, accuracy, and time
@@ -195,7 +195,8 @@ def main():
 
     #Testing instead of general queries
     if args.evaluate:
-        evaluate(curr_model, data_batch, args.evaluate, args.per_index_k, args.top_k, args.require_term)
+        #odel, data_batch, csv_path, per_index_k, top_k
+        evaluate(curr_model, current_data, args.evaluate, args.per_index_k, args.top_k)
         return
 
     #The interactive loop that moved from read_query funct
@@ -211,7 +212,7 @@ def main():
         
         #Running and evaluating the querry
         #current_ranked = []
-        current_ranked, timing = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
+        current_ranked, timing, shard_times = read_query(curr_model, current_data, current_querry, args.per_index_k, args.top_k)
         
         
         print("\nTop results for all lectures:\n")
