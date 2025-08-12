@@ -8,6 +8,7 @@ import argparse     #Used to add a flag to find the index and meta files of the 
 import numpy as np
 import faiss
 import time         #Need to use to measure the time (vs shards)
+import csv          #Needed for testing
 from sentence_transformers import SentenceTransformer
 
 #Forcing the enviroment to be offline (this VC isn't connected to the internet)
@@ -68,7 +69,7 @@ def load_data(lectures, data_dir):
     return total_batch
 
 
-def read_query(model, full_data_batch, query, per_index_k, top_k):
+def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=False):
     """Run a semantic search and return with the top_k results"""
     #initial time
     t0 = time.perf_counter()
@@ -118,6 +119,50 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
             "t_total_ms":  (end_t - t0) * 1000,
         }
 
+def evaluate(model, data_batch, csv_path, per_index_k, top_k):
+    total = 0
+    correct = 0
+    total_ms = []
+    seq_sums = []
+    parallel_maxes = []
+
+    #opening the testing file
+    with open(csv_path, newline="") as file:
+        row = csv.DictReader(file)
+        #reading through each row/query
+        for row_q in row:
+            row_q = row["query"].strip()
+            want = (row["doc"].strip(), row["slide"].strip())
+            rank_results, timing, shard_times = run_query(model, data_batch, row_q, per_index_k, top_k)
+
+            #Checking the reults if one of the results match the correct doc and slide
+            got = {(m.get("doc"), m.get("slide")) for _, _, m in rank_results}
+            if want in got:
+                correct += 1
+            total += 1
+
+            #Printing out the total shard time
+            total_ms.append(timing["total_ms"])
+            if shard_times:
+                seq_sums.append(sum(ms for _, ms in shard_times))
+                parallel_maxes.append(max(ms for _, ms in shard_times))
+        
+        acc = (correct/total*100) if total else 0.0
+        avg_total = sum(total_ms)/len(total_ms) if total_ms else 0.0
+        acg_seq = sum(seq_sums)/len(seq_sums) if seq_sums else 0.0
+        avg_par = sum(parallel_maxes)/len(parallel_maxes) if parallel_maxes else 0.0
+
+        #Results: total queries, accuracy, and time
+        print(f"\nEvaluation on {total} queries from {csv_path}")
+        print(f"Accuracy@{top_k}: {acc:.3f}%")
+        print(f"Avg total E2E: {avg_total:.3f} ms")
+
+        #Acerage of all query hard sum and average of all the slowest shard times
+        if seq_sums and parallel_maxes:
+            print(f"Avg shard sum (sequential): {avg_seq:.3f} ms")
+            print(f"Avg shard max (marallel-ish): {avg_par:.3f} ms")
+        print()
+
 def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
     #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
@@ -128,6 +173,8 @@ def main():
     ap.add_argument("--per-index-k", type=int, default=PER_INDEX_K, help="Per-index candidates (before merge)")
     ap.add_argument("--top-k", type=int, default=TOP_K, help="Final merged top-k results")
     ap.add_argument("--print-chars", type=int, default=500, help="Chars to print from each hit (<=0 prints full text)")
+    ap.add_argument("--require-term", action="store_true", help="Also require at leat one query term in the text")
+    ap.add_argument("--evaluate", type=str, default=None, help="CSV with columns: query,doc,slide")
     args = ap.parse_args()
 
     #Set the model and print out that the model is loaded offline locally
@@ -139,6 +186,11 @@ def main():
     if not current_data:
         print("No indexes loaded")
         raise SystemExit(2)
+
+    #Testing instead of general queries
+    if args.evaluate:
+        evaluate(curr_model, data_batch, args.evaluate, args.per_index_k, args.top_k, args.require_term)
+        return
 
     #The interactive loop that moved from read_query funct
     active_query = True
