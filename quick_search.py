@@ -128,7 +128,18 @@ def read_query(model, full_data_batch, query, per_index_k, top_k):
             return final_ranked
 
 def main():
-    #Set the model
+    #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
+        #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
+    ap = argparse.ArgumentParser(description = "Offline semantic search over lecture indexes (FAISS).")
+    ap.add_argument("--model-path", default=DEFAULT_MODEL_PATH, help="Local SentenceTransformer model path")
+    ap.add_argument("--lectures", nargs="+", default=DEFAULT_LECTURES, help="Lecture numbers to load, e.g. 01, 02, 03, 04...")
+    ap.add_argument("--data-dir", default="data", help="Directory containing index_XX.faiss and meta_XX.json")
+    ap.add_argument("--per-index-k", type=int, default=PER_INDEX_K_DEFAULT, help="Per-index candidates (before merge)")
+    ap.add_argument("--top-k", type=int, default=TOP_K_DEFAULT, help="Final merged top-k results")
+    ap.add_argument("--print-chars", type=int, default=500, help="Chars to print from each hit (<=0 prints full text)")
+    args = ap.parse_args()
+
+    #Set the model and print out that the model is loaded offline locally
     curr_model = SentenceTransformer(MODEL_TYPE)
 
     #Load all the data
