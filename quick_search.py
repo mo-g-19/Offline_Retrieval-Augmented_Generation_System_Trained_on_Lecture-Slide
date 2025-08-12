@@ -25,9 +25,20 @@ def read_index_pair(lecture_num, data_dir):
 
     #Load data from Lectures, first checks the data directory
     index_path = os.path.join(data_dir, f"index_{lecture_num}.faiss")
-    meta_path = os.path.join(data_dir, f"meta{lect}")
+    meta_path = os.path.join(data_dir, f"meta_{lecture_num}.json")
+    if os.path.exists(index_path) and os.path.exists(meta_path):
+        return faiss.read_index(index_path), json.load(open(meta_path, "r"),), ("data", index_path, meta_path)
 
-    data_files = [
+    #Then check the current directory
+    index_path = f"index_{lecture_num}.faiss"
+    meta_path = f"meta_{lecture_num}.json"
+    if os.path.exists(index_path) and os.path.exists(meta_path):
+        return faiss.read_index(index_path), json.load(open(meta_path, "r")), (".", index_path, meta_path)
+
+    #Else, return nothing
+    return None, None, None
+
+    d"""ata_files = [
         #Gives the flexibility if the slides are inside the file data instead of current file
         (f"data/index_{indv_slides}.faiss", f"data/meta_{indv_slides}.json"),
         (f"index_{indv_slides}.faiss", f"meta_{indv_slides}.json")
@@ -38,15 +49,15 @@ def read_index_pair(lecture_num, data_dir):
             index = faiss.read_index(indx_path)
             with open(meta_path, "r") as file:
                 meta = json.load(file)
-            return index, meta
+            return index, meta"""
 
 
 def load_data(model):
+    """ Load all the index, meta, and lecture number data into triples, and print a debug statement of what happened"""
+
     total_batch = []
 
     for indv_num in LECTURES:
-
-
         #Making another function to open the specific data file and define index and meta data
         current_index, current_meta = read_index_pair(indv_num)
         
