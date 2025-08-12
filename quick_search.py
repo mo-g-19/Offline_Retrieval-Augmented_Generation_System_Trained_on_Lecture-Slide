@@ -38,7 +38,7 @@ def read_index_pair(lecture_num, data_dir):
     #Else, return nothing
     return None, None, None
 
-    d"""ata_files = [
+    """data_files = [
         #Gives the flexibility if the slides are inside the file data instead of current file
         (f"data/index_{indv_slides}.faiss", f"data/meta_{indv_slides}.json"),
         (f"index_{indv_slides}.faiss", f"meta_{indv_slides}.json")
@@ -59,12 +59,28 @@ def load_data(lectures, data_dir):
 
     for indv_num in lectures:
         #Making another function to open the specific data file and define index and meta data
-        index, meta = read_index_pair(indv_num)
-        
+        index, meta, tuple_path = read_index_pair(indv_num)
+        #Only allows to save info if there is a vector and meta data attached to the slides
         if index is not None and meta is not None:
+            total_batch.append((idx, meta, num, tuple_path))
+    
+    #Print statement if there are no indexes
+    if not total_batch:
+        print("No indexes loaded.")
+        print(f"Looked for files like index_XX.faiss and meta_XX.json in '{data_dir}' and the current directory")
+        return []
+    
+    print(f"Loaded {len(batch)} lecture inexes:")
+    for index, meta, indv_num, tuple_path in total_batch:
+        location, index_path, meta_path = tuple_path
+        match_check = (idx.ntotal == len(meta))
+        print(f"    lec {num}: vectors={index.ntotal}   meta={len(meta)}    match={match_check}     from={location}  ({index_path}, {meta_path})")
+    return total_batch
+        
+    """    if index is not None and meta is not None:
             total_batch.append((index, meta, indv_num))
 
-    return total_batch
+    return total_batch"""
 
 def read_query(full_data, model):
     loop_tracker = True
