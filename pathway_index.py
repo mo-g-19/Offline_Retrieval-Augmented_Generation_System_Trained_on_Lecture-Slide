@@ -35,6 +35,10 @@ MODEL_TYPE = '/home/momo/models/all-MiniLM-L6-v2'
 
 #Load Sections
 def creating_sections(processed_path):
+    """Purpose: To take the slides and make it easier to create a FAISS index vector and organize the metadata
+    Input: The file path to the text file that is an array full of dictionaries of slides
+    Output: An array of the full text and an array of dictionaries with the doc, slide, and text
+    """
     current_sections = []
     full_text = []
     meta_data = []
@@ -65,6 +69,10 @@ def creating_sections(processed_path):
 
 #Embed - Start using references
 def embed_text(full_text):
+    """Purpose: Take the entire paragraph of text and turn it into a dense vector representation
+    Input: The text of a slide
+    Output: A list of embeddings (An array that holds an array with 32 float values); 384 (see on huggingface for sentence-transformers/all-MiniLM-L6-v2) dimensional dense vector space
+    """
     #Loading the model and settings - specifically "used to map sentences/text to embeddings"
     current_model = SentenceTransformer(MODEL_TYPE)         #saved specifically locally
     
@@ -86,6 +94,10 @@ def embed_text(full_text):
 
 #Build FAISS index (Using IndexFlatIP because it is a small data set and no need for train/tune) - reference 3
 def build_faiss_index(embeddings):
+    """Purpose: Create an index vector (FAISS) (eventually used to find top-k similar vectors without scan entire dataset)
+    Input: The dense vector representation (embed_text's return)
+    Output: FAISS index opject in memory for immediate use (does write FAISS index file to disk)
+    """
     #Find the number of columns needed for the indexing
     embeddings_dimension = embeddings.shape[1]
 
@@ -103,6 +115,8 @@ def build_faiss_index(embeddings):
 
 #Main function and save file
 def main():
+    """Loades the slides from the lecture, embed them, build and save a FAISS index, and save the metadata
+    """
     #global var that will become var in main
     text = []  #full text that gets referenced by meta
     data = []  #data that will get loaded
