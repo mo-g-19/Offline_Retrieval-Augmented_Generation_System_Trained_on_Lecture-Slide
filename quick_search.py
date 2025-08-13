@@ -18,7 +18,7 @@ os.environ["HF_HUB_OFFLINE"] = "1"
 TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
 MIN_SCORE = 0.35    #Initial try to filter out halucinations
-MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
+#MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
 
@@ -213,7 +213,7 @@ def main():
 
     #Set the model and print out that the model is loaded offline locally
     print(f"HF_HUB_OFFLINE={os.environ.get('HF_HUB_OFFLINE')} model={args.model_path}")
-    curr_model = SentenceTransformer(MODEL_TYPE)
+    curr_model = SentenceTransformer(args.model_path)
 
     #Load all the data (index/meta)
     current_data = load_data(args.lectures, args.data_dir)
