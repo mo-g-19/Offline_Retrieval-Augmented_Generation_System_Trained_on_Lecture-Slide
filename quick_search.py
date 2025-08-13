@@ -1,7 +1,8 @@
-"""Used a the same references as pathway_index to get the same idea of how to
+"""Purpose: Used a the same references as pathway_index to get the same idea of how to
 answer a query in the terminal(The purpose of this file). The only new reference that helped
 was
 https://sbert.net/examples/sentence_transformer/applications/sematic-search/README.html"""
+
 import os
 import json
 import argparse     #Used to add a flag to find the index and meta files of the lectures incase it is no longer in ./data
@@ -24,8 +25,10 @@ LECTURES = ["01", "02", "03", "04", "05", "06"]
 
 
 def read_index_pair(lecture_num, data_dir):
-    """Loading the slides data from index and meta.
-    Ensures there is a pathway to access said data"""
+    """Purpose: Loading the slides data from index vector and meta. Ensures there is a pathway to access said data
+    Input: An array of strings that is the presentation slides number and the directory that holds the metaata and index vector of the presentations
+    Output: The information from the index file and the metadata, along with a touple of the index vector and metadata
+    """
 
     #Load data from Lectures, first checks the data directory
     index_path = os.path.join(data_dir, f"index_{lecture_num}.faiss")
@@ -44,7 +47,10 @@ def read_index_pair(lecture_num, data_dir):
 
 
 def load_data(lectures, data_dir):
-    """ Load all the index, meta, and lecture number data into triples, and print a debug statement of what happened"""
+    """Purpose: Load all the index, meta, and lecture number data into triples, and print a debug statement of what happened
+    Input: An array of strings that represent the presentation slides number and the directory that holds the metadata and index vector of the presentations
+    Output: One array that holds the 
+    """
 
     total_batch = []
 
@@ -70,13 +76,17 @@ def load_data(lectures, data_dir):
 
 
 def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=False):
-    """Run a semantic search and return with the top_k results"""
+    """Purpose: Run a semantic search and return with the top_k results
+    Input: The local object of SentenceTransformer, both index and metadata in an array, the string that the user input, the first number of selection of slides, the max number of slides that will be outputted, and (optional: for testing) if there was a 'correct' slide
+    Output: Dictionary of top-k (this case 5) results, dictionary of per-query timing, and a per-shard latency list
+    """
     #initial time
     t0 = time.perf_counter()
     #creating query values specific to the input
     query_vector = model.encode([query], normalize_embeddings=True).astype("float32")
     encode_t = time.perf_counter()
 
+    #The top_k (5 in this case) results and the latency for ech shard'ss retreval
     rank_results = []
     shard_times = []
 
@@ -108,6 +118,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
     final_ranked = sorted(best.values(), key=lambda x: x[0], reverse=True)[:top_k]
     end_t = time.perf_counter()
 
+    #Ensure none of the values are below the MIN_SCORE (how similar the vector index of the query and the chosen slides)
     if not final_ranked or final_ranked[0][0] < MIN_SCORE:
         return [], {
             "t_encode_ms": (encode_t - t0) * 1000,
@@ -117,6 +128,7 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
     
     ranked = []
 
+    #Not all top-k values were above 5, so sorting out the ones that didn't and returning it
     for clear_final in final_ranked:
         if clear_final[0] >= MIN_SCORE:
             ranked.append(clear_final)
@@ -128,6 +140,11 @@ def read_query(model, full_data_batch, query, per_index_k, top_k, require_term=F
         }, shard_times
 
 def evaluate(model, data_batch, csv_path, per_index_k, top_k):
+    """
+    Purpose: Purely for testing; it measures the performance and accuracy of the model
+    Input: The local object of SentenceTransformer, the dictionary with loaded index vectors and metadata, the path to the testing file, the first selection of slides, the top results that will get printed out, and the threshold for relevant results
+    Output: None returned, but print statements of the Accuracy (top-k vals), Average time from end-to-end querry, average shard time sequential, and average parallel-ish hard max time
+    """
     total = 0
     correct = 0
     total_ms = []
@@ -174,6 +191,13 @@ def evaluate(model, data_batch, csv_path, per_index_k, top_k):
         print()
 
 def main():
+    """This is the main function. This will get called when the file executes. It takes the arguments when
+       executed. If the test case file is an argument, it will return the accuracy and latency based on the model.
+       If it's just a regular query, it will take whatever the user inputs and responds with up to k-top (currently hard
+       coded as 5) slides that could answer the question
+
+    """
+
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
     #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
     ap = argparse.ArgumentParser(description = "Offline semantic search over lecture indexes (FAISS).")
