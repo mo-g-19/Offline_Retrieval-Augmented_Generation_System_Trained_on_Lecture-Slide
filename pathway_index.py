@@ -18,20 +18,13 @@ import os
 import json
 import numpy as np
 import faiss
+#import glob
+import argparse
 from sentence_transformers import SentenceTransformer
 
 #sentence_transformer offline
-os.environ["HF_HUB_OFFLINE"] = "1"
+os.environ["HF_HUB_OFFLINE"] = "1
 
-#Specific lecture number
-num = '06'
-lecture_num = f'lecture{num}_processed.json'
-
-#Different paths
-PROCESSED_PATH = f'{lecture_num}'
-INDEX_OUT = f'index_{num}.faiss'
-META_OUT = f'meta_{num}.json'
-MODEL_TYPE = '/home/momo/models/all-MiniLM-L6-v2'
 
 #Load Sections
 def creating_sections(processed_path):
@@ -68,13 +61,11 @@ def creating_sections(processed_path):
 
 
 #Embed - Start using references
-def embed_text(full_text):
+def embed_text(full_text, current_model):
     """Purpose: Take the entire paragraph of text and turn it into a dense vector representation
-    Input: The text of a slide
+    Input: The text of a slide and an object of the SentenceTransformer
     Output: A list of embeddings (An array that holds an array with 32 float values); 384 (see on huggingface for sentence-transformers/all-MiniLM-L6-v2) dimensional dense vector space
     """
-    #Loading the model and settings - specifically "used to map sentences/text to embeddings"
-    current_model = SentenceTransformer(MODEL_TYPE)         #saved specifically locally
     
     #Using 2 for lines 66-74
     #Using encode because want the most general method and will have a "model [that] was not trained with pedefined prompts and/or task types"
@@ -117,22 +108,44 @@ def build_faiss_index(embeddings):
 def main():
     """Loades the slides from the lecture, embed them, build and save a FAISS index, and save the metadata
     """
+
+    #Takes command prompts to store as paths
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--model-path", default="./models/all-MiniLM-L6-v2")
+    ap.add_argument("--input-json", required=True, help="Path to lecture##_process.json")
+    ap.add_argument("--out-dir", default="data")
+    args = ap.parse_args()
+
+    #Saving the arguments as variables
+    model_type = args.model_path
+    processed_path = args.input_json
+
+    #Finding the number based on the processed_path
+    derive_num = re.search(r"lecture(\d+)_processed\.json$", os.path.basename(processed_path))
+    num = derive_num.group(1) if derive_num else "00"
+    os.makedirs(args.out_dir, exist_ok=True)
+    index_out = os.path.join(args.out_dir, f"index_{num}.fais")
+    meta_out = os.path.join(args.out_dir, f"meta_{num}.json")
+    
+    #Loading the model and settings - specifically "used to map sentences/text to embeddings"
+    current_model = SentenceTransformer(model_type)         #saved specifically locally
+
     #global var that will become var in main
     text = []  #full text that gets referenced by meta
     data = []  #data that will get loaded
 
-    text, data = creating_sections(PROCESSED_PATH)
-    curr_embed = embed_text(text)
+    text, data = creating_sections(processed_path)
+    curr_embed = embed_text(text, current_model)
     curr_index = build_faiss_index(curr_embed)
 
     #Save to file
-    faiss.write_index(curr_index, INDEX_OUT)
-    with open(META_OUT, "w") as file:
+    faiss.write_index(curr_index, index_out)
+    with open(meta_out, "w") as file:
         json.dump(data, file, indent = 2)
 
     #Confirm the save
-    print(f"Saved index -> {INDEX_OUT}")
-    print(f"Saved meta  -> {META_OUT}")
+    print(f"Saved index -> {index_out}")
+    print(f"Saved meta  -> {meta_out}")
 
     return
 
