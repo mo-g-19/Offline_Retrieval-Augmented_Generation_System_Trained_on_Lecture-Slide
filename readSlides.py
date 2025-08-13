@@ -2,10 +2,8 @@
 
 import fitz     #pyMuPDF library: to read text from a pdf (needed to install)
 import json     #to save the individual presentation as a document with a dictionary that has a value for the slides and text in the slides
+import argparse #Uses flags, so I don't have to hard code the presentation slides file path
 
-#The pdf document to read from and the new document to save information
-input_doc = "06_Naming.pdf"
-output_doc = "lecture06_processed.json"
 
 
 doc = fitz.open(input_doc)
@@ -14,6 +12,16 @@ doc = fitz.open(input_doc)
 slides = []
 
 main(): 
+    #instead of hard coding the input (pdf slides) and output (json text file) path, make it part of the command prompt
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--input-pdf", required=True)
+    ap.add_argument("--output-json", required=True)
+    args = ap.parse_args()
+
+    #The pdf document to read from and the new document to save information
+    input_doc = args.input_pdf
+    output_doc = args.output_json
+
     #Going through each slide in the presentation
     for number, page in enumerate(doc):     #to go through in order of the slides
         raw_text = page.get_text()
