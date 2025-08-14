@@ -1,277 +1,277 @@
 [
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide1",
-    "text": "Chapter 3: Networking and Internetworking \u00a7 Concepts \u00a7 Switching \u00a7 Routing (IP) \u00a7 End-to-End Protocols (UDP/TCP)"
+    "text": "Chapter 3: \nNetworking and Internetworking\n\u00a7 Concepts\n\u00a7 Switching\n\u00a7 Routing (IP)\n\u00a7 End-to-End Protocols (UDP/TCP)"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide2",
-    "text": "Fundamentals \uf07aMany different agreements (protocols) are needed at various levels \uf07aApplication-level agreements \uf079Bit representation to meaning of each message \uf07aOther-levels and agreements \uf079How to actually transmit messages through a network \uf079Addressing, performance, scalability, reliability, security A B OS OS How can A and B communicate? network"
+    "text": "Fundamentals\n\uf07aMany different agreements (protocols) are needed \nat various levels\n\uf07aApplication-level agreements\n\uf079Bit representation to meaning of each message \n\uf07aOther-levels and agreements \n\uf079How to actually transmit messages through a network \n\uf079Addressing, performance, scalability, reliability, security\nA\nB\nOS\nOS\nHow can A and B communicate?\nnetwork"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide3",
-    "text": "What\u2019s Network (the Internet)? To learn more, take CECS 303 \uf07aNetwork of networks connecting millions of devices: \uf079Hosts (end systems) \uf079Links (fiber to satellite) \uf079Routers and switches \uf07aCollection of protocols providing communication services to distributed applications \uf07aNetworks are complex! From Computer Networking by Kurose and Ross."
+    "text": "What\u2019s Network (the Internet)?\n To learn more, take CECS 303\n\uf07aNetwork of networks connecting \nmillions of devices: \n\uf079Hosts (end systems)\n\uf079Links (fiber to satellite)\n\uf079Routers and switches\n\uf07aCollection of protocols providing \ncommunication services to \ndistributed applications  \n\uf07aNetworks are complex!\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide4",
-    "text": "Switched Networks \uf079two or more nodes connected by a link, or \uf079two or more networks connected by a node \uf07aA network can be defined recursively as..."
+    "text": "Switched Networks\n\uf079two or more nodes \nconnected by a link, \nor\n\uf079two or more \nnetworks connected \nby a node\n\uf07aA network can be defined recursively as..."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide5",
-    "text": "Types of Networks https://www.youtube.com/watch?v=HLziLmaYsO0"
+    "text": "Types of Networks\nhttps://www.youtube.com/watch?v=HLziLmaYsO0"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide6",
     "text": "Protocols and Layers"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide7",
-    "text": "Conceptual layering of protocol software Layer n Layer 2 Layer 1 Message sent Message received Communication medium Sender Recipient"
+    "text": "Conceptual layering of protocol software\nLayer n\nLayer 2\nLayer 1\nMessage sent\nMessage received\nCommunication\nmedium\nSender\nRecipient"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide8",
-    "text": "Protocol layers in the ISO Open Systems Interconnection (OSI) model !\"\"#A%CDA() *+,-,)DCDA() .,--A() L+C)-\"(+D M,DN(+2 PCDC4#A)2 *RS-A%C# T,--C8,4-,)D T,--C8,4+,%,A9,: .,):,+ ;,%A\"A,)D <CS,+- =(>>?)A%CDA() >,:A?>"
+    "text": "Protocol layers in the ISO Open Systems Interconnection (OSI) model\n!\"\"#A%CDA()\n*+,-,)DCDA()\n.,--A()\nL+C)-\"(+D\nM,DN(+2\nPCDC4#A)2\n*RS-A%C#\nT,--C8,4-,)D\nT,--C8,4+,%,A9,:\n.,):,+\n;,%A\"A,)D\n<CS,+-\n=(>>?)A%CDA()\n>,:A?>"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide9",
-    "text": "Internet protocol stack \uf07aapplication: Protocols that are designed to meet the communication requirements of specific applications, often defining the interface to a service. (FTP, HTTP) \uf07atransport: process-to-process data transfer (TCP, UDP) \uf07anetwork: routing of datagrams from source to destination (IP, OSPF, BGP) \uf07alink: data transfer between neighboring network elements (PPP, Ethernet) \uf07aphysical: transmission of bits on a link (electrical signals on cable, light signals on fibre or other electr"
+    "text": "Internet protocol stack\n\uf07aapplication: Protocols that are designed to \nmeet the communication requirements of \nspecific applications, often defining the \ninterface to a service. (FTP, HTTP)\n\uf07atransport: process-to-process data \ntransfer (TCP, UDP)\n\uf07anetwork: routing of datagrams from \nsource to destination (IP, OSPF, BGP)\n\uf07alink: data transfer between neighboring  \nnetwork elements (PPP, Ethernet)\n\uf07aphysical: transmission of bits on a link \n(electrical signals on cable, light signals on fibre or \noth"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide10",
-    "text": "ISO/OSI reference model \uf07apresentation: allow applications to interpret meaning of data, e.g., encryption, compression, machine- specific conventions \uf07asession: synchronization, check pointing, recovery of data exchange application presentation session transport network link physical From Computer Networking by Kurose and Ross."
+    "text": "ISO/OSI reference model\n\uf07apresentation: allow applications to \ninterpret meaning of data, e.g., \nencryption, compression, machine-\nspecific conventions\n\uf07asession: synchronization, check \npointing, recovery of data exchange\napplication\npresentation\nsession\ntransport\nnetwork\nlink\nphysical\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide11",
-    "text": "What is OSI mode? https://www.youtube.com/watch?v=Ilk7UXzV_Qc"
+    "text": "What is OSI mode?\nhttps://www.youtube.com/watch?v=Ilk7UXzV_Qc"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide12",
-    "text": "ISO Architecture !\"#A%&AD%&#A\"%E#) *+,-+\"A,-#A\"#,*%&. /\"EA-%), 0NNO+P4,+%\" 5&#)#\",4,+%\" S#))+%\" T&4\")N%&, 8#,*%&. 94,4AO+\". 5-:)+P4O 8#,*%&. 94,4AO+\". 5-:)+P4O 8#,*%&. 94,4AO+\". 5-:)+P4O /\"EA-%), 0NNO+P4,+%\" 5&#)#\",4,+%\" S#))+%\" T&4\")N%&, 8#,*%&. 94,4AO+\". 5-:)+P4O"
+    "text": "ISO Architecture\n!\"#A%&AD%&#A\"%E#)\n*+,-+\"A,-#A\"#,*%&.\n/\"EA-%),\n0NNO+P4,+%\"\n5&#)#\",4,+%\"\nS#))+%\"\nT&4\")N%&,\n8#,*%&.\n94,4AO+\".\n5-:)+P4O\n8#,*%&.\n94,4AO+\".\n5-:)+P4O\n8#,*%&.\n94,4AO+\".\n5-:)+P4O\n/\"EA-%),\n0NNO+P4,+%\"\n5&#)#\",4,+%\"\nS#))+%\"\nT&4\")N%&,\n8#,*%&.\n94,4AO+\".\n5-:)+P4O"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide13",
-    "text": "Encapsulation as it is applied in layered protocols !\"#A#%&'&()%*+#',#\" -../(0'&()%N/'2#\"*P#AA'4# 5#AA()%*+#',#\" S\"'%A.)\"&*+#',#\" T#&8)\"9*+#',#\""
+    "text": "Encapsulation as it is applied in layered protocols\n!\"#A#%&'&()%*+#',#\"\n-../(0'&()%N/'2#\"*P#AA'4#\n5#AA()%*+#',#\"\nS\"'%A.)\"&*+#',#\"\nT#&8)\"9*+#',#\""
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide14",
     "text": "The interaction between layers in the OSI model"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide15",
     "text": "An exchange using the OSI model"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide16",
     "text": "Summary of layers"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide17",
-    "text": "TCP/IP layers Messages (UDP) or Streams (TCP) Application Transport Internet UDP or TCP packets IP datagrams Network-specific frames Message Layers Underlying network Network  interface Link Layer"
+    "text": "TCP/IP layers\nMessages (UDP) or Streams (TCP)\nApplication\nTransport\nInternet\nUDP or TCP packets\nIP datagrams\nNetwork-specific frames\nMessage\nLayers\nUnderlying network\nNetwork  interface\nLink Layer"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide18",
     "text": "TCP/IP and OSI model"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide19",
-    "text": "Encapsulation in a message transmitted via TCP over an Ethernet Application message TCP header IP header Ethernet header Ethernet frame port TCP IP https://www.youtube.com/watch?v=OTwp3xtd4dg"
+    "text": "Encapsulation in a message transmitted via TCP over an Ethernet\nApplication message\nTCP header\nIP header\nEthernet header\nEthernet frame\nport\nTCP\nIP\nhttps://www.youtube.com/watch?v=OTwp3xtd4dg"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide20",
-    "text": "The programmer's conceptual view of a TCP/IP Internet !\" #AA%CD()C*+ #AA%CD()C*+ I-\" ./\""
+    "text": "The programmer's conceptual view of a TCP/IP Internet\n!\"\n#AA%CD()C*+\n#AA%CD()C*+\nI-\"\n./\""
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide21",
-    "text": "source application transport network link physical Ht Hn M segment Ht packets destination application transport network link physical Ht Hn Hl M Ht Hn M Ht M M network link physical link physical Ht Hn Hl M Ht Hn M Ht Hn M Ht Hn Hl M router switch Encapsulation message M Ht M Hn frame From Computer Networking by Kurose and Ross."
+    "text": "source\napplication\ntransport\nnetwork\nlink\nphysical\nHt\nHn\nM\nsegment\nHt\npackets\ndestination\napplication\ntransport\nnetwork\nlink\nphysical\nHt\nHn\nHl\nM\nHt\nHn\nM\nHt\nM\nM\nnetwork\nlink\nphysical\nlink\nphysical\nHt\nHn\nHl\nM\nHt\nHn\nM\nHt\nHn\nM\nHt\nHn\nHl\nM\nrouter\nswitch\nEncapsulation\nmessage\nM\nHt\nM\nHn\nframe\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide22",
-    "text": "OSI vs TCP/IP OSI Model TCP/IP model It is developed by ISO (International Standard Organization) It is developed by ARPANET (Advanced Research Project Agency Network). OSI model provides a clear distinction between interfaces, services, and protocols. TCP/IP doesn\u2019t have any clear distinguishing points between services, interfaces, and protocols. OSI refers to Open Systems Interconnection. TCP refers to Transmission Control Protocol. OSI uses the network layer to define routing standards and pr"
+    "text": "OSI vs TCP/IP\nOSI Model\nTCP/IP model\nIt is developed by ISO (International Standard \nOrganization)\nIt is developed by ARPANET (Advanced Research Project \nAgency Network).\nOSI model provides a clear distinction between \ninterfaces, services, and protocols.\nTCP/IP doesn\u2019t have any clear distinguishing points \nbetween services, interfaces, and protocols.\nOSI refers to Open Systems Interconnection.\nTCP refers to Transmission Control Protocol.\nOSI uses the network layer to define routing standards \na"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide23",
-    "text": "Why layering? \uf07aExplicit structure allows identification, relationship of complex system\u2019s pieces \uf07aEach layer \uf079 gets a service from the one below, \uf079 performs a specific task, and \uf079 provides a service to the one above \uf07aModularization eases maintenance and updating of system \uf079We can change the implementation of a layer without affecting the rest of the system as long as the interfaces between the layer are kept the same! \uf07aIn some cases, layering considered harmful! Why? From Computer Networking by "
+    "text": "Why layering?\n\uf07aExplicit structure allows identification, relationship of \ncomplex system\u2019s pieces\n\uf07aEach layer \n\uf079\ngets a service from the one below, \n\uf079\nperforms a specific task, and \n\uf079\nprovides a service to the one above \n\uf07aModularization eases maintenance and updating of system\n\uf079We can change the implementation of a layer without \naffecting the rest of the system as long as the interfaces \nbetween the layer are kept the same!\n\uf07aIn some cases, layering considered harmful! Why?\nFrom Computer Network"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide24",
     "text": "Routing (IP)"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide25",
-    "text": "IP Addressing: introduction \uf07aIP address: 32-bit unique identifier for host, router interface \uf07ainterface: connection between host/router and physical link \uf079 router\u2019s typically have multiple interfaces \uf079 host typically has one interface \uf079 IP addresses associated with each interface 223.1.1.1 223.1.1.2 223.1.1.3 223.1.1.4 223.1.2.9 223.1.2.2 223.1.2.1 223.1.3.2 223.1.3.1 223.1.3.27 223.1.1.1 = 11011111 00000001 00000001 00000001 223 1 1 1 From Computer Networking by Kurose and Ross."
+    "text": "IP Addressing: introduction\n\uf07aIP address: 32-bit \nunique identifier for \nhost, router interface \n\uf07ainterface: connection \nbetween host/router \nand physical link\n\uf079\nrouter\u2019s typically have \nmultiple interfaces\n\uf079\nhost typically has one \ninterface\n\uf079\nIP addresses associated \nwith each interface\n223.1.1.1\n223.1.1.2\n223.1.1.3\n223.1.1.4\n223.1.2.9\n223.1.2.2\n223.1.2.1\n223.1.3.2\n223.1.3.1\n223.1.3.27\n223.1.1.1 = 11011111 00000001 00000001 00000001\n223\n1\n1\n1\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide26",
-    "text": "Internet address structure, showing field sizes in bits ! \"# ABCDDE)* H I-./MN2E34 5MD.E34 6# 67 ABCDDE8* 6 H I-./MN2E34 5MD.E34 \"6 9 ABCDDEA* 6 6 H I-./MN2E34 5MD.E34 \"9 ABCDDE4E:;<B.=>CD.?* 6 6 6 H @<B.=>CD.ECAAN-DD \"! ABCDDEBE:N-D-NC-A?* 6 6 6 6 <a<D-A H"
+    "text": "Internet address structure, showing field sizes in bits\n!\n\"#\nABCDDE)*\nH\nI-./MN2E34\n5MD.E34\n6#\n67\nABCDDE8*\n6\nH\nI-./MN2E34\n5MD.E34\n\"6\n9\nABCDDEA*\n6\n6\nH\nI-./MN2E34\n5MD.E34\n\"9\nABCDDE4E:;<B.=>CD.?*\n6\n6\n6\nH\n@<B.=>CD.ECAAN-DD\n\"!\nABCDDEBE:N-D-NC-A?*\n6\n6\n6\n6\n<a<D-A\nH"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide27",
-    "text": "Decimal representation of Internet addresses octet 1 octet 2 octet 3 Class A: 1 to 127 0 to 255 0 to 255 1 to 254 Class B: 128 to 191 Class C: 192 to 223 224 to 239 Class D (multicast): Network ID Network ID Network ID Host ID Host ID Host ID Multicast address 0 to 255 0 to 255 1 to 254 0 to 255 0 to 255 0 to 255 0 to 255 0 to 255 0 to 255 Multicast address 0 to 255 0 to 255 1 to 254 240 to 255 Class E (reserved): 1.0.0.0 to 127.255.255.255 128.0.0.0 to 191.255.255.255 192.0.0.0 to 223.255.255.2"
+    "text": "Decimal representation of Internet addresses\noctet 1\noctet 2\noctet 3\nClass A:\n1 to 127\n0 to 255\n0 to 255\n1 to 254\nClass B:\n128 to 191\nClass C:\n192 to 223 \n224 to 239 \nClass D (multicast):\nNetwork ID\nNetwork ID\nNetwork ID\nHost ID\nHost ID\nHost ID\nMulticast address\n0 to 255\n0 to 255\n1 to 254\n0 to 255\n0 to 255\n0 to 255\n0 to 255\n0 to 255\n0 to 255\nMulticast address\n0 to 255\n0 to 255\n1 to 254\n240 to 255 \nClass E (reserved):\n1.0.0.0 to \n127.255.255.255\n128.0.0.0 to \n191.255.255.255\n192.0.0.0 to \n223.255"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide28",
-    "text": "IPv4 Packet Header \uf07a Version (always set to the value 4 for IPv4) \uf07a IP Header Length (number of 32 -bit words forming the header, usually five) \uf07a Size of Datagram (in bytes, header + data) \uf07a Flags 3 bits: R (reserved bit set to 0) DF (Don't fragment ) MF (More fragments) \uf07a Time To Live (Number of hops /links which the packet may be routed over, decremented by most routers - used to prevent accidental routing loops) \uf07a Protocol (the type of transport packet being carried (e.g. 1 = ICMP; 6 = TCP; 1"
+    "text": "IPv4 Packet Header\n\uf07a\nVersion (always set to the value 4 for IPv4) \n\uf07a\nIP Header Length (number of 32 -bit words forming the header, \nusually five) \n\uf07a\nSize of Datagram (in bytes, header + data) \n\uf07a\nFlags 3 bits: R (reserved bit set to 0) DF (Don't fragment ) MF (More \nfragments) \n\uf07a\nTime To Live (Number of hops /links which the packet may be \nrouted over, decremented by most routers - used to prevent \naccidental routing loops) \n\uf07a\nProtocol (the type of transport packet being carried (e.g. 1 = \nICMP; "
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide29",
     "text": "Example of IP Packet"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide30",
-    "text": "\uf07aEvery datagram packet contains destination\u2019s address \uf07aif connected to destination network, then forward to the host in LAN \uf079If network number of destination IP == my network number \uf07aif not directly connected, then forward to the host\u2019s default router \uf07aEach router maintains a forwarding table \uf079forwarding table maps network number (rather than host address) into next hop or interface number (if directly connected) Datagram Forwarding Strategy"
+    "text": "\uf07aEvery datagram packet contains destination\u2019s \naddress\n\uf07aif connected to destination network, then forward \nto the host in LAN\n\uf079If network number of destination IP == my network \nnumber\n\uf07aif not directly connected, then forward to the \nhost\u2019s default router\n\uf07aEach router maintains a forwarding table\n\uf079forwarding table maps network number (rather than \nhost address) into next hop or interface number (if \ndirectly connected)\nDatagram Forwarding Strategy"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide31",
-    "text": "An Example of Routing \uf07aA packet is submitted to Router A and destination is C, how to routing?"
+    "text": "An Example of Routing\n\uf07aA packet is submitted to Router A and destination is C, \nhow to routing?"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide32",
-    "text": "Addressing and Routing \uf07aAddress: byte-string that identifies a node \uf079usually unique \uf07aRouting: process of forwarding messages to the destination node based on its address \uf07aTypes of addresses \uf079unicast: node-specific \uf079broadcast: all nodes on the network \uf079multicast: some subset of nodes on the network https://www.youtube.com/watch?v=gQtgtKtvRdo"
+    "text": "Addressing and Routing\n\uf07aAddress: byte-string that identifies a node\n\uf079usually unique\n\uf07aRouting: process of forwarding messages to the \ndestination node based on its address\n\uf07aTypes of addresses\n\uf079unicast: node-specific\n\uf079broadcast: all nodes on the network\n\uf079multicast: some subset of nodes on the network\nhttps://www.youtube.com/watch?v=gQtgtKtvRdo"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide33",
-    "text": "Address Translation in LAN \uf07aMap IP addresses into physical addresses of the destination host (if connected directly) or the next hop router \uf07aARP (Address Resolution Protocol) \uf079 Each host caches its table of IP to physical address bindings \uf079 table entries are discarded if not refreshed \uf078 timeout in about 10 minutes \uf079 broadcast request if IP address not in table \uf079 target machine send its physical address to the sender \uf079 target machine also updates add entry of the source in its table \uf078 It is likel"
+    "text": "Address Translation in LAN\n\uf07aMap IP addresses into physical addresses of the \ndestination host (if connected directly) or the next hop \nrouter\n\uf07aARP (Address Resolution Protocol)\n\uf079\nEach host caches its table of IP to physical address bindings\n\uf079\ntable entries are discarded if not refreshed\n\uf078\ntimeout in about 10 minutes\n\uf079\nbroadcast request if IP address not in table\n\uf079\ntarget machine send its physical address to the sender \n\uf079\ntarget machine also updates add entry of the source in its table\n\uf078\nIt is li"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide34",
-    "text": "Addressing: routing to another LAN R 1A-23-F9-CD-06-9B 222.222.222.220 111.111.111.110 E6-E9-00-17-BB-4B CC-49-DE-D0-AB-7D 111.111.111.112 111.111.111.111 A 74-29-9C-E8-FF-55 222.222.222.221 88-B2-2F-54-1A-0F B 222.222.222.222 49-BD-D2-C7-56-2A walkthrough: send datagram from A to B via R assume  A knows B\u2019s IP address \uf07atwo ARP tables in  router R, one for each IP network (LAN) From Computer Networking by Kurose and Ross."
+    "text": "Addressing: routing to another LAN\nR\n1A-23-F9-CD-06-9B\n222.222.222.220\n111.111.111.110\nE6-E9-00-17-BB-4B\nCC-49-DE-D0-AB-7D\n111.111.111.112\n111.111.111.111\nA\n74-29-9C-E8-FF-55\n222.222.222.221\n88-B2-2F-54-1A-0F\nB\n222.222.222.222\n49-BD-D2-C7-56-2A\nwalkthrough: send datagram from A to B via R\n                     assume  A knows B\u2019s IP address\n\uf07atwo ARP tables in  router R, one for each IP network (LAN)\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide35",
-    "text": "Network layer forwarding table Host, router network layer functions: Routing protocols \u2022path selection \u2022RIP, OSPF, BGP IP protocol \u2022addressing conventions \u2022datagram format \u2022packet handling conventions ICMP protocol \u2022error reporting \u2022router \u201csignaling\u201d Transport layer: TCP, UDP Link layer physical layer Network layer From Computer Networking by Kurose and Ross."
+    "text": "Network layer\nforwarding\ntable\nHost, router network layer functions:\nRouting protocols\n\u2022path selection\n\u2022RIP, OSPF, BGP\nIP protocol\n\u2022addressing conventions\n\u2022datagram format\n\u2022packet handling conventions\nICMP protocol\n\u2022error reporting\n\u2022router \u201csignaling\u201d\nTransport layer: TCP, UDP\nLink layer\nphysical layer\nNetwork\nlayer\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide36",
-    "text": "1 2 3 0111 value in arriving packet\u2019s header routing algorithm local forwarding table header value output link 0100 0101 0111 1001 3 2 2 1 Forwarding Problem: Where to Send Next? From Computer Networking by Kurose and Ross."
+    "text": "1\n2\n3\n0111\nvalue in arriving\npacket\u2019s header\nrouting algorithm\nlocal forwarding table\nheader value\noutput link\n0100\n0101\n0111\n1001\n3\n2\n2\n1\nForwarding Problem: Where to Send Next?\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide37",
-    "text": "Only IPv4? No, we need more! https://www.youtube.com/watch?v=bNmnRvZW3HU"
+    "text": "Only IPv4? No, we need more!\nhttps://www.youtube.com/watch?v=bNmnRvZW3HU"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide38",
     "text": "IPv6"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide39",
-    "text": "End-to-End Protocols (UDP/TCP)"
+    "text": "End-to-End Protocols\n(UDP/TCP)"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide40",
-    "text": "End-to-End Protocols \uf07aUnderlying best-effort network \uf079 drop messages \uf079 re-orders messages \uf079 delivers duplicate copies of a given message \uf079 limits packet (not message) to some finite size \uf079 delivers messages after an arbitrarily long delay \uf07aCommon end-to-end services \uf079 guarantee message delivery \uf079 deliver messages in the same order they are sent \uf079 deliver at most one copy of each message \uf079 support arbitrarily large messages \uf079 support synchronization between sender and receiver \uf079 allow the receive"
+    "text": "End-to-End Protocols\n\uf07aUnderlying best-effort network\n\uf079\ndrop messages\n\uf079\nre-orders messages\n\uf079\ndelivers duplicate copies of a given message\n\uf079\nlimits packet (not message) to some finite size\n\uf079\ndelivers messages after an arbitrarily long delay\n\uf07aCommon end-to-end services\n\uf079\nguarantee message delivery\n\uf079\ndeliver messages in the same order they are sent\n\uf079\ndeliver at most one copy of each message\n\uf079\nsupport arbitrarily large messages\n\uf079\nsupport synchronization between sender and receiver\n\uf079\nallow the receive"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide41",
-    "text": "Transport Layer \uf07a provide logical communication between app processes running on different hosts \uf07a transport protocols run in end systems \uf079 sender side: breaks app messages into segments, passes to network layer \uf079 receiver side: reassembles segments into messages, passes to app layer \uf07a more than one transport protocol available to apps \uf079 Internet: TCP and UDP application transport network data link physical application transport network data link physical logical end-end transport From Computer "
+    "text": "Transport Layer \n\uf07a\nprovide logical communication \nbetween app processes running \non different hosts\n\uf07a\ntransport protocols run in end \nsystems \n\uf079\nsender side: breaks app \nmessages into segments, \npasses to network layer\n\uf079\nreceiver side: reassembles \nsegments into messages, \npasses to app layer\n\uf07a\nmore than one transport \nprotocol available to apps\n\uf079\nInternet: TCP and UDP\napplication\ntransport\nnetwork\ndata link\nphysical\napplication\ntransport\nnetwork\ndata link\nphysical\nlogical end-end transport\nFrom"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide42",
-    "text": "Internet transport protocols services Transmission Control Protocol (TCP) service: \uf07a connection-oriented: setup required between client and server processes \uf07a reliable transport between sending and receiving process \uf07a flow control: sender won\u2019t overwhelm receiver \uf07a does not provide: timing, minimum throughput guarantees, security User Datagram Protocol (UDP) service: \uf07a unreliable data transfer between sending and receiving process \uf07a does not provide: connection setup, reliability, flow control, "
+    "text": "Internet transport protocols services\nTransmission Control Protocol \n(TCP) service:\n\uf07a\nconnection-oriented: setup \nrequired between client and \nserver processes\n\uf07a\nreliable transport between \nsending and receiving process\n\uf07a\nflow control: sender won\u2019t \noverwhelm receiver \n\uf07a\ndoes not provide: timing, \nminimum throughput \nguarantees, security\nUser Datagram Protocol \n(UDP) service:\n\uf07a\nunreliable data transfer \nbetween sending and \nreceiving process\n\uf07a\ndoes not provide: \nconnection setup, reliability, \nf"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide43",
-    "text": "TCP: Overview \uf07afull duplex data: \uf079 bi-directional data flow in same connection \uf07aconnection-oriented: \uf079 handshaking (exchange of control msgs) \uf07aflow controlled: \uf079 sender will not overwhelm receiver \uf07apoint-to-point \uf079 one sender, one receiver \uf07areliable, in-order byte steam \uf07aPipelined \uf07asend & receive buffers !\"#$%C '\"\"( )*+ !%,'-./00%( )*+ (%#%12%-./00%( !\"#$%C '\"\"( !%P4%,C 566T1#5C1\", 8(1C%!-'5C5 566T1#5C1\", (%5'!-'5C5 From Computer Networking by Kurose and Ross."
+    "text": "TCP: Overview\n\uf07afull duplex data:\n\uf079\nbi-directional data flow in \nsame connection\n\uf07aconnection-oriented: \n\uf079\nhandshaking (exchange \nof control msgs) \n\uf07aflow controlled:\n\uf079\nsender will not overwhelm \nreceiver\n\uf07apoint-to-point\n\uf079\none sender, one receiver \n\uf07areliable, in-order byte \nsteam\n\uf07aPipelined\n\uf07asend & receive buffers\n!\"#$%C\n'\"\"(\n)*+\n!%,'-./00%(\n)*+\n(%#%12%-./00%(\n!\"#$%C\n'\"\"(\n!%P4%,C\n566T1#5C1\",\n8(1C%!-'5C5\n566T1#5C1\",\n(%5'!-'5C5\nFrom Computer Networking by Kurose and Ross."
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide44",
-    "text": "TCP Segment Format !\"#A%CD(F*H,AH-.L0 NH#H OPL45DS7 U,49%,# ND#9%,# W;,<LC = >.H?D @,?9#, A;*L,#ADL;BAC;%C ULaSLC4LbS7 A45C%C.L;?7LC# = c d= de Id"
+    "text": "TCP Segment Format\n!\"#A%CD(F*H,AH-.L0\nNH#H\nOPL45DS7\nU,49%,#\nND#9%,#\nW;,<LC\n=\n>.H?D\n@,?9#,\nA;*L,#ADL;BAC;%C\nULaSLC4LbS7\nA45C%C.L;?7LC#\n=\nc\nd=\nde\nId"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide45",
-    "text": "Segment Format (cont) \uf07aEach connection identified with 4-tuple: \uf079 (SrcPort, SrcIPAddr, DsrPort, DstIPAddr) \uf07aSliding window + flow control \uf079 acknowledgment, SequenceNum, AdvertisedWinow \uf07aFlags \uf079 SYN, FIN, RESET, PUSH, URG, ACK \uf07aChecksum \uf079 pseudo header + TCP header + data !\"#A\"% &D(D )!\"*+\"#,\"-+./ 0,N#234\"AR.\"#(S7 0A8\"%(9W\"A;9#A23 <\",\"98\"%"
+    "text": "Segment Format (cont)\n\uf07aEach connection identified with 4-tuple:\n\uf079\n(SrcPort, SrcIPAddr, DsrPort, DstIPAddr)\n\uf07aSliding window + flow control\n\uf079\nacknowledgment, SequenceNum, AdvertisedWinow\n\uf07aFlags\n\uf079\nSYN, FIN, RESET, PUSH, URG, ACK\n\uf07aChecksum\n\uf079\npseudo header + TCP header + data\n!\"#A\"%\n&D(D )!\"*+\"#,\"-+./\n0,N#234\"AR.\"#(S7\n0A8\"%(9W\"A;9#A23\n<\",\"98\"%"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide46",
-    "text": "TCP Connection Management Recall: TCP sender, receiver establish \u201cconnection\u201d before exchanging data segments \uf07a initialize TCP variables: \uf079 seq. #s \uf079 buffers, flow control info \uf07a client: connection initiator \uf07a server: contacted by client Three way handshake: Step 1: client host sends TCP SYN segment to server \uf079 specifies initial seq # \uf079 no data Step 2: server host receives SYN, replies with SYNACK segment \uf079 specifies server initial seq. # Step 3: client receives SYNACK, replies with ACK segment,"
+    "text": "TCP Connection Management\nRecall: TCP sender, receiver \nestablish \u201cconnection\u201d before \nexchanging data segments\n\uf07a\ninitialize TCP variables:\n\uf079\nseq. #s\n\uf079\nbuffers, flow control info \n\uf07a\nclient: connection initiator\n\uf07a\nserver: contacted by client\nThree way handshake:\nStep 1: client host sends TCP \nSYN segment to server\n\uf079\nspecifies initial seq #\n\uf079\nno data\nStep 2: server host receives SYN, \nreplies with SYNACK segment\n\uf079\nspecifies server initial seq. #\nStep 3: client receives SYNACK, \nreplies with ACK se"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide47",
-    "text": "Connection Setup 47 \uf07aWhy do we need connection setup? \uf079 To establish state on both hosts \uf079 Most important state: sequence numbers \uf078 Count the number of bytes that have been sent \uf078 Initial value chosen at random \uf078 Why? \uf07aImportant TCP flags (1 bit each) \uf079 SYN \u2013 synchronization, used for connection setup \uf079 ACK \u2013 acknowledge received data \uf079 FIN \u2013 finish, used to tear down connection"
+    "text": "Connection Setup\n47\n\uf07aWhy do we need connection setup?\n\uf079\nTo establish state on both hosts\n\uf079\nMost important state: sequence numbers\n\uf078\nCount the number of bytes that have been sent\n\uf078\nInitial value chosen at random\n\uf078\nWhy?\n\uf07aImportant TCP flags (1 bit each)\n\uf079\nSYN \u2013 synchronization, used for connection setup\n\uf079\nACK \u2013 acknowledge received data\n\uf079\nFIN \u2013 finish, used to tear down connection"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide48",
-    "text": "Three Way Handshake 48 \uf07aEach side: \uf079Notifies the other of starting sequence number \uf079ACKs the other side\u2019s starting sequence number Client Server SYN <SeqC, 0> SYN/ACK <SeqS, SeqC+1> ACK <SeqC+1, SeqS+1> Why Sequence # +1?"
+    "text": "Three Way Handshake\n48\n\uf07aEach side:\n\uf079Notifies the other of starting sequence number\n\uf079ACKs the other side\u2019s starting sequence number\nClient\nServer\nSYN <SeqC, 0>\nSYN/ACK <SeqS, SeqC+1>\nACK <SeqC+1, SeqS+1>\nWhy\nSequence # +1?"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide49",
-    "text": "Connection Setup Issues 49 \uf07aConnection confusion \uf079 How to disambiguate connections from the same host? \uf079 Random sequence numbers \uf07aSource spoofing \uf079 Need good random number generators!"
+    "text": "Connection Setup Issues\n49\n\uf07aConnection confusion\n\uf079\nHow to disambiguate connections from the same \nhost?\n\uf079\nRandom sequence numbers\n\uf07aSource spoofing\n\uf079\nNeed good random number generators!"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide50",
-    "text": "Connection Tear Down 53 \uf07aEither side can initiate tear down \uf07aOther side may continue sending data \uf079 Half open connection \uf079 shutdown() \uf07aAcknowledge the last FIN \uf079 Sequence number + 1 \uf07aWhat happens if 2nd FIN is lost? Client Server FIN <SeqA, *> ACK <*, SeqA+1> ACK Data FIN <SeqB, *> ACK <*, SeqB+1>"
+    "text": "Connection Tear Down\n53\n\uf07aEither side can initiate tear \ndown\n\uf07aOther side may continue \nsending data\n\uf079\nHalf open connection\n\uf079\nshutdown()\n\uf07aAcknowledge the last FIN\n\uf079\nSequence number + 1\n\uf07aWhat happens if 2nd FIN is \nlost?\nClient\nServer\nFIN <SeqA, *>\nACK <*, SeqA+1>\nACK\nData\nFIN <SeqB, *>\nACK <*, SeqB+1>"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide51",
-    "text": "Bidirectional Communication 55 \uf07aEach side of the connection can send and receive \uf079Different sequence numbers for each direction Client Server Data (1460 bytes) Data/ACK (730 bytes) Data/ACK (1460 bytes) Seq. Ack. Seq. Ack. 1 23 23 1461 1461 753 753 2921 Data and ACK in the same packet 23 1"
+    "text": "Bidirectional Communication\n55\n\uf07aEach side of the connection can send and receive\n\uf079Different sequence numbers for each direction\nClient\nServer\nData (1460 bytes)\nData/ACK (730 bytes)\nData/ACK (1460 bytes)\nSeq.\nAck.\nSeq.\nAck.\n1\n23\n23\n1461\n1461\n753\n753\n2921\nData and ACK in \nthe same packet\n23\n1"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide52",
-    "text": "User Datagram Protocol (UDP) 56 \uf07aSimple, connectionless datagram \uf07aPort numbers enable demultiplexing \uf079 16 bits = 65535 possible ports \uf079 Port 0 is invalid \uf07aChecksum for error detection \uf079 Detects (some) corrupt packets \uf079 Does not detect dropped, duplicated, or reordered packets Destination Port 0 16 31 Message Length Source Port Checksum"
+    "text": "User Datagram Protocol (UDP)\n56\n\uf07aSimple, connectionless datagram\n\uf07aPort numbers enable demultiplexing\n\uf079\n16 bits = 65535 possible ports\n\uf079\nPort 0 is invalid\n\uf07aChecksum for error detection\n\uf079\nDetects (some) corrupt packets\n\uf079\nDoes not detect dropped, duplicated, or reordered packets\nDestination Port\n0\n16\n31\nMessage Length\nSource Port\nChecksum"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide53",
-    "text": "Simple Demultiplexor (UDP) \uf07aUnreliable and unordered datagram service \uf07aNo flow control or error control \uf079 no need for sender-side buffer \uf07aEndpoints identified by ports \uf07aHeader format \uf07aOptional checksum \uf079 psuedo header (IP.src, IP.dsest, IP.proto, UDP.len) + UDP header + data !\"#$%\"C D(C$%\"C )*+#,(-. L+01C* D2C2 P 45 S4"
+    "text": "Simple Demultiplexor (UDP)\n\uf07aUnreliable and unordered datagram service\n\uf07aNo flow control or error control\n\uf079\nno need for sender-side buffer\n\uf07aEndpoints identified by ports\n\uf07aHeader format\n\uf07aOptional checksum\n\uf079\npsuedo header (IP.src, IP.dsest, IP.proto, UDP.len) + UDP \nheader + data\n!\"#$%\"C\nD(C$%\"C\n)*+#,(-.\nL+01C*\nD2C2\nP\n45\nS4"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide54",
-    "text": "Uses for UDP 58 \uf07aInvented after TCP \uf079 Why? \uf07aNot all applications can tolerate TCP \uf07aCustom protocols can be built on top of UDP \uf079 Reliability? Strict ordering? \uf079 Flow control? Congestion control? \uf07aExamples \uf079 Live media streaming (e.g. voice, video) \uf079 Facebook datacenter protocol"
+    "text": "Uses for UDP\n58\n\uf07aInvented after TCP\n\uf079\nWhy?\n\uf07aNot all applications can tolerate TCP\n\uf07aCustom protocols can be built on top of UDP\n\uf079\nReliability? Strict ordering?\n\uf079\nFlow control? Congestion control?\n\uf07aExamples\n\uf079\nLive media streaming (e.g. voice, video)\n\uf079\nFacebook datacenter protocol"
   },
   {
-    "doc": "lecture02_processed.json",
+    "doc": "02",
     "slide": "slide55",
-    "text": "TCP vs UDP https://www.youtube.com/watch?v=cA9ZJdqzOoU"
+    "text": "TCP vs UDP\nhttps://www.youtube.com/watch?v=cA9ZJdqzOoU"
   }
 ]

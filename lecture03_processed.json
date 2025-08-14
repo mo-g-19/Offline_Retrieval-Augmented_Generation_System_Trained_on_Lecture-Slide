@@ -1,102 +1,127 @@
 [
   {
+    "doc": "lecture03_processed.json",
     "id": "slide1",
-    "text": "From Coulouris, Dollimore, Kindberg and Blair Distributed Systems: Concepts and Design Edition 5, \u00a9 Addison-Wesley 2012 Interprocess Communication"
+    "text": "From Coulouris, Dollimore, Kindberg and Blair\nDistributed Systems: \n \n \nConcepts and Design\nEdition 5, © Addison-Wesley 2012\nInterprocess Communication\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide2",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 The characteristics of interprocess communication \u2022 Messages are sent to (Internet address, local port) pairs. \u2022 A port has exactly one receiver but can have many senders \u2022 Processes may use multiple ports to receive messages \u2022 Validity: A point-to-point message service is reliable if messages are guaranteed to be delivered despite packet drop \u2022 Integrity: Messages must arrive uncorrupted and without duplication \u2022 Ordering: messages be delivered in sender order"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nThe characteristics of interprocess communication\n• Messages are sent to (Internet address, local port) pairs.\n• A port has exactly one receiver but can have many senders\n• Processes may use multiple ports to receive messages\n• Validity: A point-to-point message service is reliable if messages are \nguaranteed to be delivered despite packet drop\n• Integrity: Messages must arrive uncorrupted and without duplication\n• Ordering: messages be delivered in sender order\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide3",
-    "text": "Sockets Application and middleware layers use the services provided by the network and transport layers through socket API. From Computer Networking by Kurose and Ross. application transport network link physical"
+    "text": "Sockets \nApplication and middleware layers use \nthe services provided by the network and \ntransport layers through socket API.\nFrom Computer Networking by Kurose and Ross.\napplication\ntransport\nnetwork\nlink\nphysical\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide4",
-    "text": "4 Socket programming Socket API \u2022 introduced in BSD4.1 UNIX, 1981 \u2022 explicitly created, used, released by apps \u2022 client/server paradigm \u2022 two types of transport service via socket API: \u2022 unreliable datagram \u2022 reliable, byte stream-oriented a host-local, application-created, OS-controlled interface (a \u201cdoor\u201d) into which application process can both send and receive messages to/from another application process socket Goal: learn how to build client/server application that communicate using sockets"
+    "text": "4\nSocket programming\nSocket API\n•\nintroduced in BSD4.1 UNIX, \n1981\n•\nexplicitly created, used, \nreleased by apps \n•\nclient/server paradigm \n•\ntwo types of transport service \nvia socket API: \n•\nunreliable datagram \n•\nreliable, byte stream-oriented \na host-local, \napplication-created, \nOS-controlled interface \n(a “door”) into which\napplication process can \nboth send and \nreceive messages to/from \nanother application \nprocess\nsocket\nGoal: learn how to build client/server application that \ncommunicate using sockets\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide5",
-    "text": "Processes-to-process communication Process: program running within a host. within same host, two processes communicate using inter-process communication (shared memory defined by OS). processes in different hosts communicate by exchanging messages using transport layer Client process: process that initiates communication Server process: process that waits to be contacted \uf072Note: applications with P2P architectures have client processes & server processes From Computer Networking by Kurose and Ross."
+    "text": "Processes-to-process communication\nProcess: program running \nwithin a host.\nwithin same host, two \nprocesses communicate \nusing inter-process \ncommunication (shared \nmemory defined by OS).\nprocesses in different hosts \ncommunicate by \nexchanging messages \nusing transport layer\nClient process: process \nthat initiates \ncommunication\nServer process: process \nthat waits to be \ncontacted\nNote: applications \nwith P2P architectures \nhave client processes \n& server processes\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide6",
-    "text": "Addressing processes to receive messages, process must have identifier host device has unique 32- bit IP address Q: does IP address of host on which process runs suffice for identifying the process? A: No, many processes can be running on the same host identifier includes both IP address and port number associated with the process What is a port number? 16 bits integer used by transport layer to identify end points (processes) on a host well-known ports:  1 \u2013 1023 Telnet 23; FTP 21; HTTP 80 registered ports: 1024 \u2013 49151 dynamic or private ports: 49152 - 65535 To communicate, client must know the server\u2019s IP address, and port number. How will the server know the client\u2019s IP address and port number? From Computer Networking by Kurose and Ross."
+    "text": "Addressing processes\nto receive messages, \nprocess must have \nidentifier\nhost device has unique 32-\nbit IP address\nQ: does IP address of host \non which process runs \nsuffice for identifying the \nprocess?\nA: No, many processes can \nbe running on the same \nhost\nidentifier includes both IP \naddress and port number \nassociated with the process \nWhat is a port number?\n16 bits integer used by transport layer \nto identify end points (processes) \non a host\nwell-known ports:  1 – 1023 Telnet 23; FTP \n21; HTTP 80\nregistered ports: 1024 – 49151 \ndynamic or private ports: 49152 - \n65535 \nTo communicate, client must know the server’s IP address, and port number. \nHow will the server know the client’s IP address and port number? \nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide7",
-    "text": "Sockets API, an interface, gate, door between a process and transport layer A socket must be bound to a local port Is (IP addr, port) enough to identify a socket? process TCP with buffers, variables socket host or server process TCP with buffers, variables socket host or server Internet controlled by OS controlled by app developer message agreed port any port socket socket Internet address = 138.37.88.249 Internet address = 138.37.94.248 other ports client server From Computer Networking by Kurose and Ross."
+    "text": "Sockets\nAPI, an interface, gate, door \nbetween a process and \ntransport layer\nA socket must be bound to a \nlocal port\nIs (IP addr, port) enough to \nidentify a socket?\nprocess\nTCP with\nbuffers,\nvariables\nsocket\nhost or\nserver\nprocess\nTCP with\nbuffers,\nvariables\nsocket\nhost or\nserver\nInternet\ncontrolled\nby OS\ncontrolled by\napp developer\nmessage\nagreed port\nany port\nsocket\nsocket\nInternet address = 138.37.88.249\nInternet address = 138.37.94.248\nother ports\nclient\nserver\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide8",
-    "text": "Socket-programming using TCP Socket: a door between application process and end- end-transport protocol (UCP or TCP) TCP service: reliable transfer of bytes from one process to another process TCP with buffers, variables socket controlled by application developer controlled by operating system host or server process TCP with buffers, variables socket controlled by application developer controlled by operating system host or server internet From Computer Networking by Kurose and Ross."
+    "text": "Socket-programming using TCP\nSocket: a door between application process and end-\nend-transport protocol (UCP or TCP)\nTCP service: reliable transfer of bytes from one process \nto another\nprocess\nTCP with\nbuffers,\nvariables\nsocket\ncontrolled by\napplication\ndeveloper\ncontrolled by\noperating\nsystem\nhost or\nserver\nprocess\nTCP with\nbuffers,\nvariables\nsocket\ncontrolled by\napplication\ndeveloper\ncontrolled by\noperating\nsystem\nhost or\nserver\ninternet\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide9",
-    "text": "Socket programming with TCP Client must contact server \u2022 server process must first be running \u2022 server must have created socket (door) that welcomes client\u2019s contact Client contacts server by: \u2022 creating client-local TCP socket \u2022 specifying IP address, port number of server process \u2022 When client creates socket: client TCP establishes connection to server TCP When contacted by client, server TCP creates new socket for server process to communicate with client \u2022 allows server to talk with multiple clients \u2022 source port numbers used to distinguish clients TCP provides reliable, in-order transfer of bytes (\u201cpipe\u201d) between client and server application viewpoint From Computer Networking by Kurose and Ross."
+    "text": "Socket programming with TCP\nClient must contact server\n•\nserver process must first be \nrunning\n•\nserver must have created \nsocket (door) that welcomes \nclient’s contact\nClient contacts server by:\n•\ncreating client-local TCP \nsocket\n•\nspecifying IP address, port \nnumber of server process\n•\nWhen client creates socket: \nclient TCP establishes \nconnection to server TCP\nWhen contacted by client, server \nTCP creates new socket for \nserver process to \ncommunicate with client\n•\nallows server to talk with \nmultiple clients\n•\nsource port numbers used to \ndistinguish clients\nTCP provides reliable, in-order\n transfer of bytes (“pipe”) \nbetween client and server\napplication viewpoint\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide10",
-    "text": "Socket with TCP 10 Web server has two sockets opened: one for each web page it is serving. These sockets are differentiated by the destination port numbers."
+    "text": "Socket with TCP\n10\nWeb server has two sockets opened: one for each web \npage it is serving. These sockets are differentiated by the \ndestination port numbers.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide11",
-    "text": "Client/server socket interaction: TCP Server (stand-by, waiting for requests) Client (initiate the request) Create socket (Claim resources/ available phone) Bind port (Claim ID on this machine/ get a phone extension No.) Listen/ accept (Wait for connections/ Wait for phone call) Send/ receive (Communication/ Chat on phone) Create socket (Claim resources/ available phone) Connect (connect to server/ call others) - (Don\u2019t care about public port/ phone #) Send/ receive (Communication/ Chat on phone) Close socket (End communication/ Hang up the phone) Close socket (End communication/ Hang up the phone) 1 2 3 4 5 6 6 7/8 7/8 Red word: wait for the other side"
+    "text": "Client/server socket interaction: TCP\nServer (stand-by, waiting for requests)\nClient (initiate the request) \nCreate socket\n(Claim resources/ available phone)\nBind port\n(Claim ID on this machine/ \nget a phone extension No.)\nListen/ accept\n(Wait for connections/ Wait for phone call)\nSend/ receive\n(Communication/ Chat on phone)\nCreate socket\n(Claim resources/ available phone)\nConnect\n(connect to server/ call others)\n-\n(Don’t care about public port/ phone #)\nSend/ receive\n(Communication/ Chat on phone)\nClose socket\n(End communication/ Hang up the phone)\nClose socket\n(End communication/ Hang up the phone)\n1\n2\n3\n4\n5\n6\n6\n7/8\n7/8\nRed word: wait for the other side\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide12",
-    "text": "TCP Socket Primitives Primitive Function Socket Create a new communication endpoint Bind Attach a local address to a socket Listen Announce willingness to accept connections Accept Block caller until a connection request arrives Connect Actively attempt to establish a connection Send Send some data over the connection Recv Receive some data over the connection Close Release the connection Connection socket"
+    "text": "TCP Socket Primitives\nPrimitive\nFunction\nSocket\nCreate a new communication endpoint\nBind\nAttach a local address to a socket\nListen\nAnnounce willingness to accept connections\nAccept\nBlock caller until a connection request arrives\nConnect\nActively attempt to establish a connection\nSend\nSend some data over the connection\nRecv\nReceive some data over the connection\nClose\nRelease the connection\nConnection \nsocket\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide13",
-    "text": "Client/server socket interaction: TCP Server (stand-by, waiting for requests) Client (initiate the request) Create socket (Claim resources/ available phone) Bind port (Claim ID on this machine/ get a phone extension No.) Listen/ accept Send/ receive (Communication/ Chat on phone) Create socket (Claim resources/ available phone) Connect (connect to server/ call others) Send/ receive (Communication/ Chat on phone) Close socket (End communication/ Hang up the phone) Close socket (End communication/ Hang up the phone) Fork/ New thread Child Parent"
+    "text": "Client/server socket interaction: TCP\nServer (stand-by, waiting for requests)\nClient (initiate the request) \nCreate socket\n(Claim resources/ available phone)\nBind port\n(Claim ID on this machine/ \nget a phone extension No.)\nListen/ accept\nSend/ receive\n(Communication/ Chat on phone)\nCreate socket\n(Claim resources/ available phone)\nConnect\n(connect to server/ call others)\nSend/ receive\n(Communication/ Chat on phone)\nClose socket\n(End communication/ Hang up the phone)\nClose socket\n(End communication/ Hang up the phone)\nFork/ New thread\nChild\nParent\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide14",
-    "text": "Client/server socket interaction: TCP wait for incoming connection request connectionSocket = welcomeSocket.accept() create socket, port=x, for incoming request: welcomeSocket = ServerSocket() create socket, connect to hostid, port=x clientSocket = Socket() close connectionSocket read reply from clientSocket close clientSocket Server (running on hostid, port x) Client (running on hostname ?, port ?) send request using clientSocket read request from connectionSocket write reply to connectionSocket TCP connection setup"
+    "text": "Client/server socket interaction: TCP\nwait for incoming\nconnection request\nconnectionSocket =\nwelcomeSocket.accept()\ncreate socket,\nport=x, for\nincoming request:\nwelcomeSocket = \nServerSocket()\ncreate socket,\nconnect to hostid, port=x\nclientSocket = \nSocket()\nclose\nconnectionSocket\nread reply from\nclientSocket\nclose\nclientSocket\nServer (running on hostid, port x)\nClient (running on hostname ?, port ?)\nsend request using\nclientSocket\nread request from\nconnectionSocket\nwrite reply to\nconnectionSocket\nTCP \nconnection setup\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide15",
-    "text": "15 Connection-oriented TCP \u2751TCP socket identified by 4-tuple: \u2022 source IP address \u2022 source port number \u2022 destion IP address \u2022 destion port number \u2751Receive host uses all four values to direct segment to appropriate socket"
+    "text": "15\nConnection-oriented TCP\n❑TCP socket identified by 4-tuple: \n•\nsource IP address\n•\nsource port number\n•\ndestion IP address\n•\ndestion port number\n❑Receive host uses all four values to direct \nsegment to appropriate socket\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide16",
-    "text": "Socket programming with UDP UDP: no \u201cconnection\u201d between client and server \u2022 no handshaking \u2022 sender explicitly attaches IP address and port of destination \u2022 server must extract IP address, port of sender from received datagram UDP: transmitted data may be received out of order, or lost UDP provides unreliable transfer of groups of bytes (\u201cdatagrams\u201d) between client and server application viewpoint From Computer Networking by Kurose and Ross."
+    "text": "Socket programming with UDP\nUDP: no “connection” between\nclient and server\n•\nno handshaking\n•\nsender explicitly attaches IP \naddress and port of \ndestination\n•\nserver must extract IP \naddress, port of sender from \nreceived datagram\nUDP: transmitted data may be\nreceived out of order, or lost\nUDP provides unreliable transfer\nof groups of bytes (“datagrams”)\nbetween client and server\napplication viewpoint\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide17",
-    "text": "Socket programming with UDP From Computer Networking by Kurose and Ross."
+    "text": "Socket programming with UDP\nFrom Computer Networking by Kurose and Ross.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide18",
-    "text": "Multicast Communication At Network Layer"
+    "text": "Multicast Communication \nAt Network Layer\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide19",
-    "text": "Unicast Communication In unicast routing, the router forwards the received packet through only one of its interfaces."
+    "text": "Unicast Communication \nIn unicast routing, the router forwards \nthe received packet through only one \nof its interfaces.\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide20",
-    "text": "Multicast Communication Broadcast \u2013 sends a single message from one process to all processes (hosts) \u2022 Used for ARP in a LAN \u2022 Hard and expensive in WAN Multicast \u2013 sends a single message from one process to members of a group of processes (hosts) Who needs multicast? Who should provide it? Application, transport, network layer? https://www.youtube.com/watch?v=C5pFaZtbISo"
+    "text": "Multicast Communication \nBroadcast – sends a single message from one \nprocess to all processes (hosts)\n• Used for ARP in a LAN\n• Hard and expensive in WAN\nMulticast – sends a single message from one \nprocess to members of a group of processes \n(hosts)\nWho needs multicast?\nWho should provide it?\n Application, transport, network layer? \nhttps://www.youtube.com/watch?v=C5pFaZtbISo \n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide21",
-    "text": "Multicast Communication \u2022 In multicast routing, the router may forward the received packet through several of its interfaces"
+    "text": "Multicast Communication \n• In multicast \nrouting, the \nrouter may \nforward the \nreceived packet \nthrough several \nof its interfaces\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide22",
-    "text": "Who needs it? Uses of Multicast and Its Effects Fault tolerance based on replicated services \u2022 Requests multicast to group of servers Discovery in spontaneous networking \u2022 Locate available discovery services Performance from replicated data \u2022 Multicast changes to all replicas Propagation of event notifications in a distributed environment \u2022 News group: news \u2192 group of interested users"
+    "text": "Who needs it?\nUses of Multicast and Its Effects\nFault tolerance based on replicated services\n• Requests multicast to group of servers\nDiscovery in spontaneous networking\n• Locate available discovery services\nPerformance from replicated data\n• Multicast changes to all replicas\nPropagation of event notifications in a distributed \nenvironment\n• News group: news → group of interested users\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide23",
-    "text": "Multicast IP address oc tet 1 oc tet 2 oc tet 3 Class  A: 1 to 127 0 to 255 0 to 255 1 to 254 Class  B: 128 to 191 Class  C: 192 to 223 224 to 239 Class  D (multicast) : Network  ID Network  ID Network  ID Host ID Host ID Host ID Multic ast addres s 0 to 255 0 to 255 1 to 254 0 to 255 0 to 255 0 to 255 0 to 255 0 to 255 0 to 255 Multic ast addres s 0 to 255 0 to 255 1 to 254 240 to 255 Class  E ( res erv ed) : 1.0.0.0 to 127.255.255.255 128.0.0.0 to 191.255.255.255 192.0.0.0 to 223.255.255.255 224.0.0.0 to 239.255.255.255 128.0.0.0 to 247.255.255.255 Range of addresses 224.0.0.0 to 224.0.0.255 (224.0.0.0/24) \u2192 local subnet multicast traffic 224.0.1.0 to 238.255.255.255 \u2192 globally scoped addresses 239.0.0.0 to 239.255.255.255 (239.0.0.0/8) \u2192 administratively scoped addresses, boundary"
+    "text": "Multicast IP address\noc tet 1\noc tet 2\noc tet 3\nClass  A:\n1 to 127\n0 to 255\n0 to 255\n1 to 254\nClass  B:\n128 to 191\nClass  C:\n192 to 223 \n224 to 239 \nClass  D (multicast) :\nNetwork  ID\nNetwork  ID\nNetwork  ID\nHost ID\nHost ID\nHost ID\nMultic ast addres s\n0 to 255\n0 to 255\n1 to 254\n0 to 255\n0 to 255\n0 to 255\n0 to 255\n0 to 255\n0 to 255\nMultic ast addres s\n0 to 255\n0 to 255\n1 to 254\n240 to 255 \nClass  E ( res erv ed) :\n1.0.0.0 to \n127.255.255.255\n128.0.0.0 to \n191.255.255.255\n192.0.0.0 to \n223.255.255.255\n224.0.0.0 to \n239.255.255.255\n128.0.0.0 to \n247.255.255.255\nRange of addresses\n224.0.0.0 to 224.0.0.255 (224.0.0.0/24) → local subnet multicast traffic \n224.0.1.0 to 238.255.255.255 → globally scoped addresses \n239.0.0.0 to 239.255.255.255 (239.0.0.0/8) → administratively scoped \naddresses, boundary\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide24",
-    "text": "IP Multicast Process Each multicast address \u2192 identify a group Internet Group Membership Protocol (IGMP) \u2022 Processes register a group with local router using IGMP Router update its multicast routing table Processes send message to a group \u2022 Do not need to be a member Router forward multicast messages"
+    "text": "IP Multicast Process\nEach multicast address → identify a group\nInternet Group Membership Protocol (IGMP)\n• Processes register a group with local router using IGMP\nRouter update its multicast routing table\nProcesses send message to a group\n• Do not need to be a member\nRouter forward multicast messages\n"
   },
   {
+    "doc": "lecture03_processed.json",
     "id": "slide25",
-    "text": "Multicast Routing Problem Goal: find a tree (or trees) connecting routers having local multicast group members tree: not all paths between routers used source-based: different tree from each sender to receivers shared-tree: same tree used by all group members Shared tree Source-based trees From Computer Networking by Kurose and Ross."
+    "text": "Multicast Routing Problem\nGoal: find a tree (or trees) connecting routers \nhaving local multicast group members \ntree: not all paths between routers used\nsource-based: different tree from each sender to receivers\nshared-tree: same tree used by all group members\nShared tree\nSource-based trees\nFrom Computer Networking by Kurose and Ross.\n"
   }
 ]

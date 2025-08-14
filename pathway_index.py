@@ -20,16 +20,17 @@ import numpy as np
 import faiss
 #import glob
 import argparse
+import re
 from sentence_transformers import SentenceTransformer
 
 #sentence_transformer offline
-os.environ["HF_HUB_OFFLINE"] = "1
+os.environ["HF_HUB_OFFLINE"] = "1"
 
 
 #Load Sections
-def creating_sections(processed_path):
+def creating_sections(processed_path, lecture_num):
     """Purpose: To take the slides and make it easier to create a FAISS index vector and organize the metadata
-    Input: The file path to the text file that is an array full of dictionaries of slides
+    Input: The file path to the text file that is an array full of dictionaries of slides and the number of the presentation
     Output: An array of the full text and an array of dictionaries with the doc, slide, and text
     """
     current_sections = []
@@ -113,6 +114,8 @@ def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("--model-path", default="./models/all-MiniLM-L6-v2")
     ap.add_argument("--input-json", required=True, help="Path to lecture##_process.json")
+    ap.add_argument("--output-index", default="./Desktop/RAG/data")
+    ap.add_argument("--output-meta", default="./Desktop/RAG/data")
     ap.add_argument("--out-dir", default="data")
     args = ap.parse_args()
 
@@ -124,7 +127,7 @@ def main():
     derive_num = re.search(r"lecture(\d+)_processed\.json$", os.path.basename(processed_path))
     num = derive_num.group(1) if derive_num else "00"
     os.makedirs(args.out_dir, exist_ok=True)
-    index_out = os.path.join(args.out_dir, f"index_{num}.fais")
+    index_out = os.path.join(args.out_dir, f"index_{num}.faiss")
     meta_out = os.path.join(args.out_dir, f"meta_{num}.json")
     
     #Loading the model and settings - specifically "used to map sentences/text to embeddings"
@@ -134,7 +137,7 @@ def main():
     text = []  #full text that gets referenced by meta
     data = []  #data that will get loaded
 
-    text, data = creating_sections(processed_path)
+    text, data = creating_sections(processed_path, num)
     curr_embed = embed_text(text, current_model)
     curr_index = build_faiss_index(curr_embed)
 
@@ -144,8 +147,8 @@ def main():
         json.dump(data, file, indent = 2)
 
     #Confirm the save
-    print(f"Saved index -> {index_out}")
-    print(f"Saved meta  -> {meta_out}")
+    print(f"Saved index -> {os.path.abspath(index_out)}")
+    print(f"Saved meta  -> {os.path.abspath(meta_out)}")
 
     return
 

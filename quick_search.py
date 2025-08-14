@@ -18,7 +18,6 @@ os.environ["HF_HUB_OFFLINE"] = "1"
 TOP_K = 5           #Changed to 5 because too few results
 PER_INDEX_K = 15
 MIN_SCORE = 0.35    #Initial try to filter out halucinations
-#MODEL_TYPE = "/home/momo/models/all-MiniLM-L6-v2"
 #Specific lecture number
 LECTURES = ["01", "02", "03", "04", "05", "06"]
 
@@ -201,7 +200,7 @@ def main():
     #Creating arguments for loading the data; used docs.python.org/3/library/argparse.html documentation as a guide and why I chose using arguments
     #Reason: I needed something to print out the global var and file paths, and this was easier than trying to use variable names and rewritting directory names
     ap = argparse.ArgumentParser(description = "Offline semantic search over lecture indexes (FAISS).")
-    ap.add_argument("--model-path", default=MODEL_TYPE, help="Local SentenceTransformer model path")
+    ap.add_argument("--model-path", help="Local SentenceTransformer model path")
     ap.add_argument("--lectures", nargs="+", default=LECTURES, help="Lecture numbers to load, e.g. 01, 02, 03, 04...")
     ap.add_argument("--data-dir", default="data", help="Directory containing index_XX.faiss and meta_XX.json")
     ap.add_argument("--per-index-k", type=int, default=PER_INDEX_K, help="Per-index candidates (before merge)")

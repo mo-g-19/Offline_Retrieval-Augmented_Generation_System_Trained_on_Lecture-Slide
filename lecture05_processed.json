@@ -1,154 +1,192 @@
 [
   {
+    "doc": "lecture05_processed.json",
     "id": "slide1",
-    "text": "From Coulouris, Dollimore, Kindberg and Blair Distributed Systems: Concepts and Design Edition 5, \u00a9 Addison-Wesley 2012 Distributed Objects and Components"
+    "text": "From Coulouris, Dollimore, Kindberg and Blair\nDistributed Systems: \n \n \nConcepts and Design\nEdition 5, © Addison-Wesley 2012\nDistributed Objects and Components\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide2",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Distributed object middleware \u2022 The key characteristic of distributed objects is that they allow you to adopt an object-oriented programming model for the development of distributed systems \u2022 Communicating entities are represented by objects which communicate mainly using remote method invocation \u2022 The encapsulation \u2022 Data abstraction (programmers deal in terms of interfaces and not with implementation details) \u2022 More dynamic and extensible solutions \u2022 Component-based middleware solves several limitations \u2022 Implicit dependencies, Programming complexity, Lack of separation of distribution concerns, No support for deployment"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nDistributed object middleware\n•\nThe key characteristic of distributed objects is that they allow you to \nadopt an object-oriented programming model for the development of \ndistributed systems\n•\nCommunicating entities are represented by objects which \ncommunicate mainly using remote method invocation\n• The encapsulation\n• Data abstraction (programmers deal in terms of interfaces and not \nwith implementation details) \n• More dynamic and extensible solutions\n•\nComponent-based middleware solves several limitations\n• Implicit dependencies, Programming complexity, Lack of \nseparation of distribution concerns, No support for deployment\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide3",
-    "text": "Dr. Almetwally Mostafa 3 OUTLINE Applications Middleware layers request-reply protocol marshalling and external data representation UDP and TCP This chapter RMI, RPC, and events"
+    "text": "Dr. Almetwally Mostafa\n3\nOUTLINE \nApplications\nMiddleware\nlayers\nrequest-reply protocol\nmarshalling and external data representation\nUDP and TCP\nThis\nchapter\nRMI, RPC, and events\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide4",
-    "text": "4 What\u2019s in a Name? Distributed Objects: Software modules (objects) that are designed to work together but reside in multiple computer systems throughout an organization. A program in one machine sends a message to an object in a remote machine to perform some processing. The results are sent back to the local machine."
+    "text": "4\nWhat’s in a Name? \nDistributed Objects: \nSoftware modules (objects) that are designed to work together \nbut reside in multiple computer systems throughout an \norganization. A program in one machine sends a message to \nan object in a remote machine to perform some processing. \nThe results are sent back to the local machine.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide5",
-    "text": "5 \u201cThe Network is the Computer\u201d SomeClass AnotherClass method call returned object computer 1 computer 2"
+    "text": "5\n“The Network is the Computer”\nSomeClass\nAnotherClass\nmethod call\nreturned object\ncomputer 1\ncomputer 2\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide6",
-    "text": "6 What exactly do we mean by \u201cobjects\u201d? Objects are units of data with the following properties: \u25aatyped and self-contained \u2022 Each object is an instance of a type that defines a set of methods (signatures) that can be invoked to operate on the object. \u25aaencapsulated \u2022 The only way to operate on an object is through its methods; the internal representation/implementation is hidden from view. \u25aadynamically allocated/destroyed \u2022 Objects are created as needed and destroyed when no longer needed, i.e., they exist outside of any program scope. \u25aauniquely referenced \u2022 Each object is uniquely identified during its existence by a name/OID/reference/pointer that can be held/passed/stored/shared."
+    "text": "6\nWhat exactly do we mean by “objects”?\nObjects are units of data with the following properties:\n▪typed and self-contained\n• Each object is an instance of a type that defines a set of methods (signatures) that \ncan be invoked to operate on the object.\n▪encapsulated\n•\nThe only way to operate on an object is through its methods; the internal \nrepresentation/implementation is hidden from view.\n▪dynamically allocated/destroyed\n•\nObjects are created as needed and destroyed when no longer needed, i.e., they \nexist outside of any program scope.\n▪uniquely referenced\n•\nEach object is uniquely identified during its existence by a \nname/OID/reference/pointer that can be held/passed/stored/shared.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide7",
-    "text": "7 Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Distributed objects 7"
+    "text": "7\nInstructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nDistributed objects\n7\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide8",
-    "text": "8 Why are objects useful? The properties of objects make them useful as a basis for defining persistence, protection, and distribution. \u25aa Objects are self-contained and independent. \u25aaObjects are a useful granularity for persistence, caching, location, replication, and/or access control. \u25aa Objects are self-describing. \u25aaObject methods are dynamically bound, so programs can import and operate on objects found in shared or persistent storage. \u25aa Objects are abstract and encapsulated. \u25aaIt is easy to control object access by verifying that all clients invoke the object\u2019s methods through a legal reference. \u25aaInvocation is syntactically and semantically independent of an object\u2019s location or implementation."
+    "text": "8\nWhy are objects useful?\nThe properties of objects make them useful as a basis for \ndefining persistence, protection, and distribution.\n▪\nObjects are self-contained and independent.\n▪Objects are a useful granularity for persistence, caching, location, replication, \nand/or access control.\n▪\nObjects are self-describing.\n▪Object methods are dynamically bound, so programs can import and operate on \nobjects found in shared or persistent storage.\n▪\nObjects are abstract and encapsulated.\n▪It is easy to control object access by verifying that all clients invoke the object’s \nmethods through a legal reference.\n▪Invocation is syntactically and semantically independent of an object’s location or \nimplementation.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide9",
-    "text": "9 Issues Vital to Distributed Object Systems 1. Can we use distributed objects as a basis for interoperability among software modules written in different languages?"
+    "text": "9\nIssues Vital to Distributed Object Systems\n1.\nCan we use distributed objects as a basis for interoperability among \nsoftware modules written in different languages?\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide10",
-    "text": "Issues Vital to Distributed Object Systems 10 2. Can objects interact across systems with different data formats?"
+    "text": "Issues Vital to Distributed Object Systems\n10\n2.\nCan objects interact across systems with different data formats?\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide11",
-    "text": "11 3. How can we recover object state after failures? Issues Vital to Distributed Object Systems https://www.youtube.com/watch?v=vhuYpnqFNoA"
+    "text": "11\n3.\nHow can we recover object state after failures? \nIssues Vital to Distributed Object Systems\nhttps://www.youtube.com/watch?v=vhuYpnqFNoA \n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide12",
-    "text": "Example: Emerald Emerald is a classic and influential distributed object system. Distribution is fully integrated into the language, its implementation, and even its type model. \u2022 This is a strength and a weakness: combines language issues and system issues that should be separated. Objects can be freely moved around the network \u2022 Programmers see a uniform view of local and remote objects. \u2022 Moving objects \u201ctake their code and threads with them\u201d. Local invocation is fast; remote invocation is transparent. \u2022 supports pass-by-reference for RPC"
+    "text": "Example: Emerald\nEmerald is a classic and influential distributed \nobject system.\nDistribution is fully integrated into the language, its \nimplementation, and even its type model.\n•\nThis is a strength and a weakness: combines language issues and \nsystem issues that should be separated.\nObjects can be freely moved around the network\n•\nProgrammers see a uniform view of local and remote objects.\n•\nMoving objects “take their code and threads with them”.\nLocal invocation is fast; remote invocation is transparent.\n•\nsupports pass-by-reference for RPC\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide13",
-    "text": "Uniform Mobility: an Example node A Step 1: a thread invokes a purple object on node A, which  recursively invokes a blue object on the same node. node A Step 2: the blue object moves to node B concurrently with the invocation. node B How to preserve inter-object pointers across migration? How to keep threads \u201csticky\u201d with migrating objects? How to maintain references in stack activation records? How to maintain linkages among activation records?"
+    "text": "Uniform Mobility: an Example\nnode A\nStep 1: a thread invokes a purple object \non node A, which  recursively invokes a \nblue object on the same node.\nnode A\nStep 2: the blue object moves to node B\nconcurrently with the invocation.\nnode B\nHow to preserve inter-object pointers across migration?\nHow to keep threads “sticky” with migrating objects?\nHow to maintain references in stack activation records?\nHow to maintain linkages among activation records?\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide14",
-    "text": "Object References in Emerald node A Emerald represents inter-object references as pointers into an object descriptor in an object table hashed by a unique object identifier (OID). The object table has a descriptor for every resident object, and for every remote object referenced by a resident object, and then some. When an object moves, its containing references must be found (using its template) and updated to point to descriptors on the destination node. References to the moving object need not be updated because they indirect through the object table. node B"
+    "text": "Object References in Emerald\nnode A\nEmerald represents inter-object references as pointers into an object \ndescriptor in an object table hashed by a unique object identifier (OID).\nThe object table has a descriptor for every resident object, and for every \nremote object referenced by a resident object, and then some.\nWhen an object moves, its containing references must be found (using \nits template) and updated to point to descriptors on the destination node.\nReferences to the moving object need not be updated because they \nindirect through the object table.\nnode B\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide15",
-    "text": "Distributed Objects Model \u25aa Distributed object systems adopt the client-server architecture: \u2022 Objects are managed by servers and their clients invoke their methods using remote method invocation. \u2022 The client\u2019s RMI request is sent in a message to the server managing the invoked method object. \u2022 The method of the object at the server is executed and its result is returned to the client in another message. \u2022 Objects in servers are allowed to become clients of objects in other servers. \u25aa Distributed objects can be replicated and migrated to obtain the benefits of fault tolerance, enhanced performance and availability. \u25aa Having client and server objects in different processes enforces encapsulation due to concurrency and heterogeneity of RMI calls."
+    "text": "Distributed Objects Model\n▪\nDistributed object systems adopt the client-server architecture:\n•\nObjects are managed by servers and their clients invoke their \nmethods using remote method invocation.\n•\nThe client’s RMI request is sent in a message to the server managing \nthe invoked method object.\n•\nThe method of the object at the server is executed and its result is \nreturned to the client in another message.\n•\nObjects in servers are allowed to become clients of objects in other \nservers.\n▪\nDistributed objects can be replicated and migrated to obtain the \nbenefits of fault tolerance, enhanced performance and availability.\n▪\nHaving client and server objects in different processes enforces \nencapsulation due to concurrency and heterogeneity of RMI calls.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide16",
-    "text": "Distributed Objects Model invocation remote A B C D E F Remote and local method invocations"
+    "text": "Distributed Objects Model\ninvocation\nremote\nA\nB\nC\nD\nE\nF\nRemote and local method invocations\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide17",
-    "text": "Distributed Objects Model \u2022 Each process contains a collection of objects, some of which can receive both local and remote invocations and others can receive only local invocations. \u2022 Objects that can receive remote invocations are called remote objects. \u2022 Other objects need to know the remote object reference in another process in order to invoke its methods. \u2022 A remote object reference is an identifier that can be used through a distributed system to refer to a particular unique remote object. \u2022 Every remote object has a remote interface to specify which of its methods can be invoked remotely. \u2022 Objects in other processes can invoke only the methods that belong to the remote interface of the remote object. \u2022 Local objects can invoke the methods in the remote interface as well as other methods of the remote object."
+    "text": "Distributed Objects Model\n•\nEach process contains a collection of objects, some of which can \nreceive both local and remote invocations and others can receive \nonly local invocations.\n•\nObjects that can receive remote invocations are called remote \nobjects.\n•\nOther objects need to know the remote object reference in another \nprocess in order to invoke its methods.\n•\nA remote object reference is an identifier that can be used through a \ndistributed system to refer to a particular unique remote object.\n•\nEvery remote object has a remote interface to specify which of its \nmethods can be invoked remotely.\n•\nObjects in other processes can invoke only the methods that belong to \nthe remote interface of the remote object.\n•\nLocal objects can invoke the methods in the remote interface as well \nas other methods of the remote object.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide18",
-    "text": "23 Distributed Object Technologies 1. Remote Method Invocation (RMI) API and architecture for distributed Java objects 2. Microsoft Component Object Model (COM/DCOM) binary standard for distributed objects for Windows platforms 3. CORBA (Common Object Request Broker Architecture) platform and location transparency for sharing well-defined objects across a distributed computing platform 4. Enterprise Java Beans (EJB) CORBA-compliant distributed objects for Java, built using RMI 5. Web services and SOAP protocols and standards used for exchanging data between applications"
+    "text": "23\nDistributed Object Technologies\n1.\nRemote Method Invocation (RMI)\nAPI and architecture for distributed Java objects\n2.\nMicrosoft Component Object Model (COM/DCOM)\nbinary standard for distributed objects for Windows platforms\n3.\nCORBA (Common Object Request Broker Architecture)\nplatform and location transparency for sharing well-defined objects across a \ndistributed computing platform\n4.\nEnterprise Java Beans (EJB)\nCORBA-compliant distributed objects for Java, built using RMI\n5.\nWeb services and SOAP\nprotocols and standards used for exchanging data between applications\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide19",
-    "text": "Example: RMI and Network Objects Our goal now is to look at some current distributed object systems. We start with systems that preserve the single-language model of Emerald, with uniform garbage collection: \u2022 RMI for Java"
+    "text": "Example: RMI and Network Objects\nOur goal now is to look at some current distributed object \nsystems.\nWe start with systems that preserve the single-language \nmodel of Emerald, with uniform garbage collection:\n•\nRMI for Java\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide20",
-    "text": "Stub/Surrogate Objects server Remote objects are referenced through proxy or surrogate objects, which \u201cmasquerade\u201d as the actual remote object. client [SOS system, Marc Shapiro, The Proxy Principle (1986)] stub, surrogate, or proxy skeleton or guard Proxy/stub objects can enscapsulate caching, replication, or other aspects of distribution that are best kept hidden from the client (also cf. subcontracts [Hamilton et. al., SOSP 93]). Skeletons/guards may perform access checks as well as marshaling and method dispatch. Per-process object tables hash stubs and skeletons by external OID (passed on the wire). Proxy objects are type- equivalent with their remote objects, but their methods are marshaling stubs."
+    "text": "Stub/Surrogate Objects\nserver\nRemote objects are referenced through proxy \nor surrogate objects, which “masquerade” as \nthe actual remote object.\nclient\n[SOS system, Marc Shapiro, The Proxy Principle (1986)]\nstub, surrogate, or proxy\nskeleton or guard\nProxy/stub objects can enscapsulate caching, replication, or other aspects of distribution that are \nbest kept hidden from the client (also cf. subcontracts [Hamilton et. al., SOSP 93]).\nSkeletons/guards may\nperform access checks\nas well as marshaling\nand method dispatch.\nPer-process object tables hash stubs \nand skeletons by external\nOID (passed on the wire).\nProxy objects are type-\nequivalent with their remote \nobjects, but their methods are \nmarshaling stubs.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide21",
-    "text": "Remote Method Invocation (RMI) 3: stub2 = stub1->method() stub RMI layer transport skeleton RMI layer transport client VM server VM RMI registry 2: stub1  = Naming.lookup(URL) 1: Naming.bind(URL, obj1) The registry provides a bootstrap naming service using URLs. rmi://slowww.server.edu/object1 obj1 obj2 obj3 RMI is \u201cRPC in Java\u201d, supporting Emerald-like distributed object references, invocation, and garbage collection, derived from SRC Modula-3 network objects [SOSP 93]. server app client app"
+    "text": "Remote Method Invocation (RMI)\n3: stub2 = stub1->method()\nstub\nRMI layer\ntransport\nskeleton\nRMI layer\ntransport\nclient VM\nserver VM\nRMI registry\n2: stub1  = Naming.lookup(URL)\n1: Naming.bind(URL, obj1)\nThe registry provides a bootstrap \nnaming service using URLs.\nrmi://slowww.server.edu/object1\nobj1\nobj2\nobj3\nRMI is “RPC in Java”, supporting \nEmerald-like distributed object \nreferences, invocation, and garbage \ncollection, derived from SRC Modula-3\nnetwork objects [SOSP 93].\nserver app\nclient app\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide22",
-    "text": "The RMI Stack stub RMI layer transport skeleton RMI layer transport client VM server VM server app client app cached TCP connections cached server threads object table object table referenced set method stubs referenced set method stubs"
+    "text": "The RMI Stack\nstub\nRMI layer\ntransport\nskeleton\nRMI layer\ntransport\nclient VM\nserver VM\nserver app\nclient app\ncached TCP\nconnections\ncached server\nthreads\nobject table\nobject table\nreferenced set\nmethod stubs\nreferenced set\nmethod stubs\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide23",
-    "text": "\u25aa Very similar to a remote method invocation \u2022 A client process calls a procedure in a server process. \u2022 Servers may be clients of other servers to allow chains of RPCs. \u2022 Implemented to have one of the choices of invocation semantics. \u2022 Implemented over a request-reply protocol . \u25aa The contents of request and reply messages are the same as RMI except that the object reference field is omitted. \u25aa The supported software is similar except that no remote reference modules are required and client proxies and server skeletons are replaced by client and server stub procedures. \u25aa The service interface of the server defines the procedures that are available for calling remotely. \u25aa The client and server stub procedures and the dispatcher are generated by an interface compiler from the definition of the service interface. Remote Procedure Call (RPC)"
+    "text": "▪\nVery similar to a remote method invocation\n•\nA client process calls a procedure in a server process.\n•\nServers may be clients of other servers to allow chains of RPCs.\n•\nImplemented to have one of the choices of invocation semantics.\n•\nImplemented over a request-reply protocol .\n▪\nThe contents of request and reply messages are the same as RMI except \nthat the object reference field is omitted.\n▪\nThe supported software is similar except that no remote reference modules \nare required and client proxies and server skeletons are replaced by client \nand server stub procedures.\n▪\nThe service interface of the server defines the procedures that are \navailable for calling remotely. \n▪\nThe client and server stub procedures and the dispatcher are generated by \nan interface compiler from the definition of the service interface.\nRemote Procedure Call (RPC)\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide24",
-    "text": "Remote Procedure Call (RPC) client Request Reply Communication Communication module module dispatcher service client stub server stub procedure procedure client process server process procedure program Role of client and server stub procedures in RPC"
+    "text": "Remote Procedure Call (RPC)\nclient \nRequest\nReply\nCommunication\nCommunication\nmodule\nmodule\ndispatcher\nservice \nclient stub\nserver stub\nprocedure\nprocedure\nclient process \nserver process \nprocedure\nprogram \nRole of client and server stub procedures in RPC\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide25",
-    "text": "32 JAVA RMI Example"
+    "text": "32\nJAVA RMI Example\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide26",
-    "text": "33 Introduction to Java RMI Java RMI allowed programmer to execute remote function class using the same semantics as local functions calls. Local Machine (Client) SampleServer remoteObject; int s; \u2026 s = remoteObject.sum(1,2); System.out.println(s); Remote Machine (Server) public int sum(int a,int b) { return a + b; } 1,2 3"
+    "text": "33\nIntroduction to Java RMI\nJava RMI allowed programmer to execute remote function class using the \nsame semantics as local functions calls.\nLocal Machine (Client)\nSampleServer remoteObject;\nint s;\n…\ns = remoteObject.sum(1,2);\nSystem.out.println(s);\nRemote Machine (Server)\npublic int sum(int a,int b) \n{\n     return a + b;\n}\n1,2\n3\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide27",
-    "text": "34 The General RMI Architecture Local/Remote machines Registry Skeleton Stub RMI Server skeleton stub RMI Client Registry bind lookup return call Local Machine Remote Machine"
+    "text": "34\nThe General RMI Architecture\nLocal/Remote machines\nRegistry\nSkeleton\nStub\nRMI Server\nskeleton\nstub\nRMI Client\nRegistry\nbind\nlookup\nreturn\ncall\nLocal Machine\nRemote Machine\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide28",
-    "text": "35 The Stub and Skeleton A client invokes a remote method, the call is first forwarded to stub. The stub is responsible for sending the remote call over to the server-side skeleton The stub opening a socket to the remote server, marshaling (encoding in standard, independent format) the object parameters and forwarding the data stream to the skeleton. A skeleton contains a method that receives the remote calls, unmarshals the parameters, and invokes the actual remote object implementation. Stub RMI Client RMI Server skeleton return call"
+    "text": "35\nThe Stub and Skeleton\nA client invokes a remote method, the call is first forwarded to stub. The stub is \nresponsible for sending the remote call over to the server-side skeleton\nThe stub opening a socket to the remote server, marshaling (encoding in standard, \nindependent format) the object parameters and forwarding the data stream to the skeleton.\nA skeleton contains a method that receives the remote calls, unmarshals the parameters, \nand invokes the actual remote object implementation.\nStub\nRMI Client\nRMI Server\nskeleton\nreturn\ncall\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide29",
-    "text": "36 Steps for Developing an RMI System 1. Define the remote interface 2. Develop the remote object by implementing the remote interface 3. Develop the client program 4. Compile the Java source files 5. Generate the client stubs and server skeletons 6. Start the RMI registry 7. Start the remote server objects 8. Run the client"
+    "text": "36\nSteps for Developing an RMI System\n1. Define the remote interface\n2. Develop the remote object by implementing the remote \ninterface\n3. Develop the client program\n4. Compile the Java source files\n5. Generate the client stubs and server skeletons\n6. Start the RMI registry\n7. Start the remote server objects\n8. Run the client \n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide30",
-    "text": "37 Step 1:  Defining the Remote Interface To create an RMI application, the first step is the defining of a remote interface between the client and server objects. /* SampleServer.java */ import java.rmi.*; public interface SampleServer extends Remote { public int sum(int a,int b) throws RemoteException; }"
+    "text": "37\nStep 1:  Defining the Remote Interface\nTo create an RMI application, the first step is the defining of a \nremote interface between the client and server objects.\n/* SampleServer.java */\nimport java.rmi.*;\npublic interface SampleServer extends Remote\n{\n  public int sum(int a,int b) throws RemoteException;\n}\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide31",
-    "text": "38 Step 2: Develop the Remote Object and its Interface The server is a simple unicast remote server. Create server by extending java.rmi.server.UnicastRemoteObject. /* SampleServerImpl.java */ import java.rmi.*; import java.rmi.server.*; import java.rmi.registry.*; public class SampleServerImpl extends UnicastRemoteObject implements SampleServer { SampleServerImpl() throws RemoteException { super(); } \u2026"
+    "text": "38\nStep 2: Develop the Remote Object and its Interface\nThe server is a simple unicast remote server. \nCreate server by extending java.rmi.server.UnicastRemoteObject. \n/* SampleServerImpl.java */\nimport java.rmi.*;\nimport java.rmi.server.*;\nimport java.rmi.registry.*;\npublic class SampleServerImpl extends UnicastRemoteObject implements SampleServer\n{\n  SampleServerImpl() throws RemoteException\n  {\n     super();\n  }\n…\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide32",
-    "text": "39 Step 2: Develop the remote object and its interface Implement the remote methods /* SampleServerImpl.java */ \u2026 public int sum(int a,int b) throws RemoteException { return a + b; } }"
+    "text": "39\nStep 2: Develop the remote object and its interface\nImplement the remote methods\n/* SampleServerImpl.java */\n  …\n  public int sum(int a,int b) throws RemoteException\n  {\n     return a + b;\n  }\n}\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide33",
-    "text": "40 Step 2: Develop the remote object and its interface /* SampleServerImpl.java */ public static void main(String args[]) { try { //set the security manager System.setSecurityManager(new RMISecurityManager()); //create a local instance of the object SampleServerImpl Server = new SampleServerImpl(); //put the local instance in the registry Naming.rebind(\"SAMPLE-SERVER\" , Server); System.out.println(\"Server waiting.....\"); } catch (java.net.MalformedURLException me)       { System.out.println(\"Malformed URL: \" + me.toString());   } catch (RemoteException re)  { System.out.println(\"Remote exception: \" + re.toString());  } }"
+    "text": "40\nStep 2: Develop the remote object and its interface\n/* SampleServerImpl.java */\n  public static void main(String args[])\n  {\n      try\n      {\n \n//set the security manager\n        System.setSecurityManager(new RMISecurityManager());\n        //create a local instance of the object\n        SampleServerImpl Server = new SampleServerImpl();\n        //put the local instance in the registry\n        Naming.rebind(\"SAMPLE-SERVER\" , Server);\n        System.out.println(\"Server waiting.....\");\n      }\n      catch (java.net.MalformedURLException me)       {\n        System.out.println(\"Malformed URL: \" + me.toString());   }\n      catch (RemoteException re)  {\n         System.out.println(\"Remote exception: \" + re.toString());  }\n  }\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide34",
-    "text": "41 Step 3: Develop the client program In order for the client object to invoke methods on the server, it must first look up the name of server in the registry. You use the java.rmi.Naming class to lookup the server name. The server name is specified as URL in the form (rmi://host:port/name ) Default RMI port is 1099. The name specified in the URL must exactly match the name that the server has bound to the registry. In this example, the name is \u201cSAMPLE- SERVER\u201d The remote method invocation is programmed using the remote interface name (remoteObject) as prefix and the remote method name (sum) as suffix."
+    "text": "41\nStep 3: Develop the client program\nIn order for the client object to invoke methods on the server, it must first \nlook up the name of server in the registry. You use the java.rmi.Naming \nclass to lookup the server name.\nThe server name is specified as URL in the form (rmi://host:port/name )\nDefault RMI port is 1099.\nThe name specified in the URL must exactly match the name that the server \nhas bound to the registry. In this example, the name is “SAMPLE-\nSERVER”\nThe remote method invocation is programmed using the remote interface \nname (remoteObject) as prefix and the remote method name (sum) as \nsuffix.\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide35",
-    "text": "42 Step 3: Develop the client program import java.rmi.*; import java.rmi.server.*; public class SampleClient { public static void main(String[]  args) { // set the security manager for the client System.setSecurityManager(new RMISecurityManager()); //get the remote object from the registry try { System.out.println(\"Security Manager loaded\"); String url = \"//localhost/SAMPLE-SERVER\"; SampleServer remoteObject = (SampleServer)Naming.lookup(url); System.out.println(\"Got remote object\"); System.out.println(\" 1 + 2 = \" + remoteObject.sum(1,2) ); } catch (RemoteException exc) { System.out.println(\"Error in lookup: \" + exc.toString()); } catch (java.net.MalformedURLException exc) { System.out.println(\"Malformed URL: \" + exc.toString());   } catch (java.rmi.NotBoundException exc)  { System.out.println(\"NotBound: \" + exc.toString()); }"
+    "text": "42\nStep 3: Develop the client program\nimport java.rmi.*;\nimport java.rmi.server.*;\npublic class SampleClient  \n{\n   public static void main(String[]  args)\n   {\n      // set the security manager for the client\n      System.setSecurityManager(new RMISecurityManager());\n      //get the remote object from the registry\n      try\n        {\n          System.out.println(\"Security Manager loaded\");\n          String url = \"//localhost/SAMPLE-SERVER\";\n          SampleServer remoteObject = (SampleServer)Naming.lookup(url);\n          System.out.println(\"Got remote object\");\n          System.out.println(\" 1 + 2 = \" + remoteObject.sum(1,2) );\n        }\n        catch (RemoteException exc) {\n          System.out.println(\"Error in lookup: \" + exc.toString()); }\n        catch (java.net.MalformedURLException exc) {\n          System.out.println(\"Malformed URL: \" + exc.toString());   }\n        catch (java.rmi.NotBoundException exc)  {\n          System.out.println(\"NotBound: \" + exc.toString());\n}\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide36",
-    "text": "43 Step 4 & 5: Compile the Java source files & Generate the client stubs and server skeletons Once the interface is completed, you need to generate stubs and skeleton code. The RMI system provides an RMI compiler (rmic) that takes your generated interface class and procedures stub code on its self. javac SampleServer.java javac SampleServerImpl.java rmic SampleServerImpl javac SampleClient.java"
+    "text": "43\nStep 4 & 5: Compile the Java source files & Generate the client \nstubs and server skeletons\nOnce the interface is completed, you need to generate \nstubs and skeleton code. The RMI system provides \nan RMI compiler (rmic) that takes your generated \ninterface class and procedures stub code on its self.\njavac SampleServer.java\njavac SampleServerImpl.java\nrmic SampleServerImpl\njavac SampleClient.java\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide37",
-    "text": "44 Step 6: Start the RMI registry RMI Registry must be started manually. The rmiregistry us uses port 1099 by default. You can also bind rmiregistry to a different port by indicating the new port number as : rmiregistry <new port> rmiregistry (Unix) start rmiregistry (Windows)"
+    "text": "44\nStep 6: Start the RMI registry\nRMI Registry must be started manually.\nThe rmiregistry us uses port 1099 by default. You can also bind rmiregistry \nto a different port by indicating the new port number as : rmiregistry <new \nport>\n \n \nrmiregistry (Unix)\n \n \nstart rmiregistry (Windows)\n"
   },
   {
+    "doc": "lecture05_processed.json",
     "id": "slide38",
-    "text": "45 Steps 7 & 8: Start the remote server objects & Run the client Once the Registry is started, start the server. Set the security policy java \u2013Djava.security.policy=policy.all SampleServerImpl java \u2013Djava.security.policy=policy.all SampleClient More at http://www.neward.net/ted/Papers/JavaPolicy/"
+    "text": "45\nSteps 7 & 8: Start the remote server objects & Run the client\nOnce the Registry is started, start the server. \nSet the security policy\njava –Djava.security.policy=policy.all SampleServerImpl\njava –Djava.security.policy=policy.all SampleClient\nMore at http://www.neward.net/ted/Papers/JavaPolicy/\n"
   }
 ]

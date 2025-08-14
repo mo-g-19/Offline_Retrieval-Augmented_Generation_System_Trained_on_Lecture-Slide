@@ -1,158 +1,197 @@
 [
   {
+    "doc": "lecture01_processed.json",
     "id": "slide1",
-    "text": "CECS 327 Hailu Xu Introduction to Networks and Distributed Computing"
+    "text": "CECS 327\nHailu Xu\nIntroduction to Networks\nand Distributed Computing\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide2",
-    "text": "1. Introduction Textbook: Distributed Systems, concepts and design, Fifth Edition Thanks the slides from Andrew Tanenbaum and Marten van Steen, Distributed Systems \u2013 Principles and Paradigms, Ying Lu, UNL, CSCE990 Advanced Distributed Systems Seminar http://cse.unl.edu/~ylu/csce990/notes/Introduction.ppt"
+    "text": "1. Introduction\nTextbook: Distributed Systems, concepts and design, Fifth Edition \nThanks the slides from Andrew Tanenbaum and Marten van Steen, Distributed Systems – Principles and Paradigms, Ying Lu, \nUNL, CSCE990 Advanced Distributed Systems Seminar\nhttp://cse.unl.edu/~ylu/csce990/notes/Introduction.ppt\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide3",
-    "text": "The Rise of Distributed Systems \u2022 Computer hardware prices falling, power increasing \u2022 Network connectivity increasing \u2022 Everyone is connected with networks, even when moving \u2022 It is easy to connect hardware together \u2022 Layered abstractions have worked very well \u2022 Definition: a distributed system is \u201cA collection of independent computers that appears to its users as a single coherent system\u201d Enslow\u2019s Definition Distributed System = Distributed hardware +  Distributed control + Distributed data"
+    "text": "The Rise of Distributed Systems\n• Computer hardware prices falling, power increasing\n• Network connectivity increasing\n• Everyone is connected with networks, even when moving\n• It is easy to connect hardware together\n•\nLayered abstractions have worked very well\n• Definition: a distributed system is\n“A collection of independent computers that appears to its users as a single coherent \nsystem”\nEnslow’s Definition\nDistributed System = Distributed hardware +  Distributed control + Distributed data\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide4",
-    "text": "Why Distributed Computing? A. Big data continues to grow. B. Applications are becoming data-intensive. - Big data - large pools of data captured, communicated, aggregated, stored, and analyzed - Google processes 20 petabytes of data per day - E.g., data-intensive app: astronomical data parsing"
+    "text": "Why Distributed Computing?\nA. Big data continues to grow.\nB. Applications are becoming data-intensive.\n- Big data - large pools of \ndata captured, \ncommunicated, aggregated, \nstored, and analyzed\n- Google processes 20 \npetabytes of data per day\n- E.g., data-intensive app: \nastronomical data parsing\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide5",
-    "text": "Why Distributed Systems? C. Individual computers have limited resources compared to scale of current problems & application domains: 1. Caches and Memory: L1 Cache L2 Cache L3 Cache Main Memory 16KB- 64KB, 2-4 cycles 512KB- 8MB, 6-15 cycles 4MB- 32MB, 30-50 cycles 2GB- 16GB, 300+ cycles 1-5 TB, 3 billion+ cycles Hard Drive"
+    "text": "Why Distributed Systems?\nC. Individual computers have limited resources compared to scale of \ncurrent problems & application domains:\n1. Caches and Memory:\nL1 \nCache \nL2 Cache\nL3 Cache\nMain Memory\n16KB- 64KB, 2-4 cycles\n512KB- 8MB, 6-15 cycles\n4MB- 32MB, 30-50 cycles\n2GB- 16GB, 300+ cycles\n1-5 TB, 3 billion+ cycles\nHard Drive\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide6",
-    "text": "Why Distributed Systems? P L1 L2 P L1 L2 Cache P L1 P L1 P L1 Interconnect 2.  Processor: \u00a7 Number of transistors integrated on single die has continued to grow at Moore\u2019s pace \u00a7 Chip Multiprocessors (CMPs) are now available A single Processor Chip A CMP"
+    "text": "Why Distributed Systems?\nP\nL1\nL2\nP\nL1\nL2 Cache\nP\nL1\nP\nL1\nP\nL1\nInterconnect\n2.  Processor:\n§ Number of transistors integrated on single die has \ncontinued to grow at Moore’s pace\n§ Chip Multiprocessors (CMPs) are now available\nA single Processor Chip\nA CMP\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide7",
-    "text": "Why Distributed Systems? 3. Processor (continued): \u00a7 CPU speed grows at rate of 55% annually, but mem speed grew only 7% Memory Memory P M P L1 L2 P L1 L2 Cache P L1 P L1 P L1 Interconnect Processor-Memory speed gap"
+    "text": "Why Distributed Systems?\n3. Processor (continued):\n§ CPU speed grows at rate of 55% annually, but mem speed \ngrew only 7%\nMemory\nMemory\nP\nM\nP\nL1\nL2\nP\nL1\nL2 Cache\nP\nL1\nP\nL1\nP\nL1\nInterconnect\nProcessor-Memory speed gap\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide8",
-    "text": "Why Distributed Systems? \u00a7 Even if 100s or 1000s of cores are placed on CMP, challenge to deliver stored data to cores fast enough for processing A Data Set of 4 TBs 4 100MB/S IO Channels 10000 seconds (or 3 hours) to load data Memory P L1 L2 Cache P L1 P L1 P L1 Interconnect"
+    "text": "Why Distributed Systems?\n§ Even if 100s or 1000s of cores are placed on CMP, challenge \nto deliver stored data to cores fast enough for processing\nA Data Set\nof 4 TBs\n4 100MB/S IO Channels\n10000 \nseconds (or \n3 hours) to \nload data\nMemory\nP\nL1\nL2 Cache\nP\nL1\nP\nL1\nP\nL1\nInterconnect\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide9",
-    "text": "Why Distributed Systems? Only 3 minutes to load data A Data Set (data) of 4 TBs Splits Memory P L1 L2 Memory P L1 L2 100 Machines Distributed systems to the rescue!"
+    "text": "Why Distributed Systems?\nOnly 3 \nminutes to \nload data\nA Data Set (data) \nof 4 TBs\nSplits\nMemory\nP\nL1\nL2\nMemory\nP\nL1\nL2\n100 \nMachines\nDistributed systems to the rescue!\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide10",
-    "text": "But this brings new requirements \u00a7 A way to express problem as parallel processes and execute them on different machines (Programming Models and Concurrency). \u00a7 A way for processes on different machines to exchange information (Communication). \u00a7 A way for processes to cooperate with one another and agree on shared values (Synchronization). \u00a7 A way to enhance reliability and improve performance (Consistency and Replication). \u00a7 A way to recover from partial failures (Fault Tolerance). \u00a7 A way to protect communication and ensure that process gets only those access rights it is entitled to (Security). \u00a7 A way to extend interfaces so as to mimic behavior of another system, reduce diversity of platforms, and provide high degree of portability and flexibility (Virtualization)"
+    "text": "But this brings new requirements\n§\nA way to express problem as parallel processes and execute them \non different machines (Programming Models and Concurrency).\n§\nA way for processes on different machines to exchange information \n(Communication).\n§\nA way for processes to cooperate with one another and agree on \nshared values (Synchronization).\n§\nA way to enhance reliability and improve performance (Consistency \nand Replication).\n§\nA way to recover from partial failures (Fault Tolerance).\n§\nA way to protect communication and ensure that process gets only \nthose access rights it is entitled to (Security).\n§\nA way to extend interfaces so as to mimic behavior of another \nsystem, reduce diversity of platforms, and provide high degree of \nportability and flexibility (Virtualization) \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide11",
-    "text": "Depiction of a Distributed System \u2022 Distributed system organized as middleware. Note middleware layer extends over multiple machines. \u2022 Users can interact with system in consistent way, regardless of where interaction takes place (e.g., RPC, memcached, \u2026 \u2022 Note: Middleware may be \u201cpart\u201d of application in practice Examples: - The Web - Processor pool - Shared memory pool - Airline reservation - Network game - The Cloud"
+    "text": "Depiction of a Distributed System\n•\nDistributed system organized as middleware. Note middleware layer \nextends over multiple machines.\n•\nUsers can interact with system in consistent way, regardless of where \ninteraction takes place (e.g., RPC, memcached, …\n•\nNote: Middleware may be “part” of application in practice\nExamples:\n- The Web\n- Processor pool\n- Shared memory pool\n- Airline reservation\n- Network game\n- The Cloud\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide12",
-    "text": "Introduction \u2022 Overview (done) \u2022 Goals (next) \u2022 Software \u2022 Architecture \u2022 Examples"
+    "text": "Introduction\n• Overview  \n \n(done)\n• Goals \n \n \n(next)\n• Software \n• Architecture \n \n \n \n• Examples  \n \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide13",
-    "text": "Goal - Transparency Transparency Description Access Hide differences in data representation and how a resource is accessed Location Hide where a resource is located Migration Hide that a resource may move to another location Relocation Hide that a resource may be moved to another location while in use Replication Hide that a resource may be copied Concurrency Hide that a resource may be shared by several competitive users Failure Hide the failure and recovery of a resource Persistence Hide whether a (software) resource is in memory or on disk"
+    "text": "Goal - Transparency\nTransparency\nDescription\nAccess\nHide differences in data representation and how a resource is \naccessed\nLocation\nHide where a resource is located\nMigration \nHide that a resource may move to another location\nRelocation\nHide that a resource may be moved to another location while \nin use\nReplication\nHide that a resource may be copied\nConcurrency\nHide that a resource may be shared by several competitive \nusers\nFailure\nHide the failure and recovery of a resource\nPersistence\nHide whether a (software) resource is in memory or on disk\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide14",
-    "text": "Goal - Scalability \u2022 As systems grow, centralized solutions are limited \u2022 Consider LAN name resolution (ARP) vs. WAN Concept Example Centralized services A single server for all users Centralized data A single on-line telephone book Centralized algorithms Doing routing based on complete information \u2022 Ideally, collect information in distributed fashion and distribute in distributed fashion \u2022 But sometimes, hard to avoid (e.g., consider money in bank) \u2022 Challenges: geography, ownership domains, time synchronization \u2022 Scaling techniques?  \u00e0 Hiding latency, distribution, replication (next)"
+    "text": "Goal - Scalability\n• As systems grow, centralized solutions are limited\n• Consider LAN name resolution (ARP) vs. WAN\nConcept\nExample\nCentralized services\nA single server for all users\nCentralized data\nA single on-line telephone book\nCentralized algorithms\nDoing routing based on complete \ninformation\n• Ideally, collect information in distributed fashion and distribute in  \ndistributed fashion\n• But sometimes, hard to avoid (e.g., consider money in bank)\n• Challenges: geography, ownership domains, time synchronization\n• Scaling techniques?  à Hiding latency, distribution, replication (next)\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide15",
-    "text": "Scaling Technique: Hiding Communication Latency \u2022 Especially important for interactive applications \u2022 If possible, do asynchronous communication \u2013 continue working so user does not notice delay - Not always possible when client has nothing to do \u2022 Instead, can hide latencies"
+    "text": "Scaling Technique: Hiding \nCommunication Latency\n•\nEspecially important for interactive applications\n•\nIf possible, do asynchronous communication – \ncontinue working so user does not notice delay\n \n- Not always possible when client has nothing to do\n•\nInstead, can hide latencies\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide16",
-    "text": "Root DNS Servers com DNS servers org DNS servers edu DNS servers poly.edu DNS servers umass.edu DNS servers yahoo.com DNS servers amazon.com DNS servers pbs.org DNS servers Scaling Technique: Distribution Client wants IP for www.amazon.com (approximation): 1. Client queries root server to find .com DNS server 2. Client queries .com DNS server to get amazon.com DNS server 3. Client queries amazon.com DNS server to get IP address for www.amazon.com ? 1. 2. 3. \u2022 Spread information/processing to more than one location"
+    "text": "Root DNS Servers\ncom DNS servers\norg DNS servers\nedu DNS servers\npoly.edu\nDNS servers\numass.edu\nDNS servers\nyahoo.com\nDNS servers\namazon.com\nDNS servers\npbs.org\nDNS servers\nScaling Technique: Distribution\nClient wants IP for www.amazon.com (approximation):\n1.\nClient queries root server to find .com DNS server\n2.\nClient queries .com DNS server to get amazon.com DNS server\n3.\nClient queries amazon.com DNS server to get IP address for \nwww.amazon.com\n?\n1.\n2.\n3.\n•\nSpread information/processing to more than one \nlocation\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide17",
-    "text": "Scaling Technique: Replication \u2022 Copy of information to increase availability and decrease centralized load \u2022 Example: File caching is replication decision made by client \u2022 Example: CDNs (e.g., Akamai) for Web \u2022 Example: P2P networks (e.g., BitTorrent) distribute copies uniformly or in proportion to use \u2022 Issue: Consistency of replicated information \u2022 Example: Web browser cache\u2013 how to tell it is out of date?"
+    "text": "Scaling Technique: Replication\n• Copy of information to increase availability and decrease \ncentralized load\n• Example: File caching is replication decision made by client\n• Example: CDNs (e.g., Akamai) for Web\n• Example: P2P networks (e.g., BitTorrent) distribute copies uniformly \nor in proportion to use\n• Issue: Consistency of replicated information\n• Example: Web browser cache– how to tell it is out of date?\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide18",
-    "text": "Introduction \u2022 Overview (done) \u2022 Goals (done) \u2022 Software (next) \u2022 Architecture \u2022 Examples"
+    "text": "Introduction\n• Overview  \n \n(done)\n• Goals \n \n \n(done)\n• Software  \n \n(next)\n• Architecture \n \n \n \n• Examples  \n \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide19",
-    "text": "Software Structure \u2022 Layers in centralized computer systems: Applications Middleware Operating system Computer and Network Hardware 19"
+    "text": "Software Structure\n• Layers in centralized computer systems:\nApplications\nMiddleware\nOperating system\nComputer and Network Hardware\n19\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide20",
-    "text": "Software Structure \u2022 Layers and dependencies in distributed systems: Applications Distributed programming support Open services Open system kernel services Computer and network hardware 20"
+    "text": "Software Structure\n• Layers and dependencies in distributed systems:\nApplications\nDistributed programming\nsupport\nOpen\nservices\nOpen system kernel services\nComputer and network hardware\n20\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide21",
-    "text": "Introduction \u2022 Overview (done) \u2022 Goals (done) \u2022 Software (done) \u2022 Architecture (next) \u2022 Examples"
+    "text": "Introduction\n• Overview  \n \n(done)\n• Goals \n \n \n(done)\n• Software  \n \n(done)\n• Architecture \n \n(next)  \n• Examples  \n \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide22",
-    "text": "System Architectures \u2022 Client-Server \u2022 Peer-to-Peer \u2022 Services provided by multiple servers \u2022 Proxy servers and caches \u2022 Mobile code and mobile agents \u2022 Network computers \u2022 Thin clients and mobile devices 22"
+    "text": "System Architectures\n• Client-Server\n• Peer-to-Peer\n• Services provided by multiple servers\n• Proxy servers and caches\n• Mobile code and mobile agents\n• Network computers\n• Thin clients and mobile devices\n22\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide23",
-    "text": "1. Clients Invoke Individual Servers 23 Server Client Client invocation result Server invocation result Process: Key: Computer:"
+    "text": "1. Clients Invoke Individual Servers\n23\nServer\nClient\nClient\ninvocation\nresult\nServer\ninvocation\nresult\nProcess:\nKey:\nComputer:\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide24",
-    "text": "2. Peer-to-peer Systems Application Application Application Peer 1 Peer 2 Peer 3 Peers 5 .... N Sharable objects Application Peer 4 24"
+    "text": "2. Peer-to-peer Systems\nApplication\nApplication\nApplication\nPeer 1\nPeer 2\nPeer 3\nPeers 5 .... N\nSharable\nobjects\nApplication\nPeer 4\n24\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide25",
-    "text": "3. A Service by Multiple Servers 25 Server Server Server Service Client Client"
+    "text": "3. A Service by Multiple Servers\n25\nServer\nServer\nServer\nService\nClient\nClient\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide26",
-    "text": "4. Web Proxy Server 26 Client Proxy Web server Web server server Client"
+    "text": "4. Web Proxy Server\n26\nClient\nProxy\nWeb \nserver\nWeb \nserver\nserver\nClient\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide27",
-    "text": "5. Web Applets 27 a) client request results in the downloading of applet code Web server Client Web server Applet Applet code Client b) client  interacts with the applet"
+    "text": "5. Web Applets\n27\na) client request results in the downloading of applet code \nWeb \nserver\nClient\nWeb \nserver\nApplet\nApplet code\nClient\nb) client  interacts with the applet \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide28",
-    "text": "6. Thin Clients and Compute Servers 28 Thin Client Application Process Network computer or PC Compute server network"
+    "text": "6. Thin Clients and Compute Servers\n28\nThin\nClient\nApplication\nProcess\nNetwork computer or PC\nCompute server\nnetwork\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide29",
-    "text": "Introduction \u2022 Overview (done) \u2022 Goals (done) \u2022 Software (done) \u2022 Architecture (done) \u2022 Examples (next)"
+    "text": "Introduction\n• Overview  \n \n(done)\n• Goals \n \n \n(done)\n• Software  \n \n(done)\n• Architecture \n \n(done)\n• Examples  \n \n(next)\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide30",
-    "text": "Examples of Distributed Systems \u2022 Cloud Computing and Xaas 30"
+    "text": "Examples of Distributed Systems\n• Cloud Computing and Xaas\n30\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide31",
-    "text": "Distributed Computing (old time) \u2022 The Problem \u2022 Want to run compute/data intensive task \u2022 But don\u2019t have enough resources to run job locally \u2022 At least, to get results within sensible timeframe \u2022 Would like to use another, more capable resource \u2022 Solution \u00e0 Distributed Computing Local Institutional National International Images: nasaimages, Extra Ketchup, Google Maps, Dave Page"
+    "text": "Distributed Computing (old time)\n• The Problem\n• Want to run compute/data intensive task\n• But don’t have enough resources to run job locally\n• At least, to get results within sensible timeframe\n• Would like to use another, more capable resource\n• Solution à Distributed Computing\nLocal\nInstitutional\nNational\nInternational\nImages: nasaimages, Extra Ketchup, Google Maps, Dave Page \n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide32",
-    "text": "Distributed Computing (Now) \u2022 Compute and data \u2013 if you need more, you go somewhere else to get it \u2022 Olden times - Small number of \u201cfast\u201d computers \u2022 Very expensive \u2022 Centralized \u2022 Used nearly all time \u2022 Time allocations for users \u2022 Modern times \u2022 Cloud and Grid (next) Cray-1 1976 - $8.8 mill, 160 MFLOPS, 8MB RAM \u2022 PS4 ~1 TFLOP \u2022 Smartphones ~200 MFLOPS brewb ooks Cray X"
+    "text": "Distributed Computing (Now)\n• Compute and data – if you need more, you go \nsomewhere else to get it\n• Olden times - Small number of “fast” computers\n• Very expensive\n• Centralized\n• Used nearly all time\n• Time allocations for users\n• Modern times\n• Cloud and Grid (next)\nCray-1 1976 - $8.8 mill, 160 \nMFLOPS, 8MB RAM\n•\nPS4 ~1 TFLOP\n•\nSmartphones ~200 MFLOPS\nbrewb\nooks\nCray X\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide33",
-    "text": "What is Cloud Computing? \u2022 Many ways to define it (maybe one for every supplier of \u201ccloud\u201d) \u2022 Key characteristics: \u2022 On demand, dynamic allocation of resources \u2013 \u201celasticity\u201d \u2022 Abstraction of resource \u2022 Self-managed \u2022 Billed for what you use, e.g., CPU, time, storage space \u2022 Standardized interfaces [FZRL08] I. Foster, Y. Zhao, I. Raicu, and S. Lu, \u201cCloud Computing and Grid Computing 360-Degree Compared,\u201d in Proceedings of Grid Computing Environments Workshop (GCE), Austin, TX, USA, Nov. 2008, pp. 1\u201310"
+    "text": "What is Cloud Computing?\n• Many ways to define it (maybe one for every supplier of “cloud”)\n• Key characteristics:\n• On demand, dynamic allocation of resources – “elasticity”\n• Abstraction of resource\n• Self-managed\n• Billed for what you use, e.g., CPU, time, storage space\n• Standardized interfaces\n[FZRL08] I. Foster, Y. Zhao, I. Raicu, and S. Lu, “Cloud Computing and Grid Computing 360-Degree \nCompared,” in Proceedings of Grid Computing Environments Workshop (GCE), Austin, TX, USA, \nNov. 2008, pp. 1–10\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide34",
-    "text": "Internet Cloud Architecture \u2022 Cloud computing can deliver at any of these levels \u2022 These levels are often blurred and routinely disputed! \u2022 Resources provided on demand 1- IaaS - Infrastructure as a Service Hardware OS 2- PaaS - Platform as a Service Framework Middleware 3- SaaS - Software as a Service Hosted Applications Infrastructure End user/ Customer Develope r/ Service Provider"
+    "text": "Internet\nCloud Architecture\n• Cloud computing can deliver at any of these levels\n• These levels are often blurred and routinely disputed!\n• Resources provided on demand\n1- IaaS - Infrastructure as a Service\nHardware\nOS\n2- PaaS - Platform as a Service\nFramework\nMiddleware\n3- SaaS - Software as a Service\nHosted Applications\nInfrastructure\nEnd user/\nCustomer\nDevelope\nr/ Service \nProvider\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide35",
-    "text": "IaaS \u2013 Infrastructure as a Service \u2022 User gets access to (usually) virtualised hardware \u2022 Servers, storage, networking \u2022 Operating system \u2022 User responsible for managing OS, middleware, runtime, data, application (development) \u2022 e.g., Amazon EC2 \u2022 Get complete virtualized PC (e.g., Linux instance)"
+    "text": "IaaS – Infrastructure as a Service\n• User gets access to (usually) virtualised hardware\n• Servers, storage, networking\n• Operating system\n• User responsible for managing OS, middleware, runtime, data, \napplication (development)\n• e.g., Amazon EC2\n• Get complete virtualized PC (e.g., Linux instance)\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide36",
-    "text": "PaaS \u2013 Platform as a Service \u2022 Integrated development environment \u2022 e.g., application design, testing, deployment, hosting, frameworks for database integration, storage, app versioning, etc. \u2022 Develop applications on top \u2022 Responsible for managing data, application (development) \u2022 Example - Google App Engine"
+    "text": "PaaS – Platform as a Service\n• Integrated development environment\n• e.g., application design, testing, deployment, hosting, frameworks \nfor database integration, storage, app versioning, etc.\n• Develop applications on top\n• Responsible for managing data, application (development)\n• Example - Google App Engine\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide37",
-    "text": "SaaS \u2013 Software as a Service \u2022 Top layer consumed directly by end user \u2013 the \u2018business\u2019 functionality \u2022 Application software provided, you configure it (more or less) \u2022 Various levels of maturity: \u2022 Level 1: each customer has own customised version of application in own instance \u2022 Level 2: all instances use same application code, but configured individually \u2022 Level 3: single instance of application across all customers \u2022 Level 4: multiple customers served on load-balanced \u2018farm\u2019 of identical instances \u2022 Levels 3 & 4: separate customer data! (Somewhat similar to PaaS) \u2022 e.g. Gmail, Google Sites, Google Docs, Facebook"
+    "text": "SaaS – Software as a Service\n• Top layer consumed directly by end user – the ‘business’ functionality\n• Application software provided, you configure it (more or less)\n• Various levels of maturity:\n• Level 1: each customer has own customised version of application in own instance\n• Level 2: all instances use same application code, but configured individually\n• Level 3: single instance of application across all customers\n• Level 4: multiple customers served on load-balanced ‘farm’ of identical instances\n• Levels 3 & 4: separate customer data! (Somewhat similar to PaaS)\n• e.g. Gmail, Google Sites, Google Docs, Facebook\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide38",
-    "text": "Also HuaaS \u2013 Human as a Service \u2022 Extraction of information from crowds of people \u2022 Arbitrary (e.g., notable YouTube videos) \u2022 On-demand task Amazon Mechanical Turk Games with a Purpose"
+    "text": "Also HuaaS – Human as a Service\n• Extraction of information from \ncrowds of people\n• Arbitrary (e.g., notable YouTube \nvideos)\n• On-demand task\nAmazon Mechanical Turk\nGames with a Purpose\n"
   },
   {
+    "doc": "lecture01_processed.json",
     "id": "slide39",
-    "text": "Where to Apply Distributed Systems? Application Domain Associated Networked Application Finance and commerce E-commerce (e.g., Amazon and eBay, PayPal),  online banking and trading The information society Web information and  search engines, e-books, Wikipedia; social networking: Facebook and Instagram, Twitter. Creative industries and entertainment Online gaming,  music and film in the home, user- generated content, e.g. YouTube, Flickr Healthcare Health informatics, on online patient records, monitoring patients Education E-learning,  virtual learning environments; distance learning Transport and logistics GPS in route finding systems, map services: Google Maps, Google Earth Science The Grid as an enabling technology for collaboration between scientists Environmental management Sensor technology to monitor earthquakes, floods or tsunamis"
+    "text": "Where to Apply Distributed Systems?\nApplication Domain\nAssociated Networked Application\nFinance and commerce\nE-commerce (e.g., Amazon and eBay, PayPal),  online \nbanking and trading \nThe information society\nWeb information and  search engines, e-books, \nWikipedia; social networking: Facebook and Instagram, \nTwitter.\nCreative industries and entertainment\nOnline gaming,  music and film in the home, user-\ngenerated content, e.g. YouTube, Flickr\nHealthcare\nHealth informatics, on online patient records, \nmonitoring patients\nEducation\nE-learning,  virtual learning environments; \ndistance learning\nTransport and logistics\nGPS in route finding systems, map services:\nGoogle Maps, Google Earth\nScience\nThe Grid as an enabling technology for collaboration \nbetween scientists\nEnvironmental management\nSensor technology to monitor earthquakes, floods or \ntsunamis\n"
   }
 ]

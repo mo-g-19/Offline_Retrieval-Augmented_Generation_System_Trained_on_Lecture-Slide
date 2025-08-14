@@ -1,102 +1,127 @@
 [
   {
+    "doc": "lecture04_processed.json",
     "id": "slide1",
-    "text": "From Coulouris, Dollimore, Kindberg and Blair Distributed Systems: Concepts and Design Edition 5, \u00a9 Addison-Wesley 2012 Indirect Communication"
+    "text": "From Coulouris, Dollimore, Kindberg and Blair\nDistributed Systems: \n \n \nConcepts and Design\nEdition 5, © Addison-Wesley 2012\n Indirect Communication\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide2",
-    "text": "2 \u2022 Group Communication \u2022 Publish-Subscribe \u2022 Message Queues \u2022 Share Memory"
+    "text": "2\n• Group Communication\n• Publish-Subscribe\n• Message Queues\n• Share Memory\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide3",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Objectives \u2022 To understand the key concepts of group communications, publish-subscribe systems, message queue, tuple and distributed share memory"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nObjectives\n• To understand the key concepts of group communications, \npublish-subscribe systems, message queue, tuple and \ndistributed share memory\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide4",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Indirect communication \u2022 Indirect communication: communication through an intermediary with no direct coupling between the sender and the receiver(s). \u2022 Space uncoupling: the sender does not know or need to know the identity of the receiver(s), and vice versa \u2022 Time uncoupling: the sender and receiver(s) can have independent lifetimes \u2022 It is often used in distributed systems where change is anticipated \u2022 Its main disadvantage is the performance overhead introduced by the added level of  indirection and it is more difficult to manage"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nIndirect communication\n• Indirect communication: communication through an intermediary \nwith no direct coupling between the sender and the receiver(s).\n• Space uncoupling: the sender does not know or need to know the identity \nof the receiver(s), and vice versa\n• Time uncoupling: the sender and receiver(s) can have independent lifetimes\n• It is often used in distributed systems where change is anticipated\n• Its main disadvantage is the performance overhead introduced by \nthe added level of  indirection and it is more difficult to manage\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide5",
-    "text": "5 Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Space and time coupling in distributed systems"
+    "text": "5\nInstructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nSpace and time coupling in distributed systems\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide6",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Group communication \u2022 It offers a service whereby a message is sent to a group and then this message is delivered to all members of the group \u2022 The sender is not aware of the identities of the receivers \u2022 Group communication represents an abstraction over multicast communication adding significant extra value in terms of managing group membership, detecting failures and providing reliability and ordering guarantees \u2022 Areas of applications: \u2022 Reliable dissemination of information to a large numbers of  clients \u2022 Support for collaborative applications \u2022 Support for a range of fault-tolerance strategies \u2022 Support for system monitoring and management,"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nGroup communication\n• It offers a service whereby a message is sent to a group and then \nthis message is delivered to all members of the group\n• The sender is not aware of the identities of the receivers\n• Group communication represents an abstraction over multicast \ncommunication adding significant extra value in terms of \nmanaging group membership, detecting failures and providing \nreliability and ordering guarantees\n• Areas of applications:\n• Reliable dissemination of information to a large numbers of  clients\n• Support for collaborative applications\n• Support for a range of fault-tolerance strategies\n• Support for system monitoring and management,\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide7",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 The programming model \u2022 The central concept is that of a group with associated group membership, whereby processes may join or leave the group \u2022 Processes can then send a message to this group and have it propagated to all members of the group with certain guarantees in terms of reliability and ordering \u2022 The essential feature of group communication is that a process issues only one multicast operation to send a message to each of a group of processes"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nThe programming model\n• The central concept is that of a group with associated group \nmembership, whereby processes may join or leave the group\n• Processes can then send a message to this group and have it \npropagated to all members of the group with certain guarantees in \nterms of reliability and ordering\n• The essential feature of group communication is that a process \nissues only one multicast operation to send a message to each of a \ngroup of processes\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide8",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 Open and closed groups Closed group Open group"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nOpen and closed groups\nClosed group\nOpen group\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide9",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Implementation issues \u2022 Reliability and ordering in multicast \u2022 Integrity: the message received is the same as the one sent, and no messages are delivered twice \u2022 Validity: guarantees that a message sent will eventually be delivered \u2022 Agreement: if the message is delivered to one process, then it is delivered to all processes in the group. \u2022 Group communication services offer ordered multicast: \u2022 FIFO ordering \u2022 Causal ordering \u2022 Total ordering"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nImplementation issues\n• Reliability and ordering in multicast\n• Integrity: the message received is the same as the one sent, and no \nmessages are delivered twice\n• Validity: guarantees that a message sent will eventually be delivered\n• Agreement: if the message is delivered to one process, then it is delivered \nto all processes in the group.\n• Group communication services offer ordered multicast:\n• FIFO ordering\n• Causal ordering\n• Total ordering\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide10",
-    "text": "10 Group membership management"
+    "text": "10\nGroup membership management\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide11",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Implementation issues \u2022 Main tasks: \u2022 Providing an interface for group membership changes \u2022 Failure detection \u2022 Notifying members of group membership changes \u2022 Performing group address expansion. it can decide consistently where to deliver any given message, even though the membership may be changing during delivery. \u2022 Group communication is most effective in small-scale and static systems and does not operate as well in larger-scale environments or environments with a high degree of volatility"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nImplementation issues\n• Main tasks:\n• Providing an interface for group membership changes \n• Failure detection\n• Notifying members of group membership changes\n• Performing group address expansion. it can decide consistently where to \ndeliver any given message, even though the membership may be changing \nduring delivery.\n• Group communication is most effective in small-scale and static \nsystems and does not operate as well in larger-scale environments \nor environments with a high degree of volatility\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide12",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Publish-subscribe systems \u2022 Also referred to as distributed event-based systems \u2022 Publisher publish structured events to an event service \u2022 Subscribers express interest in particular events through subscriptions which can be arbitrary patterns over the structured events \u2022 Applications: \u2022 Financial information systems \u2022 Other areas with live feeds of real-time data \u2022 Support for cooperative working, where a number of participants need to be informed of events of shared interest \u2022 Support for ubiquitous computing \u2022 A broad set of monitoring applications"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nPublish-subscribe systems\n•\nAlso referred to as distributed event-based systems\n•\nPublisher publish structured events to an event service\n•\nSubscribers express interest in particular events through subscriptions which \ncan be arbitrary patterns over the structured events\n•\nApplications: \n•\nFinancial information systems\n•\nOther areas with live feeds of real-time data\n•\nSupport for cooperative working, where a number of participants need to be informed of \nevents of shared interest\n•\nSupport for ubiquitous computing\n•\nA broad set of monitoring applications\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide13",
-    "text": "13 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 The publish-subscribe paradigm"
+    "text": "13\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nThe publish-subscribe paradigm\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide14",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 Example: Dealing room system Dealer\u2019s computer Information provider Dealer External source External source Information provider Dealer Dealer Dealer Notification Notification Notification Notification Notification Notification Notification Notification Dealer\u2019s computer Dealer\u2019s computer Dealer\u2019s computer Notification Notification"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nExample: Dealing room system\nDealer’s computer\nInformation\nprovider\nDealer\nExternal\nsource\nExternal\nsource\nInformation\nprovider\nDealer\nDealer\nDealer\nNotification\nNotification\nNotification\nNotification\nNotification\nNotification\nNotification\nNotification\nDealer’s computer\nDealer’s computer\nDealer’s computer\nNotification\nNotification\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide15",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Implementation issues \u2022 The task of a publish-subscribe system is to ensure that events are delivered efficiently to all subscribers that have filters defined that match the event \u2022 Subscription filter model: \u2022 Channel-based \u2022 Topic-based \u2022 Content-based \u2022 Type-based \u2022 Centralized versus distributed implementations"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nImplementation issues\n•\nThe task of a publish-subscribe system is to ensure that events are delivered \nefficiently to all subscribers that have filters defined that match the event\n•\nSubscription filter model:\n•\nChannel-based\n•\nTopic-based\n•\nContent-based\n•\nType-based\n•\nCentralized versus distributed implementations\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide16",
-    "text": "16 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 A network of brokers (Centralized)"
+    "text": "16\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nA network of brokers (Centralized)\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide17",
-    "text": "17 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 The architecture of publish-subscribe systems"
+    "text": "17\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nThe architecture of publish-subscribe systems\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide18",
-    "text": "18 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 Example publish-subscribe systems"
+    "text": "18\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nExample publish-subscribe systems\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide19",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Message queues \u2022 Message queues provide a point-to-point service using the concept of a message queue as an indirection \u2022 The main use of such products is to achieve Enterprise Application Integration \u2022 They are also extensively used as the basis for commercial transaction processing systems"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nMessage queues\n•\nMessage queues provide a point-to-point service using the concept of a \nmessage queue as an indirection\n•\nThe main use of such products is to achieve Enterprise Application Integration\n•\nThey are also extensively used as the basis for commercial transaction \nprocessing systems\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide20",
-    "text": "20 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 The message queue paradigm"
+    "text": "20\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nThe message queue paradigm\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide21",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 3 \u00a9  Addison-Wesley Publishers 2000 The distributed shared memory abstraction"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 3   \n©  Addison-Wesley Publishers 2000 \nThe distributed shared memory abstraction\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide22",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Shared memory approaches \u2022 Distributed shared memory (DSM) is an abstraction used for sharing data between computers that do not share physical memory \u2022 Processes access DSM by reads and updates to what appears to be ordinary memory within their address space \u2022 It is as though the processes access a single shared memory, but in fact the physical memory is distributed \u2022 DSM is primarily a tool for parallel applications or for any distributed application or group of applications in which individual shared data items can be accessed directly \u2022 DSM is in general less appropriate in client-server systems, where clients normally view server-held resources as abstract data and access them by request"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nShared memory approaches\n•\nDistributed shared memory (DSM) is an abstraction used for sharing data \nbetween computers that do not share physical memory\n•\nProcesses access DSM by reads and updates to what appears to be ordinary \nmemory within their address space\n•\nIt is as though the processes access a single shared memory, but in fact the \nphysical memory is distributed\n•\nDSM is primarily a tool for parallel applications or for any distributed \napplication or group of applications in which individual shared data items can \nbe accessed directly\n•\nDSM is in general less appropriate in client-server systems, where clients \nnormally view server-held resources as abstract data and access them by \nrequest\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide23",
-    "text": "Instructor\u2019s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5 \u00a9  Pearson Education 2012 Tuple space communication \u2022 processes communicate indirectly by placing tuples in a tuple space, from which other processes can read or remove them \u2022 Tuples consist of a sequence of one or more typed data fields such as <\"fred\", 1958>,  <\"sid\", 1964> and <4, 9.8, \"Yes\"> \u2022 Operations \u2022 Write \u2022 Read \u2022 Take \u2022 Tuples are immutable"
+    "text": "Instructor’s Guide for  Coulouris, Dollimore, Kindberg and Blair,  Distributed Systems: Concepts and Design   Edn. 5   \n©  Pearson Education 2012 \nTuple space communication\n•\nprocesses communicate indirectly by placing tuples in a tuple space, from \nwhich other processes can read or remove them\n•\nTuples consist of a sequence of one or more typed data fields such as <\"fred\", \n1958>,  <\"sid\", 1964> and <4, 9.8, \"Yes\">\n•\nOperations\n•\nWrite\n•\nRead\n•\nTake\n•\nTuples are immutable \n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide24",
-    "text": "24 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 The tuple space abstraction"
+    "text": "24\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nThe tuple space abstraction\n"
   },
   {
+    "doc": "lecture04_processed.json",
     "id": "slide25",
-    "text": "25 Instructor\u2019s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4 \u00a9  Pearson Education 2005 Summary of indirect communication styles"
+    "text": "25\nInstructor’s Guide for  Coulouris, Dollimore and Kindberg   Distributed Systems: Concepts and Design   Edn. 4   \n©  Pearson Education 2005 \nSummary of indirect communication styles\n"
   }
 ]

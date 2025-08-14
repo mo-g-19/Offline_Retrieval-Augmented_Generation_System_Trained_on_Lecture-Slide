@@ -1,262 +1,327 @@
 [
   {
+    "doc": "lecture06_processed.json",
     "id": "slide1",
-    "text": "Naming in Distributed Systems \u2022 Concepts \u2022 Flat Naming \u2022 Structured Naming \u2022 Attribute-based Naming"
+    "text": "Naming in Distributed Systems\n• Concepts\n• Flat Naming\n• Structured Naming\n• Attribute-based Naming\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide2",
-    "text": "NAMING \uf07aNAMES, IDENTIFIERS, AND ADDRESSES \uf07aFLAT NAMING \uf079 Simple Solutions \uf079 Home-Based Approaches \uf079 Distributed Hash Tables (More in P2P) \uf079 Hierarchical Approaches \uf07aSTRUCTURED NAMING \uf079 Name Spaces \uf079 Name Resolution \uf079 The Implementation of a Name Space \uf079 Example: The Domain Name System \uf07aATTRIBUTE-BASED NAMING \uf079 Directory Services \uf079 Hierarchical Implementations: LDAP"
+    "text": "NAMING\nNAMES, IDENTIFIERS, AND ADDRESSES \nFLAT NAMING \n\nSimple Solutions \n\nHome-Based Approaches \n\nDistributed Hash Tables (More in P2P)\n\nHierarchical Approaches \nSTRUCTURED NAMING \n\nName Spaces \n\nName Resolution \n\nThe Implementation of a Name Space \n\nExample: The Domain Name System \nATTRIBUTE-BASED NAMING \n\nDirectory Services \n\nHierarchical Implementations: LDAP \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide3",
-    "text": "Objectives \uf07aTo understand naming and related issues in DS \uf07aTo learn naming space and implementation \uf07aTo learn flat and structured names and how they are resolved \uf07aTo learn Attributed-based naming"
+    "text": "Objectives\nTo understand naming and related issues in DS\nTo learn naming space and implementation\nTo learn flat and structured names and how \nthey are resolved\nTo learn Attributed-based naming\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide4",
-    "text": "What a Name is in DS? \uf07aA name is a string of bits or characters that is used to refer to an entity (an entity could be anything  such as host, printer, file, process, mailbox, user etc.) \uf07aTo operate on an entity, we need to access it, for which we need an access point. \uf07aAccess point is a special kind of entity and its name is called an address (address of the entity, e.g., IP, port #, phone #) \uf079 An entity may have more than one access point/address \uf079 An entity may change its access points/addresses \uf079 So using an address as a reference is inflexible and human unfriendly \uf079 A better approach is to use a name that is location independent, much easier, and flexible to use"
+    "text": "What a Name is in DS?\nA name is a string of bits or characters that is used to refer \nto an entity (an entity could be anything  such as host, printer, file, process, \nmailbox, user etc.) \nTo operate on an entity, we need to access it, for which we \nneed an access point.\nAccess point is a special kind of entity and its name is called \nan address (address of the entity, e.g., IP, port #, phone #)\n\nAn entity may have more than one access point/address\n\nAn entity may change its access points/addresses \n\nSo using an address as a reference is inflexible and human \nunfriendly \n\nA better approach is to use a name that is location independent, \nmuch easier, and flexible to use\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide5",
-    "text": "Identifier \uf07aA special name to uniquely identify an entity (SSN, MAC) \uf07aA true identifier has the following three properties: \uf079 P1: Each identifier refers to at most one entity \uf079 P2: Each entity is referred to by at most one identifier \uf079 P3: An identifier always refers to same entity (no reuse) Addresses Entities Identifiers I1 I2 I3 E1 E2 E3 A1 A2 A3 A4 Addresses and identifiers are important and used for different purposes, but they are often represented in machine readable format (MAC, memory address)"
+    "text": "Identifier\nA special name to uniquely identify an entity (SSN, MAC)\nA true identifier has the following three properties:\n\nP1: Each identifier refers to at most one entity\n\nP2: Each entity is referred to by at most one identifier\n\nP3: An identifier always refers to same entity (no reuse)\n \n \nAddresses \n \nEntities \n \n \nIdentifiers\nI1\nI2\nI3\nE1\nE2\nE3\nA1\nA2\nA3\nA4\nAddresses and identifiers are important and used for different purposes, but \nthey are often represented in machine readable format (MAC, memory address)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide6",
-    "text": "Human-friendly names \uf07aFile names, variable names etc. are human-friendly names given to each entity \uf07aQuestion: how to map/resolve these names to addresses so that we can access the entities on which we want to operate? \uf07aSolution: have a naming system that maintains name-to- address binding! \uf07aThe simplest form is to have a centralized table! \uf079 Why or why not this will work? \uf07aWe will study three different naming systems and how they maintain such a table in a distributed manner!"
+    "text": "Human-friendly names\nFile names, variable names etc. are human-friendly names \ngiven to each entity\nQuestion: how to map/resolve these names to addresses \nso that we can access the entities on which we want to \noperate?\nSolution: have a naming system that maintains name-to-\naddress binding!\nThe simplest form is to have a centralized table!\n\nWhy or why not this will work?\nWe will study three different naming systems and how they \nmaintain such a table in a distributed manner!\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide7",
-    "text": "Naming Systems and Their Goals \uf07aNaming Systems \uf079Flat names \uf079Structured names \uf079Attributed-based names \uf07aGoals \uf079Scalable to arbitrary size \uf079Have a long lifetime \uf079Be highly available \uf079Have fault isolation \uf079Tolerate mistrust"
+    "text": "Naming Systems and Their Goals\nNaming Systems \nFlat names\nStructured names\nAttributed-based names\nGoals\nScalable to arbitrary size\nHave a long lifetime\nBe highly available\nHave fault isolation\nTolerate mistrust\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide8",
-    "text": "Flat Names"
+    "text": "Flat Names\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide9",
-    "text": "Flat Naming \uf07aFlat name: random bits of string, no structure \uf079 E.g., SSN, MAC address \uf07aResolution problem: Given a flat (unstructured) name, how can we find/locate its associated access point and its address? \uf07aSolutions: \uf079 Simple solutions (broadcasting) \uf079 Home-based approaches \uf079 Distributed Hash Tables (structured P2P) \uf079 Hierarchical location service"
+    "text": "Flat Naming\nFlat name: random bits of string, no structure\n\nE.g., SSN, MAC address\nResolution problem: \n \nGiven a flat (unstructured) name, how can we find/locate \nits associated access point and its address?\nSolutions:\n\nSimple solutions (broadcasting)\n\nHome-based approaches\n\nDistributed Hash Tables (structured P2P)\n\nHierarchical location service\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide10",
-    "text": "Simple Solution: Broadcasting \uf07aSimply broadcast the target ID to every entity \uf07aEach entity compares the requested ID with its own ID \uf07aThe target entity returns its current address \uf07aExample: \uf079 Recall ARP in LAN \uf07aAdv/Disadvantages \uf079 + simple \uf079 - not scale beyond LANs \uf079 - it requires all entities to listen to all incoming requests Who has the address 192.168.0.1? I am 192.168.0.1. My identifier is 02:AB:4A:3C:59:85"
+    "text": "Simple Solution: Broadcasting \nSimply broadcast the target ID to every entity\nEach entity compares the requested ID with its own ID\nThe target entity returns its current address\nExample: \n\nRecall ARP in LAN\nAdv/Disadvantages\n\n+ simple\n\n- not scale beyond LANs \n\n- it requires all entities to listen to all incoming requests\nWho has the address \n192.168.0.1?\nI am 192.168.0.1. My identifier \nis 02:AB:4A:3C:59:85\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide11",
-    "text": "Forwarding Pointers \uf079Stub-Scion Pair (SSP) chains implement remote invocations for mobile entities using forwarding pointers \uf079 Server stub is referred to as Scion in the original paper \uf079Each forwarding pointer is implemented as a pair: (client stub, server stub) \uf079 The server stub contains a local reference to the actual object or a local reference to another client stub \uf079When object moves from A (e.g., P2) to B (e.g., P3), \uf079 It leaves a client stub at A (i.e., P2) \uf079 It installs a server stub at B (i.e., P3) Process P1 Process P2 Process P3 Process P4 = Client stub = Server stub; n = Process n; = Remote Object; = Caller Object;"
+    "text": "Forwarding Pointers\nStub-Scion Pair (SSP) chains implement remote invocations for mobile \nentities using forwarding pointers\n\nServer stub is referred to as Scion in the original paper\nEach forwarding pointer is implemented as a pair: \n \n \n(client stub, server stub)\n\nThe server stub contains a local reference to the actual object or a local \nreference to another client stub\nWhen object moves from A (e.g., P2) to B (e.g., P3), \n\nIt leaves a client stub at A (i.e., P2)\n\nIt installs a server stub at B (i.e., P3)\nProcess P1\nProcess P2\nProcess P3\nProcess P4\n= Client stub\n= Server stub;\nn = Process n;\n= Remote Object;\n= Caller Object;\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide12",
-    "text": "Forwarding Pointers How to locate mobile entities? \uf07aWhen an entity moves from A to B, leaves a pointer to A that it is at B now\u2026 \uf07aDereferencing: simply follow the chain of pointers and make this entirely transparent to clients \uf07aAdv/Disadvantages \uf079 + support for mobile nodes \uf079 - geographical scalability problems \uf079 - long chains are not fault tolerant \uf079 - increased network latency"
+    "text": "Forwarding Pointers\nHow to locate mobile entities?\nWhen an entity moves from A to B, leaves a pointer to A \nthat it is at B now… \nDereferencing: simply follow the chain of pointers and \nmake this entirely transparent to clients\nAdv/Disadvantages\n\n+ support for mobile nodes\n\n- geographical scalability problems\n\n- long chains are not fault tolerant\n\n- increased network latency\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide13",
-    "text": "Home-Based Approaches How to deal with scalability problem when locating mobile entities? \uf07a Let a home keep track of where the entity is! \uf07a How will the clients continue to communicate? \uf079 Home agent gives the new location to the client so it can directly communicate \uf078 efficient but not transparent \uf079 Home agent forwards the messages to new location \uf078 Transparent but may not be efficient"
+    "text": "Home-Based Approaches\nHow to deal with scalability problem when locating mobile entities?\n\nLet a home keep track of where the entity is!\n\nHow will the clients continue to communicate? \n\nHome agent gives the new location to the client so it can directly \ncommunicate\n\nefficient but not transparent\n\nHome agent forwards the messages to new location\n\nTransparent but may not be efficient\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide14",
-    "text": "Home-Based Approaches: An Example Home node Mobile entity 1. Update home node about the foreign address 2. Client sends the packet to the mobile entity at its home node 3a. Home node forwards the message to the foreign address of the mobile entity 3b. Home node replies the client with the  current IP address of the mobile entity 4. Client directly sends all subsequent packets directly to the foreign address of the mobile entity From CS15-440 CMU Qatar, Hammoud"
+    "text": "Home-Based Approaches: An Example\nHome node\nMobile entity\n1. Update home node about the \nforeign address\n2. Client sends the packet to the \nmobile entity at its home node\n3a. Home node forwards the \nmessage to the foreign address \nof the mobile entity\n3b. Home node replies the client \nwith the  current IP address of \nthe mobile entity\n4. Client directly sends all \nsubsequent packets directly to the \nforeign address of the mobile entity\nFrom CS15-440 CMU Qatar, Hammoud\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide15",
-    "text": "15 Problems with home-based approaches \uf07aThe home address has to be supported as long as the entity lives. \uf07aThe home address is fixed, which means an unnecessary burden when the entity permanently moves to another location \uf079 How can we solve the \u201cpermanent move\u201d problem? \uf07aPoor geographical scalability (the entity may be next to the client)"
+    "text": "15\nProblems with home-based approaches\nThe home address has to be supported as long as the \nentity lives.\nThe home address is fixed, which means an \nunnecessary burden when the entity permanently \nmoves to another location\n\nHow can we solve the “permanent move” problem?\nPoor geographical scalability (the entity may be next to \nthe client)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide16",
-    "text": "Next: Distributed Hash Table \uf07aDistributed Hash Table \u2013 In a nutshell https://www.youtube.com/watch?v=tz-Q-eW8FbQ"
+    "text": "Next: Distributed Hash Table\nDistributed Hash Table – In a nutshell\nhttps://www.youtube.com/watch?v=tz-Q-eW8FbQ\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide17",
-    "text": "Distributed Hash Tables How to use DHT to resolve flat ID \uf07aMany nodes into a logical ring \uf079 Each node is assigned a random m-bit identifier. \uf079 Every entity is assigned a unique m-bit key. \uf079 Entity with key k falls under jurisdiction of node with smallest id >= k (called its successor) \uf07aLinearly resolve a key k to the address of succ(k) \uf079 Each node p keeps two neighbors: succ(p+1) and pred(p) \uf079 If k > p  then forward to succ(p+1) \uf079 if k <= pred(p) then forward k to pred(p) \uf079 If pred(p) < k <= p then return p\u2019s address (p holds the entity)"
+    "text": "Distributed Hash Tables\nHow to use DHT to resolve flat ID\nMany nodes into a logical ring\n\nEach node is assigned a random m-bit identifier.\n\nEvery entity is assigned a unique m-bit key.\n\nEntity with key k falls under jurisdiction of node with smallest id >= k \n(called its successor)\nLinearly resolve a key k to the address of succ(k)\n\nEach node p keeps two neighbors: \n \n succ(p+1) and pred(p)\n\nIf k > p  then \n \n  \nforward to succ(p+1)\n\nif k <= pred(p) then \n \n  \nforward k to pred(p)\n\nIf pred(p) < k <= p then\n \n return p’s address (p holds the entity)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide18",
-    "text": "Chord \uf07a Chord assigns an m-bit identifier (randomly chosen) to each node \uf079 A node can be contacted through its network address \uf07a Alongside, it maps each entity to a node \uf079 Entities can be processes, files, etc., \uf07a Mapping of entities to nodes \uf079 Each node is responsible for a set of entities \uf079 An entity with key k falls under the jurisdiction of the node with the smallest identifier id >= k. This node is known as the successor of k, and is denoted by succ(k) Node 000 Node 005 Node 010 Node  301 000 003 004 008 040 079 Entity with k Node n (node with id=n) Map each entity with key k to node succ(k) From CS15-440 CMU Qatar, Hammoud"
+    "text": "Chord\n\nChord assigns an m-bit identifier (randomly \nchosen) to each node\n\nA node can be contacted through its network \naddress\n\nAlongside, it maps each entity to a node\n\nEntities can be processes, files, etc.,\n\nMapping of entities to nodes\n\nEach node is responsible for a set of entities\n\nAn entity with key k falls under the jurisdiction of the \nnode with the smallest identifier id >= k. This \nnode is known as the successor of k, and is \ndenoted by succ(k)\nNode 000\nNode 005\nNode 010\nNode  301\n000\n003\n004\n008\n040\n079\nEntity \nwith k\nNode n (node with \nid=n)\nMap each entity with key k \nto node succ(k)\nFrom CS15-440 CMU Qatar, Hammoud\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide19",
-    "text": "A Na\u00efve Key Resolution Algorithm - Linearly \uf07a The main issue in DHT is to efficiently resolve a key k to the network location of succ(k) \uf079 Given an entity with key k, how to find the node succ(k)? 1. All nodes are arranged in a logical ring according to their IDs 2. Each node \u2018p\u2019 keeps track of its immediate neighbors: succ(p) and pred(p) 3. If \u2018p\u2019 receives a request to resolve key \u2018k\u2019: \u2022 If pred(p) < k <=p, node p will handle it \u2022 Else it will forward it to succ(n) or pred(n) n = Active node with id=n p = No node assigned to key p 19 Solution is not scalable: \u2022As the network grows, forwarding delays increase \u2022Key resolution has a time complexity of O(n) 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 From CS15-440 CMU Qatar, Hammoud"
+    "text": "A Naïve Key Resolution Algorithm - Linearly\n\nThe main issue in DHT is to efficiently resolve a key k to the network location of succ(k)\n\nGiven an entity with key k, how to find the node succ(k)?\n1. All nodes are arranged in a logical \nring according to their IDs\n2. Each node ‘p’ keeps track of its \nimmediate neighbors: succ(p) and \npred(p)\n3. If ‘p’ receives a request to resolve \nkey ‘k’:\n• If pred(p) < k <=p, node p \nwill handle it\n• Else it will forward it to succ(n) \nor pred(n)\nn\n= Active node with id=n\np\n= No node assigned to key p\n19\nSolution is not scalable:\n•As the network grows, forwarding delays \nincrease\n•Key resolution has a time complexity of O(n)\n00\n01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\nFrom CS15-440 CMU Qatar, Hammoud\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide20",
-    "text": "\uf07a Chord improves key resolution by reducing the time complexity to O(log n) \uf07a All nodes are arranged in a logical ring according to their IDs \uf07a Each node \u2018p\u2019 keeps a table FTp of at-most m entries. This table is Finger Table FTp[i] = succ(p + 2(i-1)) NOTE: FTp[i] increases exponentially \uf07a If node \u2018p\u2019 receives a request to resolve key \u2018k\u2019: \u2022 Node p will forward it to node q with index j in Fp where q = FTp[j] <= k < FTp[j+1] \u2022 If k > FTp[m], then node p will forward it to FTp[m] \u2022 If k < FTp[1], then node p will forward it to FTp[1] DHT: Finger Table (Chord) How to improve efficiency?"
+    "text": "\nChord improves key resolution by reducing the time complexity to O(log n)\n\nAll nodes are arranged in a logical ring according to their IDs\n\nEach node ‘p’ keeps a table FTp of at-most m entries. This table is Finger Table\n      FTp[i] = succ(p + 2(i-1))\nNOTE: FTp[i] increases exponentially\n\nIf node ‘p’ receives a request to resolve key ‘k’:\n• Node p will forward it to node q with index j in Fp where\n  q = FTp[j] <= k < FTp[j+1]\n• If k > FTp[m], then node p will forward it to FTp[m]\n• If k < FTp[1], then node p will forward it to FTp[1]\nDHT: Finger Table (Chord)\nHow to improve efficiency?\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide21",
-    "text": "Chord DHT Example 1 04 2 04 3 09 4 09 5 18 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 1 09 2 09 3 09 4 14 5 20 1 11 2 11 3 14 4 18 5 28 1 14 2 14 3 18 4 20 5 28 1 18 2 18 3 18 4 28 5 01 1 21 2 28 3 28 4 28 5 04 1 28 2 28 3 28 4 01 5 09 1 01 2 01 3 01 4 04 5 14 i succ(p + 2(i-1)) 26 1. All nodes are arranged in a logical ring according to their IDs 2. Each node \u2018p\u2019 keeps a table FTp of at-most m entries. This table is called Finger Table FTp[i] = succ(p + 2(i-1)) NOTE: FTp[i] increases exponentially 3. If node \u2018p\u2019 receives a request to resolve key \u2018k\u2019: \u2022 Node p will forward it to node q with index j in Fp where q = FTp[j] <= k < FTp[j+1] \u2022 If k > FTp[m], then node p will forward it to FTp[m] \u2022 If k < FTp[1], then node p will forward it to FTp[1]"
+    "text": "Chord DHT Example\n1\n04\n2\n04\n3\n09\n4\n09\n5\n18\n00\n01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n1\n09\n2\n09\n3\n09\n4\n14\n5\n20\n1\n11\n2\n11\n3\n14\n4\n18\n5\n28\n1\n14\n2\n14\n3\n18\n4\n20\n5\n28\n1\n18\n2\n18\n3\n18\n4\n28\n5\n01\n1\n21\n2\n28\n3\n28\n4\n28\n5\n04\n1\n28\n2\n28\n3\n28\n4\n01\n5\n09\n1\n01\n2\n01\n3\n01\n4\n04\n5\n14\ni\nsucc(p + 2(i-1))\n26\n1.\nAll nodes are arranged in a logical \nring according to their IDs\n2.\nEach node ‘p’ keeps a table FTp of \nat-most m entries. This table is called \nFinger Table\n      FTp[i] = succ(p + 2(i-1))\nNOTE: FTp[i] increases \nexponentially\n \n3.\nIf node ‘p’ receives a request to \nresolve key ‘k’:\n• Node p will forward it to node q \nwith index j in Fp where\n  q = FTp[j] <= k < FTp[j+1]\n• If k > FTp[m], then node p \nwill forward it to FTp[m]\n• If k < FTp[1], then node p \nwill forward it to FTp[1]\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide22",
-    "text": "DHT: Finger Table (cont\u2019d) \uf07a How to handle \uf079 Join \uf078 It contacts arbitrary node, looks up for succ(p+1), and inserts itself into the ring \uf079 Leave \uf078 It contacts pred(p) and succ(p+1) and updates them \uf079 Fail 00 01 02 03 04 05 06 07 08 09 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 02 Who is succ(2+1) ? Node 4 is succ(2+1)"
+    "text": "DHT: Finger Table (cont’d)\n\nHow to handle\n\nJoin\n\nIt contacts arbitrary node, looks up for succ(p+1), and inserts itself into the ring\n\nLeave \n\nIt contacts pred(p) and succ(p+1) and updates them\n\nFail \n00\n01\n02\n03\n04\n05\n06\n07\n08\n09\n10\n11\n12\n13\n14\n15\n16\n17\n18\n19\n20\n21\n22\n23\n24\n25\n26\n27\n28\n29\n30\n31\n02\nWho is \nsucc(2+1) ?\nNode 4 is \nsucc(2+1)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide23",
-    "text": "DHT: Finger Table (cont\u2019d) \uf07a The complexity comes from keeping the finger tables up to date \uf07a By-and-large Chord tries to keep them consistent \uf079 But a simple mechanism may lead to performance problems \uf079 To fix this we need to exploit network proximity when assigning node ID"
+    "text": "DHT: Finger Table (cont’d)\n\nThe complexity comes from keeping the finger tables up to date\n\nBy-and-large Chord tries to keep them consistent\n\nBut a simple mechanism may lead to performance problems\n\nTo fix this we need to exploit network proximity when assigning node ID\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide24",
-    "text": "Exploiting network proximity Problem: The logical organization of nodes in the overlay may lead to erratic message transfers in the underlying Internet: node k and node succ(k +1) may be very far apart. \uf07a Topology-aware node assignment: When assigning an ID to a node, make sure that nodes close in the ID space are also close in the network. Can be very difficult. \uf07a Proximity routing: Maintain more than one possible successor, and forward to the closest. Example: in Chord FTp[i] points to first node in INT = [p+2i\u22121,p+2i \u22121]. \uf07a Proximity neighbor selection: When there is a choice of selecting who your neighbor will be (not in Chord), pick the closest one."
+    "text": "Exploiting network proximity\nProblem: The logical organization of nodes in the overlay may lead to \nerratic message transfers in the underlying Internet: node k and node \nsucc(k +1) may be very far apart.\n\nTopology-aware node assignment: \n \nWhen assigning an ID to a node, make sure that nodes close in the ID space are also \nclose in the network. Can be very difficult.\n\nProximity routing: \n \nMaintain more than one possible successor, and forward to the closest.\n \nExample: in Chord FTp[i] points to first node in INT = [p+2i−1,p+2i −1]. \n\nProximity neighbor selection: \n \nWhen there is a choice of selecting who your neighbor will be (not in Chord), pick the \nclosest one.\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide25",
-    "text": "Hierarchical Location Services (HLS) A leaf domain, contained in S Directory node  dir(S) of domain S A subdomain S of top-level domain T  (S is contained in T) Top-level domain T Basic idea Build a large-scale search tree for which the underlying network is divided into hierarchical domains. Each domain is represented by a separate directory node. Principle node dir(T) The root directory"
+    "text": "Hierarchical Location Services (HLS)\nA leaf domain, contained in S\nDirectory node  dir(S) of \ndomain S\nA subdomain S\nof top-level domain T  (S is \ncontained in T)\nTop-level  \ndomain T\nBasic idea\nBuild a large-scale search tree for which the underlying network is  \ndivided into hierarchical domains. Each domain is represented by a  \nseparate directory node.\nPrinciple\nnode dir(T)\nThe root directory\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide26",
-    "text": "HLS: Tree organization Domain D2 Domain D1 Location record  with only one field, containing an address Invariants \u25baAddress of entity E is stored in a leaf or intermediate node \u25baIntermediate nodes contain a pointer to a child if and only if the subtree rooted at the child stores an address of the entity \u25baThe root knows about all entities Storing information of an entity having two addresses in  different leaf domains dom(N) with pointer to N Location record  for E at node M N Field with no data M"
+    "text": "HLS: Tree organization\nDomain D2\nDomain D1\nLocation record  with \nonly one field,\ncontaining an address\nInvariants\n►Address of entity E is stored in a leaf or intermediate node\n►Intermediate nodes contain a pointer to a child if and only if the subtree \nrooted at the child stores an address of the entity\n►The root knows about all entities\nStoring information of an entity having two addresses in  different leaf \ndomains\ndom(N) with  \npointer to N\nLocation record  for E at \nnode M\nN\nField with no data\nM\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide27",
-    "text": "HLS: Lookup operation Basic principles \u25baStart lookup at local leaf node \u25baNode knows about E \u21d2 follow downward pointer, else go up \u25baUpward lookup always stops at root Looking up a location Domain D M Node has no record for E, so that request is forwarded to parent Look-up request Node knows about E, so request is forwarded to child"
+    "text": "HLS: Lookup operation\nBasic principles\n►Start lookup at local leaf node\n►Node knows about E ⇒ follow downward pointer, else go up\n►Upward lookup always stops at root\nLooking up a location\nDomain D\nM\nNode has no  \nrecord for E, so  \nthat request is  \nforwarded to  \nparent\nLook-up  \nrequest\nNode knows\nabout E, so request  \nis forwarded to child\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide28",
-    "text": "Structured Naming"
+    "text": "Structured Naming\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide29",
-    "text": "Name Space Collection of valid names \uf07aA directed graph with two types of nodes \uf079 Leaf node represents a (named) entity, has no outgoing link, and stores information about the entity (e.g., address) \uf079 A directory node is an entity that refers to other nodes: contains a (directory) table of (edge label, node identifier) pairs root"
+    "text": "Name Space \nCollection of valid names\nA directed graph with two types of nodes\n\nLeaf node represents a (named) entity, has no outgoing link, and stores \ninformation about the entity (e.g., address)\n\nA directory node is an entity that refers to other nodes: contains a \n(directory) table of (edge label, node identifier) pairs\nroot\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide30",
-    "text": "Name Space  (cont.) \uf07aEach node in the graph is actually considered to be another entity and we can easily store all kinds of attributes in a node, describing aspects of the entity the node represents: \uf079 Type of the entity \uf079 An identifier for that entity \uf079 Address of the entity\u2019s location \uf079 Nicknames \uf079 \u2026 \u2026"
+    "text": "Name Space  (cont.)\nEach node in the graph is actually considered to be \nanother entity and we can easily store all kinds of \nattributes in a node, describing aspects of the entity the \nnode represents:\n\nType of the entity\n\nAn identifier for that entity \n\nAddress of the entity’s location \n\nNicknames\n\n… … \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide31",
-    "text": "Name Resolution looking up a name N: <label-1, label-2, \u2026, label-n> Start at directory node N find label-1 in directory table of N get the identifier continue resolving at that node until reaching label-n \uf07a Problem: where to start? How do we actually find that (initial) node? \uf07a Closure mechanism:  knowing how and where to start name resolution. It is always implicit. Why? \uf079 Inode in unix is the first block in logical disk \uf079 www.cs.vu.nl: start at a DNS name server \uf079 /home/steen/mbox: start at the local NFS file server (possible recursive search)"
+    "text": "Name Resolution\nlooking up a name\nN: <label-1, label-2, …, label-n>\n \nStart at directory node N\n \n \nfind label-1 in directory table of N\n \n \nget the identifier\n \n \ncontinue resolving at that node until reaching label-n\n\nProblem: where to start? How do we actually find that (initial) node?\n\nClosure mechanism:  knowing how and where to start name \nresolution. It is always implicit. Why? \n\nInode in unix is the first block in logical disk\n\nwww.cs.vu.nl: start at a DNS name server\n\n/home/steen/mbox: start at the local NFS file server (possible recursive \nsearch)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide32",
-    "text": "Name Resolution: Aliases and linking \uf07aAlias is another name for the same entity. \uf07aThere are 2 ways of aliasing in naming graphs \uf079 Hard Links: What we have described so far as a path name: a name that is resolved by following a specific path in a naming graph from one node to another (i.e., there are more than one absolute paths to a certain node) \uf079 Soft Links: We can represent an entity by a leaf node that stores an absolute path name of another node. (like symbolic links in UNIX file system) \uf078 Node O contains a name of another node: \uf078 First resolve O\u2019s name (leading to O) \uf078 Read the content of O, yielding name \uf078 Name resolution continues with name"
+    "text": "Name Resolution: Aliases and linking\nAlias is another name for the same entity.\nThere are 2 ways of aliasing in naming graphs\n\nHard Links: What we have described so far as a path name: a name that is \nresolved by following a specific path in a naming graph from one node to \nanother (i.e., there are more than one absolute paths to a certain node) \n\nSoft Links: We can represent an entity by a leaf node that stores an \nabsolute path name of another node. (like symbolic links in UNIX file \nsystem)\n\nNode O contains a name of another node:\n\nFirst resolve O’s name (leading to O)\n\nRead the content of O, yielding name\n\nName resolution continues with name \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide33",
-    "text": "Name Linking \uf07aThe name space can be effectively used to link two different entities \uf07aTwo types of links can exist between the nodes: 1. Hard Links 2. Symbolic Links"
+    "text": "Name Linking\nThe name space can be effectively used to link two \ndifferent entities\nTwo types of links can exist between the nodes:\n1. Hard Links\n2. Symbolic Links\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide34",
-    "text": "1. Hard Links \uf079There is a directed link from the hard link to the actual node \uf079Name resolution: \uf078Similar to the general name resolution \uf079Constraint: \uf078There should be no cycles in the graph \u201c/home/steen/keys\u201d is a hard link to \u201c/keys\u201d n0 n1 n4 n5 n2 n3 home keys steen max elke \u201c/keys\u201d twmrc mbox keys"
+    "text": "1. Hard Links\nThere is a directed link from \nthe hard link to the actual \nnode\nName resolution:\nSimilar to the general \nname resolution\nConstraint:\nThere should be no cycles \nin the graph\n“/home/steen/keys” is a hard link \nto “/keys”\nn0\nn1\nn4\nn5\nn2\nn3\nhome\nkeys\nsteen\nmax\nelke\n“/keys”\ntwmrc\nmbox\nkeys\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide35",
-    "text": "2. Symbolic Links \uf079Symbolic link stores the name of the original node as data \uf079Name resolution for a symbolic link SL \uf078First resolve SL\u2019s name \uf078Read the content of SL \uf078Name resolution continues with content of SL \uf079Constraint: \uf078No cyclic references should be present \u201c/home/steen/keys\u201d is a symbolic link to \u201c/keys\u201d n0 n1 n4 n5 n2 n3 home keys steen max elke \u201c/keys\u201d twmrc mbox keys n6 \u201c/keys\u201d Data stored in n6"
+    "text": "2. Symbolic Links\nSymbolic link stores the name of \nthe original node as data\nName resolution for a symbolic link \nSL\nFirst resolve SL’s name\nRead the content of SL \nName resolution continues with \ncontent of SL\nConstraint:\nNo cyclic references should be \npresent\n“/home/steen/keys” is a \nsymbolic link to “/keys”\nn0\nn1\nn4\nn5\nn2\nn3\nhome\nkeys\nsteen\nmax\nelke\n“/keys”\ntwmrc mbox\nkeys\nn6\n“/keys”\nData stored in n6\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide36",
-    "text": "Mounting of Name Spaces \uf07a Two or more name spaces can be merged transparently by a technique known as mounting \uf07a With mounting, a directory node in one name space will store the identifier of the directory node of another name space \uf07a Network File System (NFS) is an example where different name spaces are mounted \uf079 NFS enables transparent access to remote files"
+    "text": "Mounting of Name Spaces\n\nTwo or more name spaces can be merged transparently by a \ntechnique known as mounting\n\nWith mounting, a directory node in one name space will store the \nidentifier of the directory node of another name space\n\nNetwork File System (NFS) is an example where different name \nspaces are mounted\n\nNFS enables transparent access to remote files\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide37",
-    "text": "Example of Mounting Name Spaces in NFS Machine B Name Space 2 OS Machine A Name Space 1 OS home steen mbox Name Server for foreign name space remot e vu \u201cnfs://flits.cs.vu. nl/home/steen\u201d Name resolution for \u201c/remote/vu/home/steen/mbox\u201d in a distributed file system"
+    "text": "Example of Mounting Name Spaces in NFS\nMachine B\nName Space 2\nOS\nMachine A\nName Space 1\nOS\nhome\nsteen\nmbox\nName Server \nfor \nforeign name \nspace\nremot\ne\nvu\n“nfs://flits.cs.vu.\nnl/home/steen”\nName resolution for “/remote/vu/home/steen/mbox” in a \ndistributed file system\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide38",
-    "text": "Name Space Implementation Distributed vs. centralized"
+    "text": "Name Space \nImplementation\nDistributed vs. centralized \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide39",
-    "text": "\uf07aBasic issue: Distribute the name resolution process as well as name space management across multiple machines, by distributing nodes of the naming graph \uf07aLarge name spaces are organized in a hierarchical way. There are three logical layers \uf079 Global level: Consists of the high-level directory nodes representing different organizations or groups \uf078 Stable (directory tables don\u2019t change often) \uf078 Have to be jointly managed by different administrations \uf079 Administrational level: Contains mid-level directory nodes managed within a single organization \uf078 Relatively stable \uf079 Managerial level: Consists of low-level directory nodes within a single administration. \uf078 Nodes may change often, requiring effective mapping of names \uf078 Managed by admins or users Name Space Distribution"
+    "text": "Basic issue: Distribute the name resolution process as \nwell as name space management across multiple \nmachines, by distributing nodes of the naming graph\nLarge name spaces are organized in a hierarchical way. \nThere are three logical layers\n\nGlobal level: Consists of the high-level directory nodes \nrepresenting different organizations or groups\n\nStable (directory tables don’t change often)\n\nHave to be jointly managed by different administrations\n\nAdministrational level: Contains mid-level directory nodes \nmanaged within a single organization \n\nRelatively stable\n\nManagerial level: Consists of low-level directory nodes within a \nsingle administration. \n\nNodes may change often, requiring effective mapping of names\n\nManaged by admins or users \nName Space Distribution\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide40",
-    "text": "Name Space Distribution (cont.)"
+    "text": "Name Space Distribution (cont.)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide41",
-    "text": "Name Space Distribution (cont.) \uf07aServers in each layer have different requirements regarding availability and performance Availability Performance Global Must be very high Replication may help Can be cached (stability) Replication may help Administrat ive Must be very high particularly for the clients in the same organization Looks up should be fast Use high-end machines Managerial Less demanding One dedicated server might be enough Performance is crucial Operations should take place immediately Caching would not be eff."
+    "text": "Name Space Distribution (cont.)\nServers in each layer have different \nrequirements regarding availability and \nperformance\nAvailability\nPerformance\nGlobal\nMust be very high\nReplication may \nhelp\nCan be cached (stability)\nReplication may help\nAdministrat\nive\nMust be very high \nparticularly for the \nclients in the same \norganization\nLooks up should be fast\nUse high-end machines\nManagerial\nLess demanding\nOne dedicated \nserver might be \nenough\nPerformance is crucial\nOperations should take \nplace immediately\nCaching would not be eff. \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide42",
-    "text": "Implementation of Name Resolution Iterative vs. Recursive -Caching is restricted to client -Communication cost, Delay + less overhead on root +Caching can be more effective +Communication cost might be reduced - Too much overhead on root"
+    "text": "Implementation of Name Resolution\nIterative \n \n \n   vs. \n \nRecursive\n-Caching is restricted to client\n-Communication cost, Delay \n+ less overhead on root\n+Caching can be more effective\n+Communication cost might be reduced\n- Too much overhead on root \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide43",
-    "text": "Cache in Recursive Naming Resolution \uf07aRecursive name resolution of <nl, vu, cs, ftp>. \uf07aName servers cache intermediate results for subsequent lookups"
+    "text": "Cache in Recursive Naming Resolution\nRecursive name resolution of <nl, vu, cs, ftp>. \nName servers cache intermediate results for subsequent \nlookups\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide44",
-    "text": "Scalability Issues \uf07a Size scalability: We need to ensure that servers can handle a large number of requests per time unit \u00e0 high-level servers are in big trouble. \uf079 Solution: Assume (at least at global and administrational level) that content of nodes hardly ever changes. In that case, we can apply extensive replication by mapping nodes to multiple servers, and start name resolution at the nearest server. \uf07a Geographical scalability: We need to ensure that the name resolution process scales across large geographical distances."
+    "text": "Scalability Issues\n\nSize scalability: We need to ensure that servers can handle a large \nnumber of requests per time unit à high-level servers are in big \ntrouble.\n\nSolution: Assume (at least at global and administrational level) that \ncontent of nodes hardly ever changes. In that case, we can apply \nextensive replication by mapping nodes to multiple servers, and start \nname resolution at the nearest server.\n\nGeographical scalability: We need to ensure that the name \nresolution process scales across large geographical distances.\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide45",
-    "text": "Case Study: Domain Name System (DNS)"
+    "text": "Case Study: Domain \nName System (DNS)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide46",
-    "text": "Case Study: Domain Name System (DNS) \uf07aOne of the largest distributed naming database/service \uf07aThe DNS name space is hierarchically organized as a rooted tree. Name structure reflects administrative structure of the Internet \uf07aRapidly resolves domain names to IP addresses \uf079 exploits caching heavily \uf079 typical query time ~100 milliseconds \uf07aScales to millions of computers \uf079 partitioned database \uf079 caching \uf07aResilient to failure of a server \uf079 replication"
+    "text": "Case Study: Domain Name System (DNS)\nOne of the largest distributed naming database/service\nThe DNS name space is hierarchically organized as a \nrooted tree. Name structure reflects administrative \nstructure of the Internet\nRapidly resolves domain names \nto IP addresses\n\nexploits caching heavily\n\ntypical query time ~100 milliseconds\nScales to millions of computers\n\npartitioned database\n\ncaching\nResilient to failure of a server\n\nreplication\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide47",
-    "text": "Domain names (last element of name) \uf07a com - commercial organizations \uf07a edu - universities and educational institutions \uf07a gov - US government agencies \uf07a mil - US military organizations \uf07a net - major network support centers \uf07a org - organizations not included in first five \uf07a int - international organization \uf07a country codes - (e.g., cn, us, uk, fr, etc.)"
+    "text": "Domain names (last element of name)\n\ncom - commercial organizations\n\nedu - universities and educational institutions\n\ngov - US government agencies\n\nmil - US military organizations\n\nnet - major network support centers\n\norg - organizations not included in first five\n\nint - international organization\n\ncountry codes - (e.g., cn, us, uk, fr, etc.)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide48",
-    "text": "Name spaces in DNS \uf07aHierarchical structure - one or more components or labels separated by periods (.) \uf07aOnly absolute names - referred relative to global root \uf07aClients usually have a list of default domains that are appended to single-component domain names before trying global root"
+    "text": "Name spaces in DNS\nHierarchical structure - one or more components \nor labels separated by periods (.)\nOnly absolute names - referred relative to global \nroot\nClients usually have a list of default domains that \nare appended to single-component domain \nnames before trying global root\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide49",
-    "text": "Zone partitioning of DNS name space \uf07aZone - contains attribute data for names in domain minus the sub-domains administrated by lower-level authorities: \uf07aNames of the servers for the sub-domains \uf07aAt least two name servers that provide authoritative data for the zone \uf07aZone management parameters: cache, replication"
+    "text": "Zone partitioning of DNS name space\nZone - contains attribute data for names in domain minus \nthe sub-domains administrated by lower-level authorities:\nNames of the servers for the sub-domains\nAt least two name servers that provide authoritative \ndata for the zone\nZone management parameters: cache, replication\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide50",
-    "text": "Authoritative name servers \uf07aA server may be an authoritative source for zero or more zones \uf07aData for a zone is entered into a local master file \uf07aMaster (primary) server reads the zone data directly from the master file \uf07aSecondary authoritative servers download zone data from primary server \uf07aSecondary servers periodically check their version number against the master server"
+    "text": "Authoritative name servers\nA server may be an authoritative source for zero or more \nzones\nData for a zone is entered into a local master file\nMaster (primary) server reads the zone data directly from the \nmaster file\nSecondary authoritative servers download zone data from \nprimary server\nSecondary servers periodically check their version number \nagainst the master server\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide51",
-    "text": "DNS server functions and configuration \uf07aMain function is to resolve domain names for computers, i.e. to get their IP addresses \uf079caches the results of previous searches until they pass their 'time to live' \uf07aOther functions: \uf079get mail host for a domain \uf079reverse resolution - get domain name from IP address \uf079Host information - type of hardware and OS \uf079Well-known services - a list of services offered by a host \uf079Other attributes can be included (optional)"
+    "text": "DNS server functions and configuration\nMain function is to resolve domain names for \ncomputers, i.e. to get their IP addresses\ncaches the results of previous searches until they pass \ntheir 'time to live'\nOther functions:\nget mail host for a domain \nreverse resolution - get domain name from IP address\nHost information - type of hardware and OS\nWell-known services - a list of services offered by a host\nOther attributes can be included (optional)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide52",
-    "text": "Caching in DNS \uf07aAny server  can cache any name \uf07aNon-authoritative servers note time-to-live when they cache data \uf07aNon-authoritative servers indicate that they are such when responding to clients with cached names"
+    "text": "Caching in DNS\nAny server  can cache any name\nNon-authoritative servers note time-to-live when they \ncache data\nNon-authoritative servers indicate that they are such \nwhen responding to clients with cached names\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide53",
-    "text": "DNS clients (resolvers) \uf07aResolvers are usually implemented as library routines (e.g., gethostbyname). \uf07aThe request is formatted into a DNS record. \uf07aDNS servers use a well-known port. \uf07aA request-reply protocol is used \uf079TCP or UDP why? \uf07aThe resolver times out and resends if it doesn\u2019t receive a response in a specified time."
+    "text": "DNS clients (resolvers)\nResolvers are usually implemented as library \nroutines (e.g., gethostbyname).\nThe request is formatted into a DNS record.\nDNS servers use a well-known port.\nA request-reply protocol is used \nTCP or UDP why?\nThe resolver times out and resends if it doesn’t \nreceive a response in a specified time.\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide54",
-    "text": "DNS name resolution \uf07aDomain name \u00e0 IP address ??? \uf07aLook for the name in the local cache \uf07aTry a superior DNS server, which responds with: \uf079the IP address (which may not be entirely up to date) \uf079Or, another recommended DNS server (iterative)"
+    "text": "DNS name resolution\nDomain name à IP address ???\nLook for the name in the local cache\nTry a superior DNS server, which responds with:\nthe IP address (which may not be entirely up to date)\nOr, another recommended DNS server (iterative)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide55",
-    "text": "DNS name servers Note: Name server names are in italics, and the corresponding domains are in parentheses. Arrows denote name server entries a.root-servers.net (root) ns0.ja.net (ac.uk) dns0.dcs.qmw.ac.uk (dcs.qmw.ac.uk) alpha.qmw.ac.uk (qmw.ac.uk) dns0-doc.ic.ac.uk (ic.ac.uk) ns.purdue.edu (purdue.edu) uk purdue.edu ic.ac.uk qmw.ac.uk ... dcs.qmw.ac.uk *.qmw.ac.uk *.ic.ac.uk *.dcs.qmw.ac.uk * .purdue.edu ns1.nic.uk (uk) ac.uk ... co.uk yahoo.com .... authoritative path to lookup: jeans-pc.dcs.qmw.ac.uk"
+    "text": "DNS name servers\nNote: Name server names are in \nitalics, and the corresponding \ndomains are in parentheses.\nArrows denote name server \nentries  \na.root-servers.net\n(root)\nns0.ja.net\n(ac.uk)\ndns0.dcs.qmw.ac.uk\n(dcs.qmw.ac.uk)\nalpha.qmw.ac.uk\n(qmw.ac.uk)\ndns0-doc.ic.ac.uk\n(ic.ac.uk)\nns.purdue.edu\n(purdue.edu)\nuk\npurdue.edu\nic.ac.uk\nqmw.ac.uk\n...\ndcs.qmw.ac.uk\n*.qmw.ac.uk\n*.ic.ac.uk\n*.dcs.qmw.ac.uk\n* .purdue.edu\nns1.nic.uk\n(uk)\nac.uk\n...\nco.uk\nyahoo.com\n....\nauthoritative path to lookup:\njeans-pc.dcs.qmw.ac.uk\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide56",
-    "text": "DNS in typical operation a.root-servers.net (root) ns0.ja.net (ac.uk) dns0.dcs.qmw.ac.uk (dcs.qmw.ac.uk) alpha.qmw.ac.uk (qmw.ac.uk) dns0-doc.ic.ac.uk (ic.ac.uk) ns.purdue.edu (purdue.edu) uk purdue.edu ic.ac.uk qmw.ac.uk ... dcs.qmw.ac.uk *.qmw.ac.uk *.ic.ac.uk *.dcs.qmw.ac.uk * .purdue.edu ns1.nic.uk (uk) ac.uk ... co.uk yahoo.com .... client.ic.ac.uk IP: alpha.qmw.ac.uk 2 3 IP:dns0.dcs.qmw.ac.uk jeans-pc.dcs.qmw.ac.uk ? IP:ns0.ja.net 1 IP:jeans-pc.dcs.qmw.ac.uk 4"
+    "text": "DNS in typical operation\na.root-servers.net\n(root)\nns0.ja.net\n(ac.uk)\ndns0.dcs.qmw.ac.uk\n(dcs.qmw.ac.uk)\nalpha.qmw.ac.uk\n(qmw.ac.uk)\ndns0-doc.ic.ac.uk\n(ic.ac.uk)\nns.purdue.edu\n(purdue.edu)\nuk\npurdue.edu\nic.ac.uk\nqmw.ac.uk\n...\ndcs.qmw.ac.uk\n*.qmw.ac.uk\n*.ic.ac.uk\n*.dcs.qmw.ac.uk\n* .purdue.edu\nns1.nic.uk\n(uk)\nac.uk\n...\nco.uk\nyahoo.com\n....\nclient.ic.ac.uk\nIP: alpha.qmw.ac.uk\n2\n3\nIP:dns0.dcs.qmw.ac.uk\njeans-pc.dcs.qmw.ac.uk ?\nIP:ns0.ja.net\n1\nIP:jeans-pc.dcs.qmw.ac.uk \n4\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide57",
-    "text": "DNS issues \uf07aName tables change infrequently, but when they do, caching can result in the delivery of stale data. \uf079 Clients are responsible for detecting this and recovering \uf07aIts design makes changes to the structure of the name space difficult. For example: \uf079 merging previously separate domain trees under a new root \uf079 moving sub-trees to a different part of the structure"
+    "text": "DNS issues\nName tables change infrequently, but when they do, \ncaching can result in the delivery of stale data.\n\nClients are responsible for detecting this and recovering\nIts design makes changes to the structure of the name \nspace difficult. For example:\n\nmerging previously separate domain trees under a new root\n\nmoving sub-trees to a different part of the structure \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide58",
-    "text": "Attribute-Based Naming Also known as Directory Services In many cases, it is much more convenient to name, and look up entities by means of their attributes (e.g., look for a student who got A in OS)"
+    "text": "Attribute-Based Naming\nAlso known as Directory Services  \nIn many cases, it is much more convenient to name, and \nlook up entities by means of their attributes (e.g., look for a \nstudent who got A in OS)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide59",
-    "text": "Directory Services \uf07a Entities have a set of attributes (e.g., email: send, recv, subject, ...) \uf07a In most cases, attributes are determined manually \uf07a Setting values consistently is a crucial problem ... \uf07a Often organized in a hierarchy \uf079 Examples of directory services: X.500, Microsoft\u2019s Active Directory Services, \uf07aThen, look up entities by means of their attributes \uf07aProblem: Lookup operations can be extremely expensive, as they require to match requested attribute values, against actual attribute values \uf079 In the simplest form, inspect all entities."
+    "text": "Directory Services\n\nEntities have a set of attributes (e.g., email: send, recv, subject, ...)\n\nIn most cases, attributes are determined manually\n\nSetting values consistently is a crucial problem ...\n\nOften organized in a hierarchy\n\nExamples of directory services: X.500, Microsoft’s Active Directory \nServices,\nThen, look up entities by means of their attributes\nProblem: Lookup operations can be extremely expensive, \nas they require to match requested attribute values, against \nactual attribute values \n\nIn the simplest form, inspect all entities.\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide60",
-    "text": "Directory Services (cont\u2019d) Solutions: \uf07aLightweight Directory Access Protocol (LDAP): \uf079 Implement basic directory service as database, and Combine it with traditional structured naming system. \uf079 Derived from OSI\u2019s X.500 directory service, which maps a person\u2019s name to attributes (email address, etc.) \uf07aDHT-based decentralized implementation"
+    "text": "Directory Services (cont’d)\nSolutions: \nLightweight Directory Access Protocol (LDAP): \n\nImplement basic directory service as database, and Combine it \nwith traditional structured naming system.\n\nDerived from OSI’s X.500 directory service, which maps a person’s \nname to attributes (email address, etc.)\nDHT-based decentralized implementation \n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide61",
-    "text": "Hierarchical implementation: LDAP (1) \uf07aLDAP directory service consists of a set of records \uf07aEach directory entry (record) is made up of a set of (Attribute, Value(s)) pairs n Collection of all directory entries is called Directory Information Base (DIB) n Each record is uniquely named by using naming attributes in the record (e.g., first five in the above record) n Each naming attribute is called relative distinguished name (RDN)"
+    "text": "Hierarchical implementation: LDAP (1)\nLDAP directory service consists of a set of records \nEach directory entry (record) is made up of a set of \n(Attribute, Value(s)) pairs \nn Collection of all directory \nentries is called Directory \nInformation Base (DIB)\nn Each record is uniquely named by using naming \nattributes in the record (e.g., first five in the above record)\nn Each naming attribute is called relative distinguished \nname (RDN)\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide62",
-    "text": "Hierarchical implementation: LDAP (2) \uf07aWe can create a directory information tree (DIT) by listing RDNs in sequence answer = search(\"&(C = NL) (O = Vrije Universiteit) (OU = *) (CN = Main server)\")"
+    "text": "Hierarchical implementation: LDAP (2)\nWe can create a directory information tree (DIT) by listing \nRDNs in sequence\nanswer =\nsearch(\"&(C = NL) (O = Vrije Universiteit) \n(OU = *) (CN = Main server)\")\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide63",
-    "text": "Hierarchical implementation: LDAP (3) \uf07aClients called Directory User Agent (DUA), similar to name resolver and contacts the server \uf07aLDAP server known as Directory Service Agent (DSA) maintains DIT and looks up entries based on attr. \uf07aIn case of a large scale directory, DIT is partitioned and distribute across several DSAs \uf07aImplementation of LDAP is similar to DNS, but LDAP provides more advanced lookup operations LDAP Client LDAP Server X.500 Directory Server Client request in  LDAP Request in  X.500 Response in  X.500 Server response in  LDAP"
+    "text": "Hierarchical implementation: LDAP (3)\nClients called Directory User Agent \n(DUA), similar to name resolver and \ncontacts the server\nLDAP server known as Directory \nService Agent (DSA) maintains DIT and \nlooks up entries based on attr.\nIn case of a large scale directory, DIT is \npartitioned and distribute across several \nDSAs\nImplementation of LDAP is similar to \nDNS, but LDAP provides more \nadvanced lookup operations \nLDAP \nClient\nLDAP \nServer\nX.500 \nDirectory \nServer\nClient \nrequest \nin  LDAP\nRequest \nin  X.500\nResponse\n in  X.500\nServer \nresponse \nin  LDAP\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide64",
-    "text": "66 Hierarchical implementation: LDAP (4) \uf07aSimple DUA interface to X.500 \uf07aLDAP runs over TCP/IP \uf07aUses textual encoding \uf07aProvides secure access through authentication \uf07aOther directory services have implemented it \uf07aSee RFC 2251 [Wahl et al. 1997]"
+    "text": "66\nHierarchical implementation: LDAP (4)\nSimple DUA interface to X.500 \nLDAP runs over TCP/IP\nUses textual encoding\nProvides secure access through authentication\nOther directory services have implemented it\nSee RFC 2251 [Wahl et al. 1997]\n"
   },
   {
+    "doc": "lecture06_processed.json",
     "id": "slide65",
-    "text": "LDAP Evolution \uf07a University of Michigan added to LDAP servers the capability of accessing own database. \uf07a Use of LDAP databases became widespread \uf07a Schemes were developed for registering changes and exchanging deltas between LDAP servers \uf07a In 1996 three engineers from U of Michigan joined Netscape. 40 companies (w/o Microsoft) announced support of LDAP as the standard for directory services \uf07a Core specifications for LDAPv3 was published as IETF RFCs 2251- 2256."
+    "text": "LDAP Evolution\n\nUniversity of Michigan added to LDAP servers the capability of \naccessing own database.\n\nUse of LDAP databases became widespread\n\nSchemes were developed for registering changes and exchanging \ndeltas between LDAP servers\n\nIn 1996 three engineers from U of Michigan joined Netscape. 40 \ncompanies (w/o Microsoft) announced support of LDAP as the \nstandard for directory services\n\nCore specifications for LDAPv3 was published as IETF RFCs 2251-\n2256.\n"
   }
 ]
