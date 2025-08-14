@@ -31,14 +31,6 @@ for num in 01 02 03 04 05 06; do
         --out-dir "$DATA_DIR"
 
 done
-echo ""
-
-echo "-- Step 3: Test quick_search.py ---"
-HF_HUB_OFFLINE=1 python quick_search.py \
-    --data-dir "$DATA_DIR" \
-    --lectures 01 02 03 04 05 06 \
-    --evaluate eval.csv \
-    --top-k 5
 
 echo ""
 echo "--- Done ---"
