@@ -57,6 +57,7 @@ To search your own querie
 '''HF_HUB_OFFLINE=1 python quick_search.py \
     --data-dir ./data \
     --lectures 01 02 03 04 05 06 \
+    --model-path /home/models/all-MiniLM-L6-v2 \
     --query "What is the OSI model?"'''
 
 To run the evaluation I did either:

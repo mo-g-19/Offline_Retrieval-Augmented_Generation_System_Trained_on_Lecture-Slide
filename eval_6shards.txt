@@ -8,8 +8,8 @@ Loaded 6 lecture inexes:
     lec 06: vectors=65   meta=65    match=True     from=.  (index_06.faiss, meta_06.json)
 
 Evaluation on 30 queries from eval.csv
-Accuracy@5: 66.667%
-Avg total E2E: 66.921 ms
-Avg shard sum (sequential): 0.499 ms
-Avg shard max (parallel-ish): 0.150 ms
+Accuracy@5: 80.000%
+Avg total E2E: 38.163 ms
+Avg shard sum (sequential): 0.431 ms
+Avg shard max (parallel-ish): 0.147 ms
 

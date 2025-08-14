@@ -6,7 +6,7 @@ Loaded 3 lecture inexes:
 
 Evaluation on 30 queries from eval.csv
 Accuracy@5: 40.000%
-Avg total E2E: 133.450 ms
-Avg shard sum (sequential): 0.484 ms
-Avg shard max (parallel-ish): 0.299 ms
+Avg total E2E: 40.621 ms
+Avg shard sum (sequential): 0.249 ms
+Avg shard max (parallel-ish): 0.129 ms
 

@@ -208,6 +208,7 @@ def main():
     ap.add_argument("--print-chars", type=int, default=500, help="Chars to print from each hit (<=0 prints full text)")
     ap.add_argument("--require-term", action="store_true", help="Also require at leat one query term in the text")
     ap.add_argument("--evaluate", type=str, default=None, help="CSV with columns: query,doc,slide")
+    ap.add_argument("--query", type=str, help="Run a single query string against the loaded indexes")
     args = ap.parse_args()
 
     #Set the model and print out that the model is loaded offline locally
@@ -226,9 +227,9 @@ def main():
         evaluate(curr_model, current_data, args.evaluate, args.per_index_k, args.top_k)
         return
 
+
     #The interactive loop that moved from read_query funct
-    active_query = True
-    while active_query:
+    while True:
         #Using a try, if not error statement to ensure a safe recovery if end of file error or user presses enter
         try:
             current_querry = input("Query (enter to quit): ").strip()
@@ -246,13 +247,12 @@ def main():
         if not current_ranked:
             print("No results found from this query\n")
         else:
-            for ranked_results, (score, lect_num, m) in enumerate(current_ranked, 1):
+            for ranked_results, (score, lect_num, m) in enumerate(current_ranked, start=1):
                 snippet = m.get("text", "")
                 if args.print_chars > 0:
                     snippet = snippet[:args.print_chars]
                 print(f"{ranked_results}. score={score:.3f}  doc={m.get('doc')}   (Lec {lect_num})  slide={m.get('slide')}")
                 print(f"    {snippet}\n")
         print(f"[timing] encode={timing['t_encode_ms']:.1f} ms   search={timing['t_search_ms']:.1f} ms    total={timing['t_total_ms']:.1f} ms\n")
-    return 0
 
 main()
