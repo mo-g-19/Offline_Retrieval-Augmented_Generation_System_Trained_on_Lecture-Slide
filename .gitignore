@@ -1,5 +1,7 @@
+#Extra text files
 Distributed_Project_Guidelines.pdf
 Distributed_Project_Guidelines.pdr_Zone.Identifier
 bigfiles.txt
+#The raw slides of presentation and the converted to text
 raw_slides/
 *_processed.json
