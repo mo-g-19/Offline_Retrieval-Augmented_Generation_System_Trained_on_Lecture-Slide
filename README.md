@@ -1,8 +1,7 @@
-# Distributed Vecotr Search with FAISS and Sentance Transformers
-
+# Offline Retrieval-Augmented Generation System Trained on Lecture Slide
 This project implements a two-phase Retrieval-Augmented Generation (RAG) pipeline using FAISS for vector search and a Sentence Transformer model (from HuggingFace) for embeddings. It supports both single-node and multi-shard execution for performance analysis.
 
-## Project Structure
+## Files
     home
         models/ # Holds the objects of Sentence Transformer
             all-MiniLM-L6-v2/ # The specific folder that holds the Sentence Transformer
@@ -20,7 +19,7 @@ This project implements a two-phase Retrieval-Augmented Generation (RAG) pipelin
         testing.sh # Evaluates and prints out the latency and accuracy depending on the shard number
         README.md # This file
 
-## Requirements
+## Needed Libraries and Model
 - Python 3.10+
 - [PyMuPDF] (https://pymupdf.readthedocs.io/)
 - [PyInstaller] (https://pyinstaller.org/en/stable/)
@@ -29,16 +28,16 @@ This project implements a two-phase Retrieval-Augmented Generation (RAG) pipelin
 - [Torch] (https://pytorch.org/)
 
 
-## Installation
-# Create and activate a venv
+## Requirements to Set Up The System
+# Create and activate a virtual enviroment
 '''python3 -m venv venv
 source venv/bin/activate'''
 
-# Install dependencies
+# Install libraries and snapshot
 '''pip install python3 pyinstaller
 pip install python3 toch sentence-transformers faiss-cpu pymupdf'''
 
-# Extract Text from Slides
+# Get the Text from PDF of Slides
 You can change the testing_all_python_files.sh to your files, but here are the commands if you want to do it yourself
 
 Repeat the following steps with 01 for 02 03 04 05 06
@@ -53,7 +52,7 @@ Repeat the following steps with 01 for 02 03 04 05 06
         --output-meta ./data/meta_01.json \
         --out-dir ./data'''
 
-To search your own querie
+To make your own query
 '''HF_HUB_OFFLINE=1 python quick_search.py \
     --data-dir ./data \
     --lectures 01 02 03 04 05 06 \
